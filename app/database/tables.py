@@ -12,8 +12,8 @@ def repr(Class):
 class User(db.Model):
     """ table definition for users """
     id = db.Column(db.Integer(), primary_key=True)
-    fname = db.Column(db.String(50), nullable=False)
-    lname = db.Column(db.String(50), nullable=False)
+    firstname = db.Column(db.String(50), nullable=False)
+    lastname = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(50), nullable=False)
     phone = db.Column(db.String(20), nullable=False)
@@ -23,7 +23,7 @@ class User(db.Model):
     orders = db.relationship('Order', backref='user')
     cart = db.relationship('Cart', backref='user', uselist=False)
     favorites = db.relationship('Favorite', backref='user')
-    password_history = db.Column(db.String(500), nullable=False)
+    password_history = db.Column(db.String(500))
     password_expr = db.Column(
         db.DateTime, default=lambda: datetime.utcnow() + timedelta(days=30))
     rem_attempts = db.Column(db.Integer, default=3)
@@ -72,6 +72,7 @@ class Product(db.Model):
     name = db.Column(db.String(100), nullable=False)
     category = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(100), nullable=False)
+    ingredients = db.Column(db.String(200), nullable=False)
     stock = db.Column(db.Integer(), default=0)
     price = db.Column(db.Float(), nullable=False)
     image = db.Column(db.String(100), nullable=False)

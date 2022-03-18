@@ -38,7 +38,6 @@ function loginValidated() {
         let toastLiveExample = document.getElementById("liveToast");
         let toast = new bootstrap.Toast(toastLiveExample);
         toast.show();
-        console.log(jqXHR.responseText);
         $("#login-toast-content").text(jqXHR.responseText);
       } else if (jqXHR.status == 404) {
         $("#loginEmail").get(0).setCustomValidity("error");
@@ -125,6 +124,8 @@ async function signupValidated() {
         $("#signupBtn2").toggle();
         $("#signupBtn").toggle();
         email_field.setCustomValidity("error");
+      } else {
+        alert("Unexpected Error");
       }
     },
   });

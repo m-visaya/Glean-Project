@@ -41,7 +41,7 @@ def get_product():
 @app.route('/admin/add_product', methods=['POST'])
 @utils.Admin.authorized_only
 def add_product():
-    product = Product(**request.form.to_dict)
+    product = Product(**request.form.to_dict())
     db.session.add(product)
     db.session.commit()
 

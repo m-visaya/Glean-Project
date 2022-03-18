@@ -35,7 +35,7 @@ def login():
         if msg:
             return msg, int(code)
         else:
-            return utils.auth_user(**request.form.to_dict)
+            return utils.auth_user(**request.form.to_dict())
     else:
         return render_template("login.html")
 
@@ -47,7 +47,7 @@ def signup():
     if request.method == "POST":
         if utils.email_exists(request.form.get("email", "")):
             return 'Email Exists', 409
-        return utils.register_user(request.form.to_dict)
+        return utils.register_user(request.form.to_dict())
     else:
         return render_template("signup.html")
 

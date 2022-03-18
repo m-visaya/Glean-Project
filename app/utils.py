@@ -140,6 +140,7 @@ def register_user(data):
         db.session.commit()
         return "Account Registered", 200
     except Exception as e:
+        print(e)
         return f"Registration failed: {e}", 404
 
 

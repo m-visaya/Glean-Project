@@ -50,6 +50,12 @@ def create_admin():
     db.session.commit()
     print("admin account created")
 
+@app.cli.command("create-user")
+def create_user():
+    db.session.add(tables.User(email="user@gmail.com", password=os.environ.get('USER_PASSWORD'), phone="0911111111111", firstname="fname", lastname="lname"))
+    db.session.commit()
+    print("user account created")
+
 @app.cli.command("view-config")
 def view_config():
     print(app.config)

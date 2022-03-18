@@ -35,13 +35,13 @@ def addto_cart():
     item_exists = CartItem.query.filter_by(
         cart_id=user.id, product_id=request.form['id']).first()
     if item_exists:
-        item_exists.quantity += request.form["qty"]
+        item_exists.quantity += int(request.form["qty"])
     else:
         cart_item = CartItem(
             cart_id=user.id, product_id=request.form['id'], quantity=request.form["qty"])
         db.session.add(cart_item)
     db.session.commit()
-    return 'Item added to cart', 200
+    return str(utils.get_cart_total()), 200
 
 
 @app.route('/addto_favorites', methods=['POST'])
@@ -129,8 +129,8 @@ def delete_me():
     if not user:
         return 'User not Found', 404
 
-    CartItem.query.filter(cart_id=user.id).delete()
-    Cart.query.filter(user_id=user.id).delete()
+    CartItem.query.filter_by(cart_id=user.id).delete()
+    Cart.query.filter_by(user_id=user.id).delete()
     orders = Order.query.all()
 
     for order in orders:

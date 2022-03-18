@@ -13,7 +13,7 @@ def proceed_checkout():
 
     for item in cart_items:
         if item.quantity > item.product.stock:
-            return f"{item.name}'s quantity is greater than the stock!", 404
+            return f"{item.product.name}'s quantity is greater than the stock!", 404
 
     return '', 200
 
@@ -29,9 +29,9 @@ def add_order():
         Product.query.filter_by(
             id=item.product_id).first().stock -= item.quantity
         order.products.append(
-            OrderItem(product_id=item.product.id), quantity=item.quantity)
+            OrderItem(product_id=item.product.id, quantity=item.quantity))
 
     CartItem.query.filter_by(cart_id=user.id).delete()
     db.session.commit()
 
-    return jsonify(order)
+    return "Order Created", 200

@@ -9,7 +9,7 @@ from geopy.geocoders import Nominatim
 from flask import session, redirect, url_for, abort
 
 from app import app, db
-from .database.tables import Order, Product, User, CartItem
+from .database.tables import Cart, Order, Product, User, CartItem
 from .database.tables import Admin as AdminModel, Courier as CourierModel
 
 
@@ -143,6 +143,8 @@ def register_user(data):
         user = User(**data)
         db.session.add(user)
         db.session.commit()
+        db.session.add(Cart(user_id=user.id))
+        db.session.commit()
         return "Account Registered", 200
     except Exception as e:
         print(e)
@@ -168,7 +170,7 @@ def get_cart_total():
 
 def get_pending_orders():
     orders = db.session.query(Order).filter(
-        Order.user_id == session.get("id", "") and Order.status != "Delivered")
+        Order.user_id == session.get("id", "") and Order.status != "Delivered").all()
     return orders
 
 
@@ -179,7 +181,7 @@ def get_orders():
 
 def get_favorites():
     favorites = db.session.query(User).filter_by(
-        id=session.get("id", "")).first().favorites()
+        id=session.get("id", "")).first().favorites
     return favorites
 
 

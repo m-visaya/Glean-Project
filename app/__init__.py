@@ -52,7 +52,10 @@ def create_admin():
 
 @app.cli.command("create-user")
 def create_user():
-    db.session.add(tables.User(email="user@gmail.com", password=os.environ.get('USER_PASSWORD'), phone="0911111111111", firstname="fname", lastname="lname"))
+    user = tables.User(email="user@gmail.com", password=os.environ.get('USER_PASSWORD'), phone="09312312313", firstname="fname", lastname="lname")
+    db.session.add(user)
+    db.session.commit()
+    db.session.add(tables.Cart(user_id=user.id))
     db.session.commit()
     print("user account created")
 

@@ -1,4 +1,3 @@
-from ctypes import util
 from app import app, db
 from flask import render_template, redirect, request, jsonify, session, url_for
 from .. import utils
@@ -89,14 +88,14 @@ def cart():
 @utils.login_required
 @utils.is_expired
 def tracking():
-    return render_template("tracking.html", orders=utils.get_pending_orders(), user=utils.get_cart())
+    return render_template("tracking.html", orders=utils.get_pending_orders(), user=utils.get_user())
 
 
 @app.route('/checkout')
 @utils.login_required
 @utils.is_expired
 def checkout():
-    if utils.get_cart_total < 1:
+    if utils.get_cart_total() < 1:
         return redirect(url_for('cart'))
 
     return render_template("checkout.html", user=utils.get_user(),

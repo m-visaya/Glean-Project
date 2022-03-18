@@ -41,6 +41,7 @@ function loginValidated() {
         $("#login-toast-content").text(jqXHR.responseText);
       } else if (jqXHR.status == 404) {
         $("#loginEmail").get(0).setCustomValidity("error");
+        $("#loginPassword").get(0).setCustomValidity("error");
       } else if (jqXHR.status == 409) {
         window.location.href = "/expired";
       }
@@ -250,7 +251,7 @@ async function hasWord(word) {
           resume = true;
         },
       });
-    } catch (error) {}
+    } catch (error) { }
     return resume;
   }
 
@@ -346,7 +347,7 @@ function addtoCart(id, product_id) {
       id: product_id,
       qty: qty,
     },
-    success: function () {
+    success: function (data) {
       let toastElem = $("#toast_addedToCart");
       let toast = new bootstrap.Toast(toastElem);
       let toastImage = $(`#modal-${product_id}`).find("img").attr("src");
@@ -356,7 +357,7 @@ function addtoCart(id, product_id) {
       toastElem.find("img").attr("src", toastImage);
       toastElem.find("p").html(toastBody);
       toast.show();
-      let new_qty = parseInt($("#badge_cartQty").text()) + parseInt(qty);
+      let new_qty = data;
       $("#badge_cartQty").text(new_qty);
     },
     error: async function (jqXHR, exception) {

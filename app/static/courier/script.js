@@ -2,14 +2,14 @@ function login(e) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/courier/login",
+    url: "/courier/login",
     data: {
       email: document.getElementById("loginEmail").value,
       password: document.getElementById("loginPassword").value,
     },
     success: function (data) {
       console.log("Logged In");
-      window.location.href = "https://Glean-Store.marcovisaya.repl.co/courier";
+      window.location.href = "/courier";
     },
     error: function (jqXHR, exception) {
       var msg = "";
@@ -24,8 +24,7 @@ function login(e) {
 
 function logout() {
   console.log("Logged Out");
-  window.location.href =
-    "https://Glean-Store.marcovisaya.repl.co/courier/logout";
+  window.location.href = "/courier/logout";
 }
 
 function acceptOrder(e, id) {
@@ -33,7 +32,7 @@ function acceptOrder(e, id) {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/courier/accept_order",
+    url: "/courier/accept_order",
     data: {
       order_id: id,
     },
@@ -57,7 +56,7 @@ function updateOrderStatus(e, id) {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/courier/update_orderstatus",
+    url: "/courier/update_orderstatus",
     data: {
       order_id: id,
     },

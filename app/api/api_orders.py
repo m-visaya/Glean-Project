@@ -2,13 +2,12 @@ from flask import session, abort, request, jsonify
 
 from app import app, db
 from .. import utils
-from ..database.tables import *
+from ..database.tables import CartItem, Order, OrderItem, Product
 
 
-@app.route('/proceed_checkout/', methods=['GET'])
+@app.route('/proceed_checkout', methods=['GET'])
+@utils.login_required
 def proceed_checkout():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     cart_items = CartItem.query.filter_by(cart_id=user.id).all()
 
@@ -19,11 +18,9 @@ def proceed_checkout():
     return '', 200
 
 
-@app.route('/add_order/', methods=['POST'])
+@app.route('/add_order', methods=['POST'])
+@utils.login_required
 def add_order():
-    if not session.get("id", None):
-        abort(403)
-
     user = utils.get_user()
     order = Order(user_id=user.id)
     db.session.add(order)

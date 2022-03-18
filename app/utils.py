@@ -1,15 +1,16 @@
-from ctypes import util
 import hashlib
 import math
 import pyotp
 
-from datetime import datetime
+from functools import wraps
+from datetime import datetime, timedelta
 from geopy.distance import distance
 from geopy.geocoders import Nominatim
-from flask import session, redirect, url_for
+from flask import session, redirect, url_for, abort
 
 from app import app, db
-from .database.tables import *
+from .database.tables import Order, Product, User, CartItem
+from .database.tables import Admin as AdminModel, Courier as CourierModel
 
 
 def hash(data):
@@ -34,37 +35,40 @@ def check_otp(otp):
 
 def login_required(func):
     """ route decorator for view access control """
+    @wraps(func)
     def inner():
         if session.get("id", None):
             return func()
         else:
             print("no session id")
             return redirect(url_for(".login"))
-    inner.__name__ = func.__name__
+
     return inner
 
 
 def logged_in(func):
     """ route decorator for checking if a user session exists """
+    @wraps(func)
     def inner():
         if not session.get("id", None):
             return func()
         else:
             print("already logged in")
             return redirect(url_for(".home"))
-    inner.__name__ = func.__name__
+
     return inner
 
 
 def is_expired(func):
     """ route decorator for preventing expired accounts to access views """
+    @wraps(func)
     def inner():
         if not checkexpired(session.get("id", '')):
             return func()
         else:
             print("account expired")
             return redirect(url_for(".expired"))
-    inner.__name__ = func.__name__
+
     return inner
 
 
@@ -176,36 +180,46 @@ def get_favorites():
 class Admin:
     """ class for admin utils """
     @staticmethod
-    def auth():
-        pass
-
-    @staticmethod
     def login_required(func):
         """ route decorator for view access control """
+        @wraps(func)
         def inner():
             if session.get("admin", None):
                 return func()
             else:
                 print("no session id")
                 return redirect(url_for(".login"))
-        inner.__name__ = func.__name__
+
         return inner
 
     @staticmethod
     def logged_in(func):
         """ route decorator for checking if an admin session exists """
+        @wraps(func)
         def inner():
             if not session.get("admin", None):
                 return func()
             else:
                 print("already logged in")
                 return redirect(url_for(".index"))
-        inner.__name__ = func.__name__
+
+        return inner
+
+    @staticmethod
+    def authorized_only(func):
+        """ route decorator for preventing unauthorized access to api routes """
+        @wraps(func)
+        def inner():
+            if session.get("admin", None):
+                return func()
+            else:
+                abort(403)
+
         return inner
 
     @staticmethod
     def get_couriers():
-        couriers = db.session.query(Courier).all()
+        couriers = db.session.query(CourierModel).all()
         return couriers
 
     @staticmethod
@@ -215,7 +229,8 @@ class Admin:
 
     @staticmethod
     def auth(data):
-        admin = Admin.query.filter_by(**data).first()
+        admin = AdminModel.query.filter_by().first()
+        print(admin)
         if admin:
             session['admin'] = data['username']
             return 'Logged In', 200
@@ -225,44 +240,42 @@ class Admin:
 class Courier:
     """ class for courier utils """
     @staticmethod
-    def auth():
-        pass
-
-    @staticmethod
     def login_required(func):
         """ route decorator for view access control """
+        @wraps(func)
         def inner():
             if session.get("courier_id", None):
                 return func()
             else:
                 print("no session id")
                 return redirect(url_for(".login"))
-        inner.__name__ = func.__name__
+
         return inner
 
     @staticmethod
     def logged_in(func):
         """ route decorator for checking if a courier session exists """
+        @wraps(func)
         def inner():
             if not session.get("courier_id", None):
                 return func()
             else:
                 print("already logged in")
                 return redirect(url_for(".index"))
-        inner.__name__ = func.__name__
+
         return inner
 
     @staticmethod
     def get_deliveries():
         deliveries = db.session.query(
-            Courier).filter_by(id=session.get("courier_id", "")).first().orders()
+            CourierModel).filter_by(id=session.get("courier_id", "")).first().orders()
         return deliveries
 
     @staticmethod
     def get_displayorders():
         res = []
         gl = Nominatim(user_agent="Glean-Store")
-        courier = Courier.query.filter_by(
+        courier = CourierModel.query.filter_by(
             id=session.get("courier_id", "")).first()
         orders = Order.query.filter_by(status="Processing").all()
 
@@ -302,7 +315,7 @@ class Courier:
 
     @staticmethod
     def auth(data):
-        courier = Courier.query.filter_by(**data).first()
+        courier = CourierModel.query.filter_by(**data).first()
         if courier:
             session['courier_id'] = courier.id
             return 'Logged In', 200
@@ -310,4 +323,4 @@ class Courier:
 
     @staticmethod
     def get_courier():
-        return db.session.query(Courier).get(session.get("courier_id", ""))
+        return db.session.query(CourierModel).get(session.get("courier_id", ""))

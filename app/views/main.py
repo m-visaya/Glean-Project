@@ -2,7 +2,6 @@ from ctypes import util
 from app import app, db
 from flask import render_template, redirect, request, jsonify, session, url_for
 from .. import utils
-from ..database.tables import *
 
 
 @app.route('/')
@@ -10,7 +9,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/store/')
+@app.route('/store')
 @utils.is_expired
 def home():
     products = utils.get_products()
@@ -24,7 +23,7 @@ def home():
                            total=utils.get_cart_total(), favorites=utils.get_favorites())
 
 
-@app.route('/login/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 @utils.logged_in
 @utils.is_expired
 def login():
@@ -41,7 +40,7 @@ def login():
         return render_template("login.html")
 
 
-@app.route('/signup/', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 @utils.logged_in
 @utils.is_expired
 def signup():
@@ -53,19 +52,19 @@ def signup():
         return render_template("signup.html")
 
 
-@app.route('/logout/')
+@app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('login'))
 
 
-@app.route('/expired/')
+@app.route('/expired')
 @utils.login_required
 def pwexpired():
     return render_template("pwexp.html", fname=session['fname'], lname=session['lastname'])
 
 
-@app.route('/user-totp/', methods=['GET', 'POST'])
+@app.route('/user-totp', methods=['GET', 'POST'])
 @utils.login_required
 @utils.is_expired
 def totp():
@@ -78,21 +77,21 @@ def totp():
         return utils.check_otp(request.form['otpCode'])
 
 
-@app.route('/cart/')
+@app.route('/cart')
 @utils.login_required
 @utils.is_expired
 def cart():
     return render_template("cart.html", cart=utils.get_cart(), user=utils.get_user(), total=utils.get_cart_total())
 
 
-@app.route('/tracking/')
+@app.route('/tracking')
 @utils.login_required
 @utils.is_expired
 def tracking():
     return render_template("tracking.html", orders=utils.get_pending_orders(), user=utils.get_cart())
 
 
-@app.route('/checkout/')
+@app.route('/checkout')
 @utils.login_required
 @utils.is_expired
 def checkout():
@@ -103,28 +102,21 @@ def checkout():
                            cart=utils.get_cart(), total=utils.get_cart_total())
 
 
-@app.route('/profile/')
+@app.route('/profile')
 @utils.login_required
 @utils.is_expired
 def profile():
     return render_template("profile.html", user=utils.get_user())
 
 
-@app.route('/settings/')
+@app.route('/settings')
 @utils.login_required
 @utils.is_expired
 def settings():
     return render_template("settings.html", user=utils.get_user(), otp=session.get("otp", None))
 
 
-@app.route('/test/')
-def test():
-    session['id'] = 1
-    cart = db.session.query(CartItem).filter_by(cart_id=1).all()
-    return render_template("test.html", cart=cart, total=len(cart))
-
-
-@app.route('/clear/')
+@app.route('/clear')
 def clear():
     session.clear()
     return "cleared"

@@ -4,10 +4,10 @@ from flask import flash, redirect, session, abort, request, jsonify
 
 from app import app, db
 from .. import utils
-from ..database.tables import *
+from ..database.tables import Product
 
 
-@app.route('/search_products/', methods=['POST'])
+@app.route('/search_products', methods=['POST'])
 def search_products():
     products = Product.query.filter(
         Product.name.contains(request.form['name'])).all()
@@ -29,7 +29,7 @@ def get_products():
     return jsonify(products)
 
 
-@app.route('/get_product/', methods=['POST'])
+@app.route('/get_product', methods=['POST'])
 def get_product():
     product = Product.query.filter_by(id=request.form['id']).first()
     product = {key: value for key, value in product.__dict__.items() if type(value) in [
@@ -39,9 +39,8 @@ def get_product():
 
 
 @app.route('/admin/add_product', methods=['POST'])
+@utils.Admin.authorized_only
 def add_product():
-    if not session.get("admin", None):
-        abort(403)
     product = Product(**request.form.to_dict)
     db.session.add(product)
     db.session.commit()
@@ -49,10 +48,9 @@ def add_product():
     return jsonify(product)
 
 
-@app.route('/admin/add_products/', methods=['POST'])
+@app.route('/admin/add_products', methods=['POST'])
+@utils.Admin.authorized_only
 def add_products():
-    if not session.get("admin", None):
-        abort(403)
     if request.form.get("override", None):
         db.session.query(Product).delete()
     file = request.files['file']
@@ -76,11 +74,9 @@ def add_products():
     return redirect("/admin/manage_products")
 
 
-@app.route('/admin/delete_product/', methods=['DELETE'])
+@app.route('/admin/delete_product', methods=['DELETE'])
+@utils.Admin.authorized_only
 def delete_product():
-    if not session.get("admin", None):
-        abort(403)
-
     product = Product.query.filter_by(id=request.form['id']).first()
     if product:
         db.session.delete(product)
@@ -90,11 +86,9 @@ def delete_product():
     return 'Operation Failed', 400
 
 
-@app.route('/admin/edit_product/', methods=['PUT'])
+@app.route('/admin/edit_product', methods=['PUT'])
+@utils.Admin.authorized_only
 def edit_product():
-    if not session.get("admin", None):
-        abort(403)
-
     product = Product.query.filter_by(id=request.form['id']).first()
     if product:
         product.category = request.form['category']

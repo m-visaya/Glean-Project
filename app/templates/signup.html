@@ -4,7 +4,7 @@
     <title>Login</title>
     <meta name="viewport" content="width=device=width, initial-scale=1" />
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../static/login.css" />
+    <link rel="stylesheet" href="/static/login.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -34,18 +34,23 @@
     </style>
   </head>
   <body class="bg-light">
-    <main class="container-fluid-login" style="overflow:hidden;">
+    <main class="container-fluid-login" style="overflow: hidden">
       <div
         class="wrapper-card-login bg-white elementToFadeInAndOut"
         id="signup-screen"
       >
         <img
-          src="../static/assets/logo.svg"
+          src="/static/assets/logo.svg"
           width="40%"
           alt="gleanproject"
           class="mb-4"
         />
-        <form id="formSignup" onsubmit="signup(event);" class="row g-3 needs-validation" novalidate>
+        <form
+          id="formSignup"
+          onsubmit="signup(event);"
+          class="row g-3 needs-validation"
+          novalidate
+        >
           <div class="col-sm-6">
             <label for="signupFirstname" class="form-label">Firstname</label>
             <input
@@ -54,9 +59,7 @@
               id="signupFirstname"
               required
             />
-            <div class="invalid-feedback">
-              Please provide a firstname
-            </div>
+            <div class="invalid-feedback">Please provide a firstname</div>
           </div>
           <div class="col-sm-6">
             <label for="signupLastname" class="form-label">Lastname</label>
@@ -66,9 +69,7 @@
               id="signupLastname"
               required
             />
-            <div class="invalid-feedback">
-              Please provide a lastname
-            </div>
+            <div class="invalid-feedback">Please provide a lastname</div>
           </div>
           <div class="col-12">
             <label class="form-label">Email address</label>
@@ -104,9 +105,7 @@
               id="signupPassword"
               required
             />
-            <div class="invalid-feedback">
-              Please provide a valid password
-            </div>
+            <div class="invalid-feedback">Please provide a valid password</div>
           </div>
           <div class="col-sm-6">
             <label class="form-label">Confirm Password</label>
@@ -116,19 +115,28 @@
               id="signupRePassword"
               required
             />
-            <div class="invalid-feedback">
-             Passwords don't match
-            </div>
+            <div class="invalid-feedback">Passwords don't match</div>
           </div>
           <div id="passwordHelpBlock" class="form-text">
-            Your password must be atleast 10 characters, contain uppercase letter, number and symbols, must not contain dictionary words of more than 3 letters as well as your first and last name.
+            Your password must be atleast 10 characters, contain uppercase
+            letter, number and symbols, must not contain dictionary words of
+            more than 3 letters as well as your first and last name.
           </div>
           <div class="d-flex">
             <button type="submit" class="btn-primary-green" id="signupBtn">
               Create Account
             </button>
-            <button id="signupBtn2" class="btn-dark-green" type="button" disabled>
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <button
+              id="signupBtn2"
+              class="btn-dark-green"
+              type="button"
+              disabled
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
               Loading...
             </button>
           </div>
@@ -137,18 +145,19 @@
             <p id="button-login">&nbsp Log In</p>
           </div>
         </form>
-      </div> 
+      </div>
     </main>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script> 
-    <script src="../static/script.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="/static/script.js"></script>
     <script>
-      $("#signupBtn2").toggle()
+      $("#signupBtn2").toggle();
     </script>
-      <div class="g-recaptcha"
+    <div
+      class="g-recaptcha"
       data-sitekey="6Lc9Sp4eAAAAAIGk17BKto38-MT4lrZ276DCwhnw"
       data-size="invisible"
       data-callback="signupValidated"
-      style="display:none;"
-      ></div> 
+      style="display: none"
+    ></div>
   </body>
 </html>

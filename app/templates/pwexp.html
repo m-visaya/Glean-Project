@@ -4,14 +4,17 @@
     <title>Password Expired</title>
     <meta name="viewport" content="width=device=width, initial-scale=1" />
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../static/login.css" />
+    <link rel="stylesheet" href="/static/login.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+    />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -36,12 +39,32 @@
   </head>
   <body class="bg-light" id="loginBody">
     <main class="container-fluid-login">
-      <div class="wrapper-card-login bg-white elementToFadeInAndOut" id="pwexp-screen" style="display: block" >
+      <div
+        class="wrapper-card-login bg-white elementToFadeInAndOut"
+        id="pwexp-screen"
+        style="display: block"
+      >
         <p class="fs-5" id="pwout-usern">{{ fname + " " + lname }}</p>
-        <div id="pwexpUser" data-fname ="{{fname}}" data-lname="{{lname}}"></div>
-        <div class="form-text"><p id="button-restart" onclick="location = '/logout'" style="cursor:pointer"> Restart Login </p></div>
-        <p class="text-danger" id="pwout-prompt">Your password has expired, please change it immediately.</p> 
-        <form id="formExpired" onsubmit="passwordExpired(event)"  class="needs-validation" novalidate> <!-- onsubmit here -->
+        <div id="pwexpUser" data-fname="{{fname}}" data-lname="{{lname}}"></div>
+        <div class="form-text">
+          <p
+            id="button-restart"
+            onclick="location = '/logout'"
+            style="cursor: pointer"
+          >
+            Restart Login
+          </p>
+        </div>
+        <p class="text-danger" id="pwout-prompt">
+          Your password has expired, please change it immediately.
+        </p>
+        <form
+          id="formExpired"
+          onsubmit="passwordExpired(event)"
+          class="needs-validation"
+          novalidate
+        >
+          <!-- onsubmit here -->
           <div class="mb-3 mt-4">
             <label class="form-label">New Password</label>
             <input
@@ -50,9 +73,7 @@
               id="pwexpPassword"
               required
             />
-            <div class="invalid-feedback">
-              Please provide a valid password
-            </div>
+            <div class="invalid-feedback">Please provide a valid password</div>
           </div>
           <div class="mb-1">
             <label class="form-label">Re-Enter Password</label>
@@ -62,26 +83,37 @@
               id="pwexpRePassword"
               required
             />
-            <div class="invalid-feedback">
-              Passwords do not match.
-            </div>
+            <div class="invalid-feedback">Passwords do not match.</div>
           </div>
           <div id="passwordHelpBlock" class="form-text">
-            Your password must be atleast 10 characters, contain uppercase letter, number and symbols, must not contain dictionary words of more than 3 letters as well as your first and last name.
+            Your password must be atleast 10 characters, contain uppercase
+            letter, number and symbols, must not contain dictionary words of
+            more than 3 letters as well as your first and last name.
           </div>
           <div class="d-flex py-4">
-            <button id="contBtn" type="submit" class="btn-primary-green shadow ">Continue</button>
-            <button id="contBtn2" class="btn-dark-green shadow " type="button" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-               Loading...
+            <button id="contBtn" type="submit" class="btn-primary-green shadow">
+              Continue
+            </button>
+            <button
+              id="contBtn2"
+              class="btn-dark-green shadow"
+              type="button"
+              disabled
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Loading...
             </button>
           </div>
         </form>
       </div>
     </main>
-    <script src="../static/script.js"></script>
+    <script src="/static/script.js"></script>
     <script>
-      $("#contBtn2").toggle()
+      $("#contBtn2").toggle();
     </script>
   </body>
 </html>

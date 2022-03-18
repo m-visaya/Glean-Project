@@ -1,91 +1,144 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <title>Profile</title>
-  <meta name="viewport" content="width=device=width, initial-scale=1" />
-  <meta charset="utf-8" />
-	<link rel="stylesheet" href="./static/profile.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	 crossorigin="anonymous">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	 crossorigin="anonymous"></script>
-  <script
-    src="https://code.jquery.com/jquery-3.6.0.js"
-    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-    crossorigin="anonymous"
-  ></script>
-	<script type="text/javascript" src="./static/script.js"></script>
-</head>
-<body>
-<header>
-  <div class="pt-3 text-center bg-white">
-    <div class="container">
-      <div class="pb-2 row">
-        <div class="col-md-4 d-flex mb-3 mt-1">
-          <a href="/store" class="ms-2">
-            <img src="./static/assets/logo.svg" class="logo-image"/>
-          </a>
-        </div>
-        <div class="col-md-4">
-          <form class="d-flex input-group w-auto my-auto mt-2">
-            <input autocomplete="off" type="search" class="form-control border-0 rounded-pill search-bar" placeholder="Search" style="background-color:#f8f9fa"/>
-          </form>
-        </div>
-        <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
-          <div class="d-flex">
-            {% if  id %}
-              <a class="nav-link text-link text-muted" href="/cart"><i class="bi bi-bag"></i> &nbsp;Cart</a>
-            <div class="dropdown">
-              <a class="nav-link text-link text-muted dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-person-circle"></i> &nbsp;{{user.firstname}}
+  <head>
+    <title>Profile</title>
+    <meta name="viewport" content="width=device=width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/profile.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="/static/script.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="pt-3 text-center bg-white">
+        <div class="container">
+          <div class="pb-2 row">
+            <div class="col-md-4 d-flex mb-3 mt-1">
+              <a href="/store" class="ms-2">
+                <img src="/static/assets/logo.svg" class="logo-image" />
               </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <!-- <li><a class="dropdown-item text-muted text-link" href="/profile"><i class="bi bi-person-circle"></i> &nbsp;&nbsp;My Account</a></li> -->
-                <li><a class="dropdown-item text-muted text-link" href="/tracking"><i class="bi bi-box"></i> &nbsp; Order Tracking</a></li>
-                <li><a class="dropdown-item text-muted text-link" href="/settings"><i class="bi bi-gear"></i> &nbsp; Settings</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-muted text-link" href="/logout"><i class="bi bi-box-arrow-right"></i> &nbsp; Log out</a></li>
-              </ul>
             </div>
-            {% else %}
-              <a class="nav-link text-link text-muted mx-2" href="/login">Sign in</a>
-            {% endif %}
+            <div class="col-md-4">
+              <form class="d-flex input-group w-auto my-auto mt-2">
+                <input
+                  autocomplete="off"
+                  type="search"
+                  class="form-control border-0 rounded-pill search-bar"
+                  placeholder="Search"
+                  style="background-color: #f8f9fa"
+                />
+              </form>
+            </div>
+            <div
+              class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center"
+            >
+              <div class="d-flex">
+                {% if id %}
+                <a class="nav-link text-link text-muted" href="/cart"
+                  ><i class="bi bi-bag"></i> &nbsp;Cart</a
+                >
+                <div class="dropdown">
+                  <a
+                    class="nav-link text-link text-muted dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-person-circle"></i> &nbsp;{{user.firstname}}
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <!-- <li><a class="dropdown-item text-muted text-link" href="/profile"><i class="bi bi-person-circle"></i> &nbsp;&nbsp;My Account</a></li> -->
+                    <li>
+                      <a
+                        class="dropdown-item text-muted text-link"
+                        href="/tracking"
+                        ><i class="bi bi-box"></i> &nbsp; Order Tracking</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-muted text-link"
+                        href="/settings"
+                        ><i class="bi bi-gear"></i> &nbsp; Settings</a
+                      >
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a
+                        class="dropdown-item text-muted text-link"
+                        href="/logout"
+                        ><i class="bi bi-box-arrow-right"></i> &nbsp; Log out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+                {% else %}
+                <a class="nav-link text-link text-muted mx-2" href="/login"
+                  >Sign in</a
+                >
+                {% endif %}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div> 
-</header>
+    </header>
     <main>
-      <section style="background-color: #f8f9fa;">
+      <section style="background-color: #f8f9fa">
         <div class="container profile">
           <div class="row d-flex justify-content-center align-items-center">
-             <h1>Personal details</h1>
-             <h2 class="mt-4 mb-4">{{ user.firstname+" "+user.lastname }}</h2>
-             <div class="col-md-4">
-               <p class="res-text">Email</p>
-               <p class="res-text">{{ user.email }}</p>
-             </div>
-             <div class="col-md-4">
-               <p class="res-text">Phone</p>
-               <p class="res-text">{{ user.phone }}</p>
-             </div>
-             <div class="col-md-4">
-               <p class="res-text">Password</p>
-               <p class="res-text">**********</p>
-             </div> 
+            <h1>Personal details</h1>
+            <h2 class="mt-4 mb-4">{{ user.firstname+" "+user.lastname }}</h2>
+            <div class="col-md-4">
+              <p class="res-text">Email</p>
+              <p class="res-text">{{ user.email }}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="res-text">Phone</p>
+              <p class="res-text">{{ user.phone }}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="res-text">Password</p>
+              <p class="res-text">**********</p>
+            </div>
           </div>
         </div>
       </section>
-  </main>
-      <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-          <p class="col-md-4 mb-0 text-muted text-link">&copy; 2022 gleanprojecteam</p>
-          <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="/store" class="nav-link px-2 text-muted text-link">Home</a></li>
-          </ul>
-        </footer>
-      </div>
-    </body>
+    </main>
+    <div class="container">
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+      >
+        <p class="col-md-4 mb-0 text-muted text-link">
+          &copy; 2022 gleanprojecteam
+        </p>
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item">
+            <a href="/store" class="nav-link px-2 text-muted text-link">Home</a>
+          </li>
+        </ul>
+      </footer>
+    </div>
+  </body>
 </html>

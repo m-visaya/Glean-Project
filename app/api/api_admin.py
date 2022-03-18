@@ -2,13 +2,12 @@ from flask import session, abort, request, jsonify
 
 from app import app, db
 from .. import utils
-from ..database.tables import *
+from ..database.tables import Courier, Order, OrderItem
 
 
-@app.route('/admin/delete_courier/', methods=['DELETE'])
+@app.route('/admin/delete_courier', methods=['DELETE'])
+@utils.Admin.authorized_only
 def delete_courier():
-    if not session.get("admin", None):
-        abort(403)
     courier = Courier.query.filter_by(id=request.form['id']).first()
     if courier:
         db.session.delete(courier)
@@ -18,10 +17,9 @@ def delete_courier():
         return 'Operation Failed', 400
 
 
-@app.route('/admin/get_couriers/', methods=['GET'])
+@app.route('/admin/get_couriers', methods=['GET'])
+@utils.Admin.authorized_only
 def get_couriers():
-    if not session.get("admin", None):
-        abort(403)
     couriers = Courier.query.all()
     if couriers:
         return jsonify(couriers), 200
@@ -29,10 +27,9 @@ def get_couriers():
         return 'No Couriers'
 
 
-@app.route('/admin/create_courier/', methods=['POST'])
+@app.route('/admin/create_courier', methods=['POST'])
+@utils.Admin.authorized_only
 def create_courier():
-    if not session.get("admin", None):
-        abort(403)
     params = request.form.to_dict()
     params['available'] = False if params['available'] == "false" else True
     courier = Courier(**params)
@@ -41,10 +38,9 @@ def create_courier():
     return 'Courier Account Created', 200
 
 
-@app.route('/admin/get_sales/', methods=['GET'])
+@app.route('/admin/get_sales', methods=['GET'])
+@utils.Admin.authorized_only
 def get_sales():
-    if not session.get("admin", None):
-        abort(403)
     sales = Order.query.filter_by(status="Delivered").all()
     monthly_sales = {'January': 0, 'February': 0, 'March': 0, 'April': 0, 'May': 0, 'June': 0,
                      'July': 0, 'August': 0, 'September': 0, 'October': 0, 'November': 0, 'December': 0}

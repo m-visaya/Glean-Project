@@ -4,6 +4,7 @@ from datetime import timedelta
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config.update(
@@ -17,6 +18,7 @@ app.config.update(
 
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 from .api import api_admin, api_courier, api_orders, api_products, api_user
 from .database import tables

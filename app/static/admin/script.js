@@ -2,14 +2,14 @@ function login(e) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/admin/login",
+    url: "/admin/login",
     data: {
       username: document.getElementById("loginUsername").value,
       password: document.getElementById("loginPassword").value,
     },
     success: function (data) {
       console.log("Logged In");
-      window.location.href = "https://Glean-Store.marcovisaya.repl.co/admin";
+      window.location.href = "/admin";
     },
     error: function (jqXHR, exception) {
       var msg = "";
@@ -24,13 +24,13 @@ function login(e) {
 
 function logout() {
   console.log("Logged Out");
-  window.location.href = "https://Glean-Store.marcovisaya.repl.co/admin/logout";
+  window.location.href = "/admin/logout";
 }
 
 function delete_user(uid) {
   $.ajax({
     type: "DELETE",
-    url: "https://Glean-Store.marcovisaya.repl.co/admin/delete_user",
+    url: "/admin/delete_user",
     data: {
       id: uid,
     },
@@ -45,7 +45,7 @@ function add_product(e) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/admin/add_product",
+    url: "/admin/add_product",
     data: {
       name: document.getElementById("addProduct-name").value,
       category: document.getElementById("addProduct-category").value,
@@ -64,7 +64,7 @@ function add_product(e) {
 function open_editProduct(product_id) {
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/get_product",
+    url: "/get_product",
     data: {
       id: product_id,
     },
@@ -88,7 +88,7 @@ function edit_product(e) {
   console.log(document.getElementById("editProduct-id").value);
   $.ajax({
     type: "PUT",
-    url: "https://Glean-Store.marcovisaya.repl.co/admin/edit_product",
+    url: "/admin/edit_product",
     data: {
       id: document.getElementById("editProduct-id").value,
       price: document.getElementById("editProduct-price").value,
@@ -105,7 +105,7 @@ function edit_product(e) {
 function deleteProduct(product_id) {
   $.ajax({
     type: "DELETE",
-    url: "https://Glean-Store.marcovisaya.repl.co/admin/delete_product",
+    url: "/admin/delete_product",
     data: {
       id: product_id,
     },
@@ -119,7 +119,7 @@ function createCourier(e) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/admin/create_courier",
+    url: "/admin/create_courier",
     data: {
       firstname: $("#add-courier-fname").val(),
       lastname: $("#add-courier-lname").val(),
@@ -143,7 +143,7 @@ function createCourier(e) {
 function loadCharts() {
   $.ajax({
     type: "GET",
-    url: "https://Glean-Store.marcovisaya.repl.co/admin/get_sales",
+    url: "/admin/get_sales",
     success: function (data) {
       console.log(data);
       createChart(data);

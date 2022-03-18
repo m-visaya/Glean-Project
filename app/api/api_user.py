@@ -1,16 +1,16 @@
+from datetime import datetime, timedelta
 import json
 
-from flask import session, abort, request, jsonify
+from flask import session, request, jsonify
 
 from app import app, db
 from .. import utils
-from ..database.tables import *
+from ..database.tables import CartItem, Favorite, FavoriteItem, User, Cart, Order, OrderItem
 
 
 @app.route('/change_password/', methods=['POST'])
+@utils.login_required
 def change_password():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     password_history = json.loads(user.password_history)
     if hash(request.form['password']) in password_history or hash(request.form['password']) == user.password:
@@ -26,10 +26,9 @@ def change_password():
     return 'Password Changed', 200
 
 
-@app.route('/addto_cart/', methods=['POST'])
+@app.route('/addto_cart', methods=['POST'])
+@utils.login_required
 def addto_cart():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     if not user:
         return 'User not Found', 404
@@ -45,10 +44,9 @@ def addto_cart():
     return 'Item added to cart', 200
 
 
-@app.route('/addto_favorites/', methods=['POST'])
+@app.route('/addto_favorites', methods=['POST'])
+@utils.login_required
 def addto_favorites():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     if not user:
         return 'User not Found', 404
@@ -64,10 +62,9 @@ def addto_favorites():
         return 'Item added to Favorites', 200
 
 
-@app.route('/removefrom_favorites/', methods=['POST'])
+@app.route('/removefrom_favorites', methods=['POST'])
+@utils.login_required
 def removefrom_favorites():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     if not user:
         return 'User not Found', 404
@@ -78,10 +75,9 @@ def removefrom_favorites():
     return '', 200
 
 
-@app.route('/clear_cart/', methods=['POST'])
+@app.route('/clear_cart', methods=['POST'])
+@utils.login_required
 def clear_cart():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     if not user:
         return 'User not Found', 404
@@ -91,10 +87,9 @@ def clear_cart():
     return 'Cart Cleared', 200
 
 
-@app.route('/rem_item/', methods=['POST'])
+@app.route('/rem_item', methods=['POST'])
+@utils.login_required
 def rem_item():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     if not user:
         return 'User not Found', 404
@@ -108,10 +103,9 @@ def rem_item():
         return f"{e}", 400
 
 
-@app.route('/update_info/', methods=['POST'])
+@app.route('/update_info', methods=['POST'])
+@utils.login_required
 def update_info():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     if not user:
         return 'User not Found', 404
@@ -128,10 +122,9 @@ def update_info():
     return 'Changes Saved', 200
 
 
-@app.route('/delete_user/', methods=['DELETE'])
+@app.route('/delete_user', methods=['DELETE'])
+@utils.login_required
 def delete_me():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     if not user:
         return 'User not Found', 404
@@ -150,10 +143,9 @@ def delete_me():
     return 'User Account Deleted', 200
 
 
-@app.route('/get_totp/', methods=['GET'])
+@app.route('/get_totp', methods=['GET'])
+@utils.login_required
 def get_totp():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     if not user:
         return 'User not Found', 404
@@ -161,10 +153,9 @@ def get_totp():
     return {"secret_key": utils.get_secret_key()}
 
 
-@app.route('/activate_totp/', methods=['POST'])
+@app.route('/activate_totp', methods=['POST'])
+@utils.login_required
 def activate_totp():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     if not user:
         return 'User not Found', 404
@@ -183,10 +174,9 @@ def activate_totp():
     return 'TOTP Enabled', 200
 
 
-@app.route('/disable_totp/', methods=['POST'])
+@app.route('/disable_totp', methods=['POST'])
+@utils.login_required
 def disable_totp():
-    if not session.get("id", None):
-        abort(403)
     user = utils.get_user()
     if not user:
         return 'User not Found', 404

@@ -13,7 +13,7 @@ function loginValidated() {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/login",
+    url: "/login",
     data: {
       email: document.getElementById("loginEmail").value,
       password: document.getElementById("loginPassword").value,
@@ -23,10 +23,9 @@ function loginValidated() {
       $("#loginBtn2").toggle();
       $("#loginBtn").toggle();
       if (data.totp) {
-        window.location.href =
-          "https://Glean-Store.marcovisaya.repl.co/user-totp";
+        window.location.href = "/user-totp";
       } else {
-        window.location.href = "https://Glean-Store.marcovisaya.repl.co/store";
+        window.location.href = "/store";
       }
     },
     error: async function (jqXHR, exception) {
@@ -44,8 +43,7 @@ function loginValidated() {
       } else if (jqXHR.status == 404) {
         $("#loginEmail").get(0).setCustomValidity("error");
       } else if (jqXHR.status == 409) {
-        window.location.href =
-          "https://Glean-Store.marcovisaya.repl.co/expired";
+        window.location.href = "/expired";
       }
       $("#loginBtn2").toggle();
       $("#loginBtn").toggle();
@@ -103,7 +101,7 @@ async function signupValidated() {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/signup",
+    url: "/signup",
     data: {
       firstname: document.getElementById("signupFirstname").value,
       lastname: document.getElementById("signupLastname").value,
@@ -116,7 +114,7 @@ async function signupValidated() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       $("#signupBtn2").toggle();
       $("#signupBtn").toggle();
-      window.location.href = "https://glean-store.marcovisaya.repl.co/login";
+      window.location.href = "/login";
     },
     error: async function (jqXHR, exception) {
       if (jqXHR.status == 0) {
@@ -134,7 +132,7 @@ async function signupValidated() {
 
 function logout() {
   console.log("Logged Out");
-  window.location.href = "https://Glean-Store.marcovisaya.repl.co/logout";
+  window.location.href = "/logout";
 }
 
 //main switcher
@@ -142,13 +140,13 @@ function logout() {
 function swsignup() {
   $("#formLogin").removeClass("was-validated");
   document.getElementById("formLogin").reset();
-  window.location.href = "https://glean-store.marcovisaya.repl.co/signup";
+  window.location.href = "/signup";
 }
 
 function swlogin() {
   $("#formSignup").removeClass("was-validated");
   document.getElementById("formSignup").reset();
-  window.location.href = "https://glean-store.marcovisaya.repl.co/login";
+  window.location.href = "/login";
 }
 
 function swsubscription() {
@@ -319,13 +317,13 @@ async function newPassword(e) {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/change_password",
+    url: "/change_password",
     data: {
       password: password,
     },
     success: function (data) {
       alert("password changed");
-      window.location.href = "https://glean-store.marcovisaya.repl.co/profile";
+      window.location.href = "/profile";
     },
     error: function () {
       document.getElementById("settings-repass").setCustomValidity("error");
@@ -336,13 +334,13 @@ async function newPassword(e) {
 
 function addtoCart(id, product_id) {
   if (id == "None") {
-    window.location.href = "https://glean-store.marcovisaya.repl.co/login";
+    window.location.href = "/login";
     return;
   }
   let qty = document.getElementById(`${product_id}-inputQuantity`).value;
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/addto_cart",
+    url: "/addto_cart",
     data: {
       id: product_id,
       qty: qty,
@@ -364,7 +362,7 @@ function addtoCart(id, product_id) {
       if (jqXHR.status == 0) {
         alert("Not connect.\n Verify Network.");
       } else if (jqXHR.status == 404) {
-        window.location.href = "https://glean-store.marcovisaya.repl.co/login";
+        window.location.href = "/login";
       }
     },
   });
@@ -374,11 +372,11 @@ function clearCart(e) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/clear_cart",
+    url: "/clear_cart",
     data: {},
     success: function () {
       alert("cart cleared");
-      window.location.href = "https://glean-store.marcovisaya.repl.co/store";
+      window.location.href = "/store";
     },
     error: async function (jqXHR, exception) {
       if (jqXHR.status == 0) {
@@ -394,7 +392,7 @@ function remItem(e, id) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/rem_item",
+    url: "/rem_item",
     data: {
       id: id,
     },
@@ -414,9 +412,9 @@ function remItem(e, id) {
 function proceedCheckout() {
   $.ajax({
     type: "GET",
-    url: "https://Glean-Store.marcovisaya.repl.co/proceed_checkout",
+    url: "/proceed_checkout",
     success: function () {
-      window.location.href = "https://Glean-Store.marcovisaya.repl.co/checkout";
+      window.location.href = "/checkout";
     },
     error: async function (jqXHR, exception) {
       if (jqXHR.status == 0) {
@@ -442,7 +440,7 @@ function addOrder(e) {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/add_order",
+    url: "/add_order",
     data: {
       amount: parseInt(document.getElementById("total-price").innerHTML),
       province: document.getElementById("countrySelect").value,
@@ -451,7 +449,7 @@ function addOrder(e) {
       address: document.getElementById("address").value,
     },
     success: function () {
-      window.location.href = "https://Glean-Store.marcovisaya.repl.co/tracking";
+      window.location.href = "/tracking";
     },
     error: async function (jqXHR, exception) {
       if (jqXHR.status == 0) {
@@ -590,12 +588,12 @@ async function passwordExpired(e) {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/change_password",
+    url: "/change_password",
     data: {
       password: password,
     },
     success: function (data) {
-      window.location.href = "https://glean-store.marcovisaya.repl.co/store";
+      window.location.href = "/store";
     },
     error: function () {
       document.getElementById("pwexpPassword").setCustomValidity("error");
@@ -607,7 +605,7 @@ function updateInfo(e) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/update_info",
+    url: "/update_info",
     data: {
       phone: document.getElementById("set-phone").value,
       email: document.getElementById("set-email").value,
@@ -634,10 +632,10 @@ function deleteUser(e) {
   e.preventDefault();
   $.ajax({
     type: "DELETE",
-    url: "https://Glean-Store.marcovisaya.repl.co/delete_user",
+    url: "/delete_user",
     data: {},
     success: function () {
-      window.location.href = "https://Glean-Store.marcovisaya.repl.co/logout";
+      window.location.href = "/logout";
     },
     error: function (jqXHR) {
       if (jqXHR.status == 0) {
@@ -653,7 +651,7 @@ async function getTOTP() {
   let secret = null;
   await $.ajax({
     type: "GET",
-    url: "https://Glean-Store.marcovisaya.repl.co/get_totp",
+    url: "/get_totp",
     success: function (data) {
       secret = data.secret_key;
     },
@@ -688,13 +686,13 @@ function verifyOTP(e, user) {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/user-totp",
+    url: "/user-totp",
     data: {
       otpCode: otpCode,
       id: user,
     },
     success: function (data) {
-      window.location.href = "https://Glean-Store.marcovisaya.repl.co/store";
+      window.location.href = "/store";
     },
     error: function (jqXHR) {
       if (jqXHR.status == 0) {
@@ -716,7 +714,7 @@ function verifyTOTP(e) {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/activate_totp",
+    url: "/activate_totp",
     data: {
       otpCode: otpCode,
       password: password,
@@ -744,7 +742,7 @@ function disableOTP(e) {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/disable_totp",
+    url: "/disable_totp",
     data: {
       password: password,
     },
@@ -768,7 +766,7 @@ function search(e) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/search_products",
+    url: "/search_products",
     data: {
       name: document.getElementById("search-product").value,
     },
@@ -887,7 +885,7 @@ function favorite(e, id) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/addto_favorites",
+    url: "/addto_favorites",
     data: {
       id: id,
     },
@@ -919,7 +917,7 @@ function unfavorite(e, id) {
 
   $.ajax({
     type: "POST",
-    url: "https://Glean-Store.marcovisaya.repl.co/removefrom_favorites",
+    url: "/removefrom_favorites",
     data: {
       id: id,
     },

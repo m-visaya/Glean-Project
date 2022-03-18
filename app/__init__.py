@@ -1,11 +1,20 @@
-from flask import Flask, session
-from flask_sqlalchemy import SQLAlchemy
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
-app = Flask(__name__, instance_relative_config=True)
-app.config.from_object(os.environ.get('FLASK_ENV') or 'config.Development')
+from datetime import timedelta
+
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config.update(
+    SESSION_COOKIE_SECURE = True,
+    SESSION_COOKIE_SAMESITE = 'Lax',
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI'),
+    SECRET_KEY = os.environ.get('SECRET_KEY'),
+    SQLALCHEMY_TRACK_MODIFICATIONS = False,
+    PERMANENT_SESSION_LIFETIME = timedelta(days=28)
+)
+
 
 db = SQLAlchemy(app)
 
@@ -15,6 +24,10 @@ from .views import main, admin, courier
 
 app.register_blueprint(admin.app, static_folder='static')
 app.register_blueprint(courier.app)
+
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'tables': tables}
 
 @app.cli.command("init-db")
 def init_db():

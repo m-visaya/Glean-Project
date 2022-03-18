@@ -1,12 +1,11 @@
 from datetime import datetime, timedelta
-# from werkzeug.security import generate_password_hash, check_password_has
 from app import db
 
 
 def repr(Class):
     """ function to represent model instance as dict """
     repr = {key: value for key,
-            value in Class.__dict__.items() if key != '_sa_instance_state'}
+            value in Class.__dict__.items() if type(value) in [str, int, float, datetime]}
     return f"{repr}"
 
 
@@ -30,6 +29,7 @@ class User(db.Model):
     rem_attempts = db.Column(db.Integer, default=3)
     try_again = db.Column(db.DateTime, nullable=True)
     totp_key = db.Column(db.String(100), nullable=True)
+    location = db.relationship('Location', backref='user', uselist=False)
 
     def __repr__(self) -> str:
         return repr(self)
@@ -57,10 +57,7 @@ class Order(db.Model):
     products = db.relationship('OrderItem', backref="order")
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     courier_id = db.Column(db.Integer, db.ForeignKey('courier.id'))
-    province = db.Column(db.String(100), nullable=True)
-    city = db.Column(db.String(100), nullable=True)
-    zip = db.Column(db.String(100), nullable=True)
-    address = db.Column(db.String(100), nullable=True)
+    lcoation = db.relationship('Location', backref="order")
 
     def __repr__(self) -> str:
         return repr(self)
@@ -134,9 +131,7 @@ class Courier(db.Model):
     lastname = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False)
-    province = db.Column(db.String(100), nullable=False)
-    city = db.Column(db.String(100), nullable=False)
-    zip = db.Column(db.String(100), nullable=False)
+    location = db.relationship("Location", backref='courier')
     available = db.Column(db.Boolean, default=False)
     orders = db.relationship('Order', backref='courier')
 
@@ -149,6 +144,21 @@ class Admin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self) -> str:
+        return repr(self)
+
+
+class Location(db.Model):
+    """ address table definition """
+    id = db.Column(db.Integer, primary_key=True)
+    province = db.Column(db.String(50), nullable=False)
+    city = db.Column(db.String(50), nullable=False)
+    zip = db.Column(db.Integer(), nullable=False)
+    address = db.Column(db.String(100))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
+    courier_id = db.Column(db.Integer, db.ForeignKey('courier.id'))
 
     def __repr__(self) -> str:
         return repr(self)

@@ -86,8 +86,9 @@ def email_exists(email):
     return user
 
 
-def auth_user(email="", password=""):
-    user = User.query.filter_by(email=email, password=password).first()
+def auth_user(**kwargs):
+    user = User.query.filter_by(
+        email=kwargs.get("email"), password=hash(kwargs.get("password"))).first()
     if user:
         session['pass_expr'] = None
         session['id'] = user.id
@@ -106,12 +107,14 @@ def auth_user(email="", password=""):
             return {"totp": True}
         return {"totp": False}
     else:
+        user = User.query.filter_by(email=kwargs.get("email")).first()
         user.rem_attempts = user.rem_attempts - 1
         db.session.commit()
         return '', 401
 
 
-def login_attempts(user):
+def login_attempts(email):
+    user = get_user(email=email)
     if user.rem_attempts < 1:
         if not user.try_again:
             if not user.try_again:
@@ -128,7 +131,9 @@ def login_attempts(user):
                 return str(f"Please try again in {waittime} minute(s)"), 406
 
 
-def get_user():
+def get_user(**kwargs):
+    if kwargs:
+        return db.session.query(User).filter_by(**kwargs).first()
     return db.session.query(User).filter_by(id=session.get("id", "")).first()
 
 

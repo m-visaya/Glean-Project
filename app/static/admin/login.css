@@ -1,0 +1,62 @@
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  /* rtl:remove */
+  letter-spacing: -.05rem;
+}
+
+
+.land-heading{
+  background-image: url("./images/3.png");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.land-label{
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 250px;
+  height: 500px;
+}
+
+.btn-primary-green{
+  background-color: #95C22B;
+  border-radius: 25px;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+}
+
+.container-fluid-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  padding-top: 250px;
+}
+
+.login-logo{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper-card-login {
+  width:25%;
+  padding: 40px;
+  border-radius: 5px;
+  border: 1px solid #73AD21;
+}
+
+/* RESPONSIVE CSS
+--------------------------------------------------
+ */

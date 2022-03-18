@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title> Couriers </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      .color-glean {
+        color: #95c22b !important;
+      }
+
+      .bg-glean {
+        background-color: #95c22b !important;
+      }
+      
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  </head>
+<body>
+
+<main>
+  <div class="container w-75 mt-3">
+
+  <header class="pb-3 mb-4 border-bottom">
+    <div class="d-flex align-items-center text-dark text-decoration-none">
+      <span class="fs-4">
+          <img src="../static/assets/logo_admin.svg" width="70%" height="100%" alt="gleanproject" class="w-100">
+      </span>
+      <span class="fs-4 ms-auto">         
+        <a class="btn" href="/admin"> Dashboard </a> 
+      </span>
+    </div>
+  </header>
+        <div class="d-flex mb-2 align-items-center mt-4">
+          <h1 class="text-muted color-glean"> Glean Project Couriers </h1>
+          <button type="button" class="ms-auto btn bg-glean text-white" data-bs-toggle="modal" data-bs-target="#modal-add-courier"> <i class="bi bi-person-plus-fill me-1"></i> Create Courier Account </button>
+        </div>
+    
+  <div class="table-responsive my-5">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col"> firstname </th>
+          <th scope="col"> lastname </th>
+          <th scope="col"> email </th>
+          <th scope="col"> province </th>
+          <th scope="col"> city </th>
+          <th scope="col"> zip </th>
+          <th scope="col"> status </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for courier in couriers %}
+        <tr id="courier-{{ courier.id }}">
+          <th scope="row">{{ courier.id }}</th>
+          <td>{{ courier.firstname }}</td>
+          <td>{{ courier.lastname }}</td>
+          <td>{{ courier.email }}</td>
+          <td>{{ courier.province }}</td>
+          <td>{{ courier.city }}</td>
+          <td>{{ courier.zip }}</td>
+          <td>{{ courier.available }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+</main>
+
+  <div class="modal fade" id="modal-add-courier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title color-glean" id="exampleModalLabel"> Create Courier Account </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+  <form class="row g-4" id="form-add-courier" onsubmit="createCourier(event);">
+    <div class="col-md-6">
+      <label for="add-courier-fname" class="form-label">Firsname</label>
+      <input type="text" class="form-control" id="add-courier-fname" required>
+    </div>
+    <div class="col-md-6">
+      <label for="add-courier-lname" class="form-label">Lastname</label>
+      <input type="text" class="form-control" id="add-courier-lname" required>
+    </div>
+    <div class="col-12">
+      <label for="add-courier-email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="add-courier-email" required>
+    </div>
+    <div class="col-md-12">
+        <label for="add-courier-password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="add-courier-password">
+    </div>
+    <div class="col-md-5">
+      <label for="add-courier-province" class="form-label">Province</label>
+      <input type="text" class="form-control" id="add-courier-province" required>
+    </div>
+    <div class="col-md-5">
+      <label for="add-courier-city" class="form-label">City</label>
+      <input type="text" class="form-control" id="add-courier-city" required>
+    </div>
+    <div class="col-md-2">
+      <label for="add-courier-zip" class="form-label">Zip</label>
+      <input type="text" class="form-control" id="add-courier-zip" required>
+    </div>
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="add-courier-status" checked value="available">
+        <label class="form-check-label" for="add-courier-available">
+          Available
+        </label>
+      </div>
+    </div>
+  </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn bg-glean text-light" form="form-add-courier" data-bs-dismiss="modal">Save</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <script src="../static/admin/script.js"></script> 
+</body>
+</html>

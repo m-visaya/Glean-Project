@@ -1,0 +1,133 @@
+#videobg {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+}
+
+.land-label {
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 380px;
+}
+
+.btn-primary-green {
+  background-color: #95c22b;
+  border-radius: 25px;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-weight: 600;
+}
+
+.text-title {
+  font-size: 6em !important;
+  font-weight: 600;
+}
+
+.text-title-support {
+  font-size: 1.5em !important;
+  font-weight: 300;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  #videobg {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  #videobg {
+    width: auto;
+    height: 100%;
+  }
+}
+
+@media (max-width: 1920px) {
+  .land-label {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 300px;
+  }
+  .text-title {
+    font-size: 3em !important;
+    font-weight: 600;
+  }
+  .text-title-support {
+  font-size: 1.5em !important;
+  font-weight: 300;
+}
+}
+
+@media (max-width: 1280px) {
+  .land-label {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 300px;
+  }
+  .text-title {
+    font-size: 3em !important;
+    font-weight: 600;
+  }
+  .text-title-support {
+  font-size: 1.5em !important;
+  font-weight: 300;
+}
+}
+
+@media (max-width: 1024px) {
+  .land-label {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 300px;
+  }
+  .text-title {
+    font-size: 4em !important;
+    font-weight: 600;
+  }
+  .text-title-support {
+  font-size: 2em !important;
+  font-weight: 300;
+}
+}
+
+@media (max-width: 768px) {
+  .land-label {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 200px;
+  }
+  .btn-primary-green {
+    font-size: 0.8rem;
+  }
+  .text-title {
+    font-size: 3em !important;
+    font-weight: 600;
+  }
+  .text-title-support {
+  font-size: 1.5em !important;
+  font-weight: 300;
+}
+}
+
+@media (max-width: 576px) {
+  .land-label {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 100px;
+  }
+  .btn-primary-green {
+    font-size: 0.8rem;
+  }
+  .text-title {
+    font-size: 2em !important;
+    font-weight: 600;
+  }
+  .text-title-support {
+  font-size: 1em !important;
+  font-weight: 300;
+}
+}

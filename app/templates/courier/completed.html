@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>Job History</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="../static/courier/script.js"></script>
+  <link rel="stylesheet" href="../static/courier/home.css">
+</head>
+<body>
+
+<header>
+  <div class="pt-3 text-center bg-white">
+    <div class="container">
+      <div class="py-2 row">
+        <div class="col-md-6 d-flex mb-3 mt-1">
+          <a href="/store" class="ms-2">
+            <img src="../static/assets/logo_courier.svg"/>
+          </a>
+        </div>
+        <div class="col-md-6 d-flex justify-content-center justify-content-md-end align-items-center">
+          <div class="d-flex">
+            <p class="text-link text-muted mx-2 fs-6" onclick="logout();"">Logout</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container pt-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/courier">Dashboard</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Completed Orders</li>
+    </ol>
+  </nav>
+  <div class="d-inline-flex text-light rounded py-2 m-0 mb-2">
+    <p class="fs-2 fw-normal d-inline color-glean">Completed Orders</p>
+  </div>
+  <section class="album py-3">
+    <ul class="list-group-flush">
+      {% for order in finished_orders %}
+      <li class="list-group-item list-group-item-action" aria-current="true" data-bs-toggle="modal" data-bs-target="#orderitemModal">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1 fw-bold">{{ "Order PH #" ~ order.id }}</h5>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="mb-1 fw-bold">Customer</p>
+            <small>{{ order.user_displayname }}</small>
+          </div>
+          <div class="col-md-3">
+            <p class="mb-1 fw-bold">Contact No</p>
+            <small>{{ order.user_phone }}</small>
+          </div>
+          <div class="col-md-6">
+            <p class="mb-1 fw-bold">Address</p>
+            <small>{{ order.city ~ " " ~ order.province ~ " " ~ order.zip ~ ", " ~ order.address }}</small>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  </div>
+</main>
+<footer class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+  <p class="col-md-4 mb-0 text-muted text-link">&copy; 2022 gleanprojecteam</p>
+</footer>
+</body>
+</html>

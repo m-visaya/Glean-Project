@@ -1,0 +1,103 @@
+a {
+  text-decoration:none;
+   color: #95c22b !important;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.color-glean {
+  color: #95c22b !important;
+}
+
+.courier-profile{
+  padding:35px;
+  border-radius: 10px;
+  background-color: #95c22b;
+  color: #292929;
+}
+
+.btn-primary-green{
+  background-color: #95C22B;
+  border-radius: 5px;
+  text-decoration:none;
+  border: none;
+  color: white;
+  padding: 7px 14px;
+}
+
+#btnGroupClick1{
+  margin-top: 10px
+}
+
+.bg-glean {
+  background-color: #95c22b !important;
+}
+
+.modal-order-item{
+  padding:45px;
+}
+
+
+@media (max-width: 1920px) {
+  .text-link{
+    font-size: 0.8em;
+  }
+  .card-height{
+    height: 12rem;
+  }
+}
+
+@media (max-width: 1366px) {
+  .text-link{
+    font-size: 0.8em;
+  }
+
+
+}
+
+@media (max-width: 1024px) {
+  .text-link{
+    font-size: 0.8em;
+  }
+  .card-height{
+    height: 16rem;
+  }
+  
+}
+
+
+@media (max-width: 768px) {
+  .text-link{
+    font-size: 0.8em;
+  }
+  .card-height{
+    height: 16rem;
+  }
+
+  #date-dashboard {
+    font-size: 2.5rem !important;
+    text-align: center;
+  }
+   #name-dashboard {
+    text-align: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .text-link{
+    font-size: 0.8em;
+  }
+  .card-height{
+    height: 15rem;
+  }
+   #date-dashboard {
+    font-size: 2rem !important;
+    text-align: center;
+  }
+}

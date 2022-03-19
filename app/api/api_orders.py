@@ -2,7 +2,7 @@ from flask import session, abort, request, jsonify
 
 from app import app, db
 from .. import utils
-from ..database.tables import CartItem, Order, OrderItem, Product
+from ..database.tables import CartItem, Location, Order, OrderItem, Product
 
 
 @app.route('/proceed_checkout', methods=['GET'])
@@ -34,4 +34,13 @@ def add_order():
     CartItem.query.filter_by(cart_id=user.id).delete()
     db.session.commit()
 
+    address = Location(
+        province=request.form.get("province"),
+        city=request.form.get("city"),
+        zip=request.form.get("zip"),
+        address=request.form.get("address"),
+        order_id=order.id
+    )
+    db.session.add(address)
+    db.session.commit()
     return "Order Created", 200

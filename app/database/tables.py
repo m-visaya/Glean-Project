@@ -57,7 +57,7 @@ class Order(db.Model):
     products = db.relationship('OrderItem', backref="order")
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     courier_id = db.Column(db.Integer, db.ForeignKey('courier.id'))
-    lcoation = db.relationship('Location', backref="order")
+    location = db.relationship('Location', backref='order', uselist=False)
 
     def __repr__(self) -> str:
         return repr(self)
@@ -132,7 +132,7 @@ class Courier(db.Model):
     lastname = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False)
-    location = db.relationship("Location", backref='courier')
+    location = db.relationship("Location", backref='courier', uselist=False)
     available = db.Column(db.Boolean, default=False)
     orders = db.relationship('Order', backref='courier')
 
@@ -158,8 +158,10 @@ class Location(db.Model):
     zip = db.Column(db.Integer(), nullable=False)
     address = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
-    courier_id = db.Column(db.Integer, db.ForeignKey('courier.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey(
+        'order.id'))
+    courier_id = db.Column(db.Integer, db.ForeignKey(
+        'courier.id'))
 
     def __repr__(self) -> str:
         return repr(self)

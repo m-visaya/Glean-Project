@@ -2,7 +2,7 @@ from flask import session, abort, request, jsonify
 
 from app import app, db
 from .. import utils
-from ..database.tables import Courier, Order, OrderItem
+from ..database.tables import Courier, Location, Order, OrderItem
 
 
 @app.route('/admin/delete_courier', methods=['DELETE'])
@@ -31,9 +31,22 @@ def get_couriers():
 @utils.Admin.authorized_only
 def create_courier():
     params = request.form.to_dict()
-    params['available'] = False if params['available'] == "false" else True
-    courier = Courier(**params)
+    courier = Courier(
+        firstname=params['firstname'],
+        lastname=params['lastname'],
+        password=params['password'],
+        email=params['email'],
+        available=False if params['available'] == "false" else True
+    )
     db.session.add(courier)
+    db.session.commit()
+    address = Location(
+        province=params['province'],
+        city=params['city'],
+        zip=params['zip'],
+        courier_id=courier.id
+    )
+    db.session.add(address)
     db.session.commit()
     return 'Courier Account Created', 200
 

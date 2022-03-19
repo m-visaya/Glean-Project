@@ -276,7 +276,7 @@ class Courier:
     @staticmethod
     def get_deliveries():
         deliveries = db.session.query(
-            CourierModel).filter_by(id=session.get("courier_id", "")).first().orders()
+            CourierModel).filter_by(id=session.get("courier_id", "")).first().orders
         return deliveries
 
     @staticmethod
@@ -291,16 +291,16 @@ class Courier:
             return res
 
         loc_courier = gl.geocode(
-            {'city': courier.city, 'postalcode': int(courier.zip)}).raw
+            {'city': courier.location.city, 'postalcode': int(courier.location.zip)}).raw
         coords_courier = (loc_courier['lat'], loc_courier['lon'])
 
         for order in orders:
             loc_order = gl.geocode(
-                {'city': order.city, 'postalcode': int(order.zip)}).raw
+                {'city': order.location.city, 'postalcode': int(order.location.zip)}).raw
             coords_order = (loc_order['lat'], loc_order['lon'])
             dist = distance(coords_courier, coords_order).km
             if dist <= 10:
-                user = user.query.filter_by(id=order.user_id).first()
+                user = User.query.filter_by(id=order.user_id).first()
                 res.append(
                     {'user': user, 'order': order, 'distance': dist})
             res = sorted(res, key=lambda x: x['distance'])

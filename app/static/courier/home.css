@@ -1,6 +1,6 @@
 a {
-  text-decoration:none;
-   color: #95c22b !important;
+  text-decoration: none;
+  color: #95c22b !important;
 }
 
 .bd-placeholder-img {
@@ -15,68 +15,69 @@ a {
   color: #95c22b !important;
 }
 
-.courier-profile{
-  padding:35px;
+.courier-profile {
   border-radius: 10px;
-  background-color: #95c22b;
+  background-color: #fdfdfd;
+  /* background-color: #95c22b; */
   color: #292929;
+  box-shadow: #c5c5c5 0px 5px 20px;
 }
 
-.btn-primary-green{
-  background-color: #95C22B;
+.btn-primary-green {
+  background-color: #95c22b;
   border-radius: 5px;
-  text-decoration:none;
+  text-decoration: none;
   border: none;
   color: white;
   padding: 7px 14px;
 }
 
-#btnGroupClick1{
-  margin-top: 10px
+#btnGroupClick1 {
+  margin-top: 10px;
 }
 
 .bg-glean {
   background-color: #95c22b !important;
 }
 
-.modal-order-item{
-  padding:45px;
+.modal-order-item {
+  padding: 45px;
 }
 
+p i:hover {
+  font-size: 4.25rem;
+  color: #7c9c31 !important;
+}
 
 @media (max-width: 1920px) {
-  .text-link{
+  .text-link {
     font-size: 0.8em;
   }
-  .card-height{
+  .card-height {
     height: 12rem;
   }
 }
 
 @media (max-width: 1366px) {
-  .text-link{
+  .text-link {
     font-size: 0.8em;
   }
-
-
 }
 
 @media (max-width: 1024px) {
-  .text-link{
+  .text-link {
     font-size: 0.8em;
   }
-  .card-height{
+  .card-height {
     height: 16rem;
   }
-  
 }
 
-
 @media (max-width: 768px) {
-  .text-link{
+  .text-link {
     font-size: 0.8em;
   }
-  .card-height{
+  .card-height {
     height: 16rem;
   }
 
@@ -84,19 +85,19 @@ a {
     font-size: 2.5rem !important;
     text-align: center;
   }
-   #name-dashboard {
+  #name-dashboard {
     text-align: center;
   }
 }
 
 @media (max-width: 360px) {
-  .text-link{
+  .text-link {
     font-size: 0.8em;
   }
-  .card-height{
+  .card-height {
     height: 15rem;
   }
-   #date-dashboard {
+  #date-dashboard {
     font-size: 2rem !important;
     text-align: center;
   }

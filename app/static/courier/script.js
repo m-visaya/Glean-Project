@@ -75,14 +75,15 @@ function updateOrderStatus(e, id) {
   });
 }
 
+var percent =
+  Math.floor(
+    (parseInt(document.querySelector("#count-completed").textContent) /
+      parseInt(document.querySelector("#count-deliveries").textContent)) *
+      100
+  ) || 100;
+
 var options = {
-  series: [
-    Math.floor(
-      (parseInt(document.querySelector("#count-completed").textContent) /
-        parseInt(document.querySelector("#count-deliveries").textContent)) *
-        100
-    ),
-  ],
+  series: [percent],
   chart: {
     height: 350,
     type: "radialBar",
@@ -94,14 +95,14 @@ var options = {
       endAngle: 135,
       dataLabels: {
         name: {
-          fontSize: "16px",
-          color: "#efffff",
+          fontSize: "18px",
+          color: "#444",
           offsetY: 100,
         },
         value: {
           offsetY: 0,
           fontSize: "50px",
-          color: "#fff",
+          color: "#95c22b",
           formatter: function (val) {
             return val + "%";
           },
@@ -110,7 +111,7 @@ var options = {
     },
   },
   fill: {
-    colors: ["#222", "#000", "#9C27B0"],
+    colors: ["#95c22b", "#000", "#9C27B0"],
   },
   labels: ["Delivery Progress"],
 };

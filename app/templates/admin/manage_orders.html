@@ -133,11 +133,16 @@
             {% for order in processing %}
             <tr id="{{ order.id }}">
               <th scope="row">{{ order.id }}</th>
-              <td>{{ order.assigned_user }}</td>
-              <td>{{ order.assigned_courier }}</td>
-              <td>{{ order.date_ordered }}</td>
+              <td>{{ order.user.firstname }} {{ order.user.lastname }}</td>
+              <td>
+                {{ order.courier.firstname }} {{ order.courier.lastname }}
+              </td>
+              <td>{{ order.created_on }}</td>
               <td>{{ order.date_finished }}</td>
-              <td>{{ order.destination }}</td>
+              <td>
+                {{ order.location.city ~ " " ~ order.location.province ~ " " ~
+                order.location.zip ~ ", " ~ order.location.address }}
+              </td>
               <td>{{ order.status }}</td>
             </tr>
             {% endfor %}
@@ -160,11 +165,16 @@
             {% for order in picked_up %}
             <tr id="{{ order.id }}">
               <th scope="row">{{ order.id }}</th>
-              <td>{{ order.assigned_user }}</td>
-              <td>{{ order.assigned_courier }}</td>
-              <td>{{ order.date_ordered }}</td>
+              <td>{{ order.user.firstname }} {{ order.user.lastname }}</td>
+              <td>
+                {{ order.courier.firstname }} {{ order.courier.lastname }}
+              </td>
+              <td>{{ order.created_on }}</td>
               <td>{{ order.date_finished }}</td>
-              <td>{{ order.destination }}</td>
+              <td>
+                {{ order.location.city ~ " " ~ order.location.province ~ " " ~
+                order.location.zip ~ ", " ~ order.location.address }}
+              </td>
               <td>{{ order.status }}</td>
             </tr>
             {% endfor %}
@@ -187,11 +197,16 @@
             {% for order in in_transit %}
             <tr id="{{ order.id }}">
               <th scope="row">{{ order.id }}</th>
-              <td>{{ order.assigned_user }}</td>
-              <td>{{ order.assigned_courier }}</td>
-              <td>{{ order.date_ordered }}</td>
+              <td>{{ order.user.firstname }} {{ order.user.lastname }}</td>
+              <td>
+                {{ order.courier.firstname }} {{ order.courier.lastname }}
+              </td>
+              <td>{{ order.created_on }}</td>
               <td>{{ order.date_finished }}</td>
-              <td>{{ order.destination }}</td>
+              <td>
+                {{ order.location.city ~ " " ~ order.location.province ~ " " ~
+                order.location.zip ~ ", " ~ order.location.address }}
+              </td>
               <td>{{ order.status }}</td>
             </tr>
             {% endfor %}
@@ -214,11 +229,16 @@
             {% for order in delivered %}
             <tr id="{{ order.id }}">
               <th scope="row">{{ order.id }}</th>
-              <td>{{ order.assigned_user }}</td>
-              <td>{{ order.assigned_courier }}</td>
-              <td>{{ order.date_ordered }}</td>
+              <td>{{ order.user.firstname }} {{ order.user.lastname }}</td>
+              <td>
+                {{ order.courier.firstname }} {{ order.courier.lastname }}
+              </td>
+              <td>{{ order.created_on }}</td>
               <td>{{ order.date_finished }}</td>
-              <td>{{ order.destination }}</td>
+              <td>
+                {{ order.location.city ~ " " ~ order.location.province ~ " " ~
+                order.location.zip ~ ", " ~ order.location.address }}
+              </td>
               <td>{{ order.status }}</td>
             </tr>
             {% endfor %}

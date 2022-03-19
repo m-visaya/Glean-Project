@@ -251,7 +251,7 @@ async function hasWord(word) {
           resume = true;
         },
       });
-    } catch (error) { }
+    } catch (error) {}
     return resume;
   }
 
@@ -350,12 +350,6 @@ function addtoCart(id, product_id) {
     success: function (data) {
       let toastElem = $("#toast_addedToCart");
       let toast = new bootstrap.Toast(toastElem);
-      let toastImage = $(`#modal-${product_id}`).find("img").attr("src");
-      let toastBody = `${$(
-        `#${product_id}-product-name`
-      ).text()} X${qty} <br>@ ${$(`#${product_id}-product-price`).text()}`;
-      toastElem.find("img").attr("src", toastImage);
-      toastElem.find("p").html(toastBody);
       toast.show();
       let new_qty = data;
       $("#badge_cartQty").text(new_qty);

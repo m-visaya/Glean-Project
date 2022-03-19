@@ -35,6 +35,26 @@
       role="alert"
       aria-live="assertive"
       aria-atomic="true"
+      style="z-index: 11; top: 1.5rem"
+    >
+      <div class="d-flex bg-white rounded">
+        <div class="bg-primary-green rounded-start" style="width: 1rem"></div>
+        <div class="toast-body mx-auto fs-6">Item Added to Cart</div>
+        <button
+          type="button"
+          class="btn-close btn-close-dark my-auto me-2"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+
+    <div
+      id="toast_addedToCart"
+      class="toast position-fixed start-50 translate-middle-x"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
       style="z-index: 11; top: 1rem"
     >
       <i
@@ -60,6 +80,7 @@
         <p class="fs-6 text-start">Red pepper soup X 20 - ₱250.0</p>
       </div>
     </div>
+
     <header>
       <div class="pt-3 text-center">
         <div class="container">
@@ -98,19 +119,6 @@
                   >
                     {{ total }}
                   </span>
-                  <!-- <div class="position-absolute start-50 translate-middle-x p-3" style="z-index: 11; top:70%;">
-  <div id="toast_addedToCart" class="toast position-relative" role="alert" aria-live="assertive" aria-atomic="true">
-    <i class="text-primary-green bi bi-triangle-fill position-absolute start-50 translate-middle-x" style="bottom:96%;"></i>
-    <div class="toast-header bg-primary-green text-white">
-      <strong class="me-auto">Item Added to Cart</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="d-flex toast-body bg-white p-2 align-items-center">
-      <img src="{{products[0].image}}" class="rounded me-3" alt="..." style="width: 30%; height:auto">
-      <p class="fs-6 text-start"> Red pepper soup X 20 - ₱250.0</p> 
-    </div>
-  </div>
-</div> -->
                   &nbsp;Cart
                 </a>
                 <div class="dropdown">
@@ -299,10 +307,6 @@
                 id="subsheader-mobile"
                 style="display: none"
               />
-              <!--                   <div class="carousel-caption d-none d-md-block">
-                    <h5 class="text-link">Subscription</h5>
-                    <p class="text-link">Some representative placeholder content for the first slide.</p>
-                  </div> -->
             </div>
           </div>
         </div>
@@ -312,17 +316,7 @@
           class="carousel slide"
           data-bs-ride="carousel"
           style="display: none"
-        >
-          <!--             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="/static/assets/2.png" class="store-carousel-bg w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                  <h5 class="text-link">Favoorites</h5>
-                  <p class="text-link">Some representative placeholder content for the first slide.</p>
-                </div>
-              </div>
-            </div> -->
-        </div>
+        ></div>
       </section>
 
       <div class="album pt-4 pb-5">

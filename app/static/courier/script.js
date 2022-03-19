@@ -74,3 +74,46 @@ function updateOrderStatus(e, id) {
     },
   });
 }
+
+var options = {
+  series: [
+    Math.floor(
+      (parseInt(document.querySelector("#count-completed").textContent) /
+        parseInt(document.querySelector("#count-deliveries").textContent)) *
+        100
+    ),
+  ],
+  chart: {
+    height: 350,
+    type: "radialBar",
+    offsetY: 0,
+  },
+  plotOptions: {
+    radialBar: {
+      startAngle: -135,
+      endAngle: 135,
+      dataLabels: {
+        name: {
+          fontSize: "16px",
+          color: "#efffff",
+          offsetY: 100,
+        },
+        value: {
+          offsetY: 0,
+          fontSize: "50px",
+          color: "#fff",
+          formatter: function (val) {
+            return val + "%";
+          },
+        },
+      },
+    },
+  },
+  fill: {
+    colors: ["#222", "#000", "#9C27B0"],
+  },
+  labels: ["Delivery Progress"],
+};
+
+var chart = new ApexCharts(document.querySelector("#progress-chart"), options);
+chart.render();

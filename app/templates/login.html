@@ -27,6 +27,28 @@
     ></script>
   </head>
   <body class="bg-light" id="loginBody">
+    <div
+      id="toast-login"
+      class="toast position-fixed start-50 translate-middle-x"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      style="z-index: 11; top: 1.5rem"
+    >
+      <div class="d-flex bg-white rounded">
+        <div class="bg-danger rounded-start" style="width: 1rem"></div>
+        <div class="toast-body mx-auto fs-6" id="toast-message">
+          Something went wrong
+        </div>
+        <button
+          type="button"
+          class="btn-close btn-close-dark my-auto me-2"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+
     <main class="container-fluid-login">
       <div
         class="wrapper-card-login bg-white elementToFadeInAndOut"
@@ -120,29 +142,5 @@
       data-callback="loginValidated"
       style="display: none"
     ></div>
-
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-      <div
-        id="liveToast"
-        class="toast"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div class="toast-header bg-danger text-light">
-          <i class="red bi bi-exclamation-triangle-fill"></i>
-          <strong class="me-auto ms-1">Maximum attempts exceeded</strong>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="toast-body" id="login-toast-content">
-          Please try again in
-        </div>
-      </div>
-    </div>
   </body>
 </html>

@@ -965,7 +965,7 @@
                                   style="max-width: 3.5rem"
                                 />
                                 <button
-                                  onclick="unfavorite(event, '{{item.product.id}}')"
+                                  onclick="favorite(event, '{{item.product.id}}')"
                                   class="btn-favorite flex-shrink-0 me-2"
                                   type="button"
                                   data-bs-dismiss="modal"
@@ -996,7 +996,6 @@
               </div>
               {% endfor %}
             </div>
-            {% if favorites|length == 0 %}
             <div class="row" id="no-favs">
               <div
                 class="d-flex flex-column align-items-center justify-content-center w-100"
@@ -1008,7 +1007,6 @@
                 </p>
               </div>
             </div>
-            {% endif %}
           </div>
         </div>
       </div>

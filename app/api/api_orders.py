@@ -13,7 +13,7 @@ def proceed_checkout():
 
     for item in cart:
         if item.quantity > item.product.stock:
-            return f"{item.product.name}'s quantity is greater than the stock!", 404
+            return f"{item.product.name}'s unavailable", 404
 
     return '', 200
 

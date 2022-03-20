@@ -35,10 +35,11 @@ function loginValidated() {
       } else if (jqXHR.status == 401) {
         $("#loginPassword").get(0).setCustomValidity("error");
       } else if (jqXHR.status == 406) {
-        let toastLiveExample = document.getElementById("liveToast");
-        let toast = new bootstrap.Toast(toastLiveExample);
+        $("#loginPassword").get(0).setCustomValidity("error");
+        let toastElem = $("#toast-login");
+        let toast = new bootstrap.Toast(toastElem);
+        $("#toast-message").text(jqXHR.responseText);
         toast.show();
-        $("#login-toast-content").text(jqXHR.responseText);
       } else if (jqXHR.status == 404) {
         $("#loginEmail").get(0).setCustomValidity("error");
         $("#loginPassword").get(0).setCustomValidity("error");
@@ -497,10 +498,10 @@ function proceedCheckout() {
       if (jqXHR.status == 0) {
         alert("Not connect.\n Verify Network.");
       } else if (jqXHR.status == 404) {
-        let alert = $("#alert-outofstock");
-        alert.find("p").text(jqXHR.responseText);
-        alert.css("visibility", "visible");
-        setTimeout(() => alert.css("visibility", "hidden"), 10000);
+        let toastElem = $("#toast-cart");
+        let toast = new bootstrap.Toast(toastElem);
+        $("#toast-message").text(jqXHR.responseText);
+        toast.show();
       } else {
         alert(jqXHR.status);
       }
@@ -987,9 +988,9 @@ function favorite(e, id) {
           .find("i")
           .removeClass()
           .addClass("bi bi-heart");
-      }
-      if (response == "0") {
-        $("#no-favs").show();
+        if (response == "0") {
+          $("#no-favs").show();
+        }
       }
     },
     error: function (jqXHR) {

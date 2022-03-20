@@ -71,17 +71,6 @@ def addto_favorites():
         return 'Item added to Favorites', 201
 
 
-@app.route('/removefrom_favorites', methods=['POST'])
-@utils.login_required
-def removefrom_favorites():
-    user = utils.get_user()
-
-    FavoriteItem.query.filter_by(
-        product_id=request.form['id'], user_id=user.id).delete()
-    db.session.commit()
-    return '', 200
-
-
 @app.route('/clear_cart', methods=['POST'])
 @utils.login_required
 def clear_cart():

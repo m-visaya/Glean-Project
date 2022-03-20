@@ -82,17 +82,20 @@
               <div class="row">
                 <div class="col-md-3">
                   <p class="mb-1 fw-bold">Customer</p>
-                  <small>{{ order.user_displayname }}</small>
+                  <small
+                    >{{ order.user.firstname }} {{ order.user.lastname }}</small
+                  >
                 </div>
                 <div class="col-md-3">
                   <p class="mb-1 fw-bold">Contact No</p>
-                  <small>{{ order.user_phone }}</small>
+                  <small>{{ order.user.phone }}</small>
                 </div>
                 <div class="col-md-6">
                   <p class="mb-1 fw-bold">Address</p>
                   <small
-                    >{{ order.city ~ " " ~ order.province ~ " " ~ order.zip ~ ",
-                    " ~ order.address }}</small
+                    >{{ order.location.city ~ " " ~ order.location.province ~ "
+                    " ~ order.location.zip ~ ", " ~ order.location.address
+                    }}</small
                   >
                 </div>
               </div>

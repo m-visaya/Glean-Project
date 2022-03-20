@@ -1,6 +1,6 @@
 from datetime import datetime
 from app import app
-from flask import render_template, redirect, request, jsonify, session, Blueprint, url_for
+from flask import render_template, redirect, request, session, Blueprint, url_for
 from .. import utils
 
 app = Blueprint('courier', __name__, url_prefix='/courier/')

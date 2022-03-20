@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
 import json
 
-from flask import session, request, jsonify
+from flask import session, request
 
 from app import app, db
 from .. import utils
-from ..database.tables import CartItem, Favorite, FavoriteItem, User, Cart, Order, OrderItem
+from ..database.tables import CartItem, FavoriteItem, User, Order, OrderItem
 
 
 @app.route('/change_password/', methods=['POST'])
@@ -30,15 +30,14 @@ def change_password():
 @utils.login_required
 def addto_cart():
     user = utils.get_user()
-    if not user:
-        return 'User not Found', 404
+
     item_exists = CartItem.query.filter_by(
-        cart_id=user.id, product_id=request.form['id']).first()
+        user_id=user.id, product_id=request.form['id']).first()
     if item_exists:
         item_exists.quantity += int(request.form["qty"])
     else:
         cart_item = CartItem(
-            cart_id=user.id, product_id=request.form['id'], quantity=request.form["qty"])
+            user_id=user.id, product_id=request.form['id'], quantity=request.form["qty"])
         db.session.add(cart_item)
     db.session.commit()
     return str(utils.get_cart_total()), 200
@@ -48,15 +47,13 @@ def addto_cart():
 @utils.login_required
 def addto_favorites():
     user = utils.get_user()
-    if not user:
-        return 'User not Found', 404
 
     item_exists = FavoriteItem.query.filter_by(
-        product_id=request.form['id'], favorite_id=user.id).first()
+        product_id=request.form['id'], user_id=user.id).first()
     if item_exists:
         return "Item Already in Favorites", 401
     else:
-        favorite = Favorite(favorite_id=user.id, product_id=request.form['id'])
+        favorite = FavoriteItem(user_id=user.id, product_id=request.form['id'])
         db.session.add(favorite)
         db.session.commit()
         return 'Item added to Favorites', 200
@@ -66,11 +63,9 @@ def addto_favorites():
 @utils.login_required
 def removefrom_favorites():
     user = utils.get_user()
-    if not user:
-        return 'User not Found', 404
 
     FavoriteItem.query.filter_by(
-        product_id=request.form['id'], favorite_id=user.id).delete()
+        product_id=request.form['id'], user_id=user.id).delete()
     db.session.commit()
     return '', 200
 
@@ -79,10 +74,8 @@ def removefrom_favorites():
 @utils.login_required
 def clear_cart():
     user = utils.get_user()
-    if not user:
-        return 'User not Found', 404
 
-    CartItem.query.filter_by(cart_id=user.id).delete()
+    CartItem.query.filter_by(user_id=user.id).delete()
     db.session.commit()
     return 'Cart Cleared', 200
 
@@ -91,12 +84,10 @@ def clear_cart():
 @utils.login_required
 def rem_item():
     user = utils.get_user()
-    if not user:
-        return 'User not Found', 404
 
     try:
         CartItem.query.filter_by(
-            cart_id=user.id, product_id=request.form['id']).delete()
+            user_id=user.id, product_id=request.form['id']).delete()
         db.session.commit()
         return 'Item removed from cart', 200
     except Exception as e:
@@ -107,8 +98,6 @@ def rem_item():
 @utils.login_required
 def update_info():
     user = utils.get_user()
-    if not user:
-        return 'User not Found', 404
 
     user = User.query.filter_by(
         id=session['id'], password=hash(request.form['password'])).first()
@@ -126,11 +115,8 @@ def update_info():
 @utils.login_required
 def delete_me():
     user = utils.get_user()
-    if not user:
-        return 'User not Found', 404
 
-    CartItem.query.filter_by(cart_id=user.id).delete()
-    Cart.query.filter_by(user_id=user.id).delete()
+    CartItem.query.filter_by(user_id=user.id).delete()
     orders = Order.query.all()
 
     for order in orders:
@@ -146,20 +132,14 @@ def delete_me():
 @app.route('/get_totp', methods=['GET'])
 @utils.login_required
 def get_totp():
-    user = utils.get_user()
-    if not user:
-        return 'User not Found', 404
-
+    utils.get_user()
     return {"secret_key": utils.get_secret_key()}
 
 
 @app.route('/activate_totp', methods=['POST'])
 @utils.login_required
 def activate_totp():
-    user = utils.get_user()
-    if not user:
-        return 'User not Found', 404
-
+    utils.get_user()
     user = User.query.filter_by(
         id=session['id'], password=hash(request.form['password'])).first()
     if not user:
@@ -177,10 +157,7 @@ def activate_totp():
 @app.route('/disable_totp', methods=['POST'])
 @utils.login_required
 def disable_totp():
-    user = utils.get_user()
-    if not user:
-        return 'User not Found', 404
-
+    utils.get_user()
     user = User.query.filter_by(
         id=session['id'], password=hash(request.form['password'])).first()
     if not user:

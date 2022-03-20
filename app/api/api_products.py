@@ -1,6 +1,6 @@
 import openpyxl
 
-from flask import flash, redirect, session, abort, request, jsonify
+from flask import flash, redirect, session, request, jsonify
 
 from app import app, db
 from .. import utils

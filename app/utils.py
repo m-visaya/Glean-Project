@@ -8,8 +8,8 @@ from geopy.distance import distance
 from geopy.geocoders import Nominatim
 from flask import session, redirect, url_for, abort
 
-from app import app, db
-from .database.tables import Cart, Order, Product, User, CartItem
+from app import db
+from .database.tables import Order, Product, User, CartItem
 from .database.tables import Admin as AdminModel, Courier as CourierModel
 
 
@@ -133,8 +133,8 @@ def login_attempts(email):
 
 def get_user(**kwargs):
     if kwargs:
-        return db.session.query(User).filter_by(**kwargs).first()
-    return db.session.query(User).filter_by(id=session.get("id", "")).first()
+        return db.session.query(User).filter_by(**kwargs).first_or_404()
+    return db.session.query(User).filter_by(id=session.get("id", "")).first_or_404()
 
 
 def register_user(data):
@@ -142,8 +142,6 @@ def register_user(data):
         data['password'] = hash(data['password'])
         user = User(**data)
         db.session.add(user)
-        db.session.commit()
-        db.session.add(Cart(user_id=user.id))
         db.session.commit()
         return "Account Registered", 200
     except Exception as e:
@@ -158,13 +156,13 @@ def get_products():
 
 def get_cart():
     cart = db.session.query(CartItem).filter_by(
-        cart_id=session.get("id", "")).all()
+        user_id=session.get("id", "")).all()
     return cart
 
 
 def get_cart_total():
     total = db.session.query(CartItem).filter_by(
-        cart_id=session.get("id", "")).count()
+        user_id=session.get("id", "")).count()
     return total
 
 

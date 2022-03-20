@@ -1,4 +1,4 @@
-from flask import session, abort, request
+from flask import session, request
 
 from app import app, db
 from .. import utils

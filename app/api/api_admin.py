@@ -91,7 +91,7 @@ def get_sales():
             monthly_sales['December'] += add_sales(sale.products)
 
     product_sales = {}
-    orders = OrderItem.query().all()
+    orders = OrderItem.query.all()
     for orderitem in orders:
         if orderitem.order.status == "Delivered":
             if product_sales.get(orderitem.product.name):

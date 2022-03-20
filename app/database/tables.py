@@ -3,14 +3,14 @@ from app import db
 
 
 def repr(Class):
-    """ function to represent model instance as dict """
+    """ Represent table modes as dictionary """
     repr = {key: value for key,
             value in Class.__dict__.items() if type(value) in [str, int, float, datetime]}
     return f"{repr}"
 
 
 class User(db.Model):
-    """ table definition for users """
+    """ Represents the database model for User Accounts """
     id = db.Column(db.Integer(), primary_key=True)
     firstname = db.Column(db.String(50), nullable=False)
     lastname = db.Column(db.String(50), nullable=False)
@@ -21,8 +21,8 @@ class User(db.Model):
     updated_on = db.Column(
         db.DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
     orders = db.relationship('Order', backref='user')
-    cart = db.relationship('Cart', backref='user', uselist=False)
-    favorites = db.relationship('Favorite', backref='user')
+    cart = db.relationship('CartItem', backref='user')
+    favorites = db.relationship('FavoriteItem', backref='user')
     password_history = db.Column(db.String(500))
     password_expr = db.Column(
         db.DateTime, default=lambda: datetime.utcnow() + timedelta(days=30))
@@ -36,7 +36,7 @@ class User(db.Model):
 
 
 class OrderItem(db.Model):
-    """ table definition for order items """
+    """ Represents the database model for Order Items """
     order_id = db.Column(db.Integer, db.ForeignKey(
         'order.id'), primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey(
@@ -48,7 +48,7 @@ class OrderItem(db.Model):
 
 
 class Order(db.Model):
-    """ table definition for orders """
+    """ Represents the database model for Orders """
     id = db.Column(db.Integer, primary_key=True)
     created_on = db.Column(db.DateTime(), default=datetime.utcnow)
     updated_on = db.Column(
@@ -64,7 +64,7 @@ class Order(db.Model):
 
 
 class Product(db.Model):
-    """ table definition for products """
+    """ Represents the database model for Products """
     id = db.Column(db.Integer, primary_key=True)
     created_on = db.Column(db.DateTime(), default=datetime.utcnow)
     updated_on = db.Column(
@@ -84,49 +84,31 @@ class Product(db.Model):
         return repr(self)
 
 
-class Cart(db.Model):
-    """ table definition for users cart """
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    products = db.relationship('CartItem', backref='cart')
-
-    def __repr__(self) -> str:
-        return repr(self)
-
-
 class CartItem(db.Model):
-    """ cart item table definition """
-    cart_id = db.Column(db.Integer, db.ForeignKey(
-        'cart.user_id'), primary_key=True)
+    """ Represents the database model for Cart Items """
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'user.id'), primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey(
         'product.id'), primary_key=True)
     quantity = db.Column(db.Integer, default=1)
 
     def __repr__(self) -> str:
-        return f"{self.cart_id=} {self.product_id=} {self.quantity=}"
-
-
-class Favorite(db.Model):
-    """ users favorites table definition """
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    products = db.relationship('FavoriteItem', backref='favorite')
-
-    def __repr__(self) -> str:
-        return repr(self)
+        return f"{self.user_id=} {self.product_id=} {self.quantity=}"
 
 
 class FavoriteItem(db.Model):
-    """ favorites items table defintion"""
-    favorite_id = db.Column(db.Integer, db.ForeignKey(
-        'favorite.user_id'), primary_key=True)
+    """ Represents the database model for Favorite Items"""
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'user.id'), primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey(
         'product.id'), primary_key=True)
 
     def __repr__(self) -> str:
-        return f"{self.cart_id=} {self.product_id=} {self.quantity=}"
+        return f"{self.user_id=} {self.product_id=}"
 
 
 class Courier(db.Model):
-    """ courier account table definition """
+    """ Represents the database model for Courier Accounts """
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
@@ -141,7 +123,7 @@ class Courier(db.Model):
 
 
 class Admin(db.Model):
-    """ admin account table definition """
+    """ Represents the database model for Admin Accounts """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(50), nullable=False)
@@ -151,7 +133,7 @@ class Admin(db.Model):
 
 
 class Location(db.Model):
-    """ address table definition """
+    """ Represents the database model for Address """
     id = db.Column(db.Integer, primary_key=True)
     province = db.Column(db.String(50), nullable=False)
     city = db.Column(db.String(50), nullable=False)

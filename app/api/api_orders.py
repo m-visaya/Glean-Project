@@ -1,17 +1,17 @@
-from flask import session, abort, request, jsonify
+from flask import request
 
 from app import app, db
+from app.views.main import cart
 from .. import utils
-from ..database.tables import CartItem, Location, Order, OrderItem, Product
+from ..database.tables import CartItem, Location, Order, OrderItem
 
 
 @app.route('/proceed_checkout', methods=['GET'])
 @utils.login_required
 def proceed_checkout():
-    user = utils.get_user()
-    cart_items = CartItem.query.filter_by(cart_id=user.id).all()
+    cart = utils.get_user().cart
 
-    for item in cart_items:
+    for item in cart:
         if item.quantity > item.product.stock:
             return f"{item.product.name}'s quantity is greater than the stock!", 404
 
@@ -25,13 +25,12 @@ def add_order():
     order = Order(user_id=user.id)
     db.session.add(order)
 
-    for item in user.cart.products:
-        Product.query.filter_by(
-            id=item.product_id).first().stock -= item.quantity
+    for item in user.cart:
+        item.product.stock -= item.quantity
         order.products.append(
             OrderItem(product_id=item.product.id, quantity=item.quantity))
 
-    CartItem.query.filter_by(cart_id=user.id).delete()
+    CartItem.query.filter_by(user_id=user.id).delete()
     db.session.commit()
 
     address = Location(

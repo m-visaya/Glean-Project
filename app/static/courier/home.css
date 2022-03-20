@@ -40,13 +40,25 @@ a {
   background-color: #95c22b !important;
 }
 
+.color-dark {
+  color: rgb(46, 44, 44) !important;
+}
+
+.color-white {
+  color: #f7f7f7 !important;
+}
+
+.color-muted {
+  color: #774d35;
+}
+
 .modal-order-item {
   padding: 45px;
 }
 
 p i:hover {
   font-size: 4.25rem;
-  color: #7c9c31 !important;
+  color: #95c22b !important;
 }
 
 @media (max-width: 1920px) {

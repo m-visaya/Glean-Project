@@ -35,23 +35,6 @@
     <script src="/static/courier/script.js" defer></script>
     <link rel="stylesheet" href="/static/courier/home.css" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <style>
-      .colglean {
-        color: #95c22b !important;
-      }
-
-      .bg-glean {
-        background-color: #95c22b !important;
-      }
-
-      .color-dark {
-        color: #222 !important;
-      }
-
-      .color-white {
-        color: #f7f7f7 !important;
-      }
-    </style>
   </head>
 
   <body>
@@ -91,7 +74,9 @@
       <section class="container">
         <p class="fs-1 fw-normal mb-4" id="name-dashboard">
           {{ "Welcome, Courier" }}
-          <strong> {{ courier.firstname ~ " " ~ courier.lastname }} </strong>
+          <strong class="color-glean">
+            {{ courier.firstname ~ " " ~ courier.lastname }}
+          </strong>
         </p>
 
         <div class="container courier-profile">
@@ -112,10 +97,10 @@
                 class="res-text fw-bolder display-1 color-dark"
                 id="count-deliveries"
               >
-                <i class="bi bi-pin-map-fill color-glean display-3 pe-2"></i>
+                <i class="bi bi-pin-map-fill color-muted display-3 pe-2"></i>
                 {{ deliveries|length }}
               </p>
-              <p class="px-2 text-muted fs-5">Current deliveries</p>
+              <p class="px-2 color-dark fs-5 fw-normal">Current deliveries</p>
             </div>
             <div
               class="d-none d-md-block col-4 col-md-4 col-lg-3 mt-md-5 mt-lg-0 text-center border-end border-2"
@@ -124,10 +109,10 @@
                 class="res-text fw-bolder display-1 color-dark"
                 id="count-display-orders"
               >
-                <i class="bi bi-box2-fill color-glean display-3 pe-2"></i>
+                <i class="bi bi-box2-fill color-muted display-3 pe-2"></i>
                 {{ display_orders|length }}
               </p>
-              <p class="px-2 text-muted fs-5">Available orders</p>
+              <p class="px-2 color-dark fs-5 fw-normal">Available orders</p>
             </div>
             <div
               class="d-none d-md-block col-4 col-md-4 col-lg-3 mt-md-5 mt-lg-0 text-center"
@@ -137,11 +122,11 @@
                 id="count-completed"
               >
                 <i
-                  class="bi bi-clipboard-check-fill color-glean display-3 pe-2"
+                  class="bi bi-clipboard-check-fill color-muted display-3 pe-2"
                 ></i>
                 {{ completed_today }}
               </p>
-              <p class="px-2 text-muted fs-5">Completed today</p>
+              <p class="px-2 color-dark fs-5 fw-normal">Completed today</p>
             </div>
             <div
               id="progress-chart"

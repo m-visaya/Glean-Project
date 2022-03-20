@@ -75,12 +75,13 @@ function updateOrderStatus(e, id) {
   });
 }
 
-var percent =
-  Math.floor(
-    (parseInt(document.querySelector("#count-completed").textContent) /
-      parseInt(document.querySelector("#count-deliveries").textContent)) *
-      100
-  ) || 100;
+var percent = Math.floor(
+  (parseInt(document.querySelector("#count-completed").textContent) /
+    parseInt(document.querySelector("#count-deliveries").textContent)) *
+    100
+);
+
+percent = isNaN(percent) ? 100 : percent;
 
 var options = {
   series: [percent],

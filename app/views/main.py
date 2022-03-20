@@ -1,5 +1,5 @@
-from app import app, db
-from flask import render_template, redirect, request, jsonify, session, url_for
+from app import app
+from flask import render_template, redirect, request, session, url_for
 from .. import utils
 
 

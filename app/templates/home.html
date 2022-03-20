@@ -379,11 +379,12 @@
                                   {% if user %} {% if product.id in favorites_id
                                   %}
                                   <button
-                                    onclick="unfavorite(event, '{{product.id}}')"
+                                    onclick="favorite(event, '{{product.id}}')"
                                     class="btn-favorite flex-shrink-0 me-2"
                                     type="button"
                                     data-bs-dismiss="modal"
                                     aria-label="Close"
+                                    id="button-favorite-{{product.id}}"
                                   >
                                     <i class="bi bi-heart-fill"></i>
                                   </button>
@@ -394,6 +395,7 @@
                                     type="button"
                                     data-bs-dismiss="modal"
                                     aria-label="Close"
+                                    id="button-favorite-{{product.id}}"
                                   >
                                     <i class="bi bi-heart"></i></button
                                   >{% endif %} {% endif %}
@@ -995,9 +997,8 @@
               {% endfor %}
             </div>
             {% if favorites|length == 0 %}
-            <div class="row">
+            <div class="row" id="no-favs">
               <div
-                id="no-favs"
                 class="d-flex flex-column align-items-center justify-content-center w-100"
                 style="height: 35rem"
               >

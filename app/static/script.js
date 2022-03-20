@@ -260,11 +260,12 @@ function loadFavorites() {
                             style="max-width: 3.5rem"
                           />
                           <button
-                            onclick="unfavorite(event, '${product.id}')"
+                            onclick="favorite(event, '${product.id}')"
                             class="btn-favorite flex-shrink-0 me-2"
                             type="button"
                             data-bs-dismiss="modal"
                             aria-label="Close"
+                            id="button-favorite-${product.id}"
                           >
                             <i class="bi bi-heart-fill"></i>
                           </button>
@@ -965,36 +966,31 @@ function favorite(e, id) {
     data: {
       id: id,
     },
-    success: function (data) {
+    success: function (response, textStatus, jqXHR) {
       let toastElem = $("#toast_addedToCart");
       let toast = new bootstrap.Toast(toastElem);
-      $("#toast-message").text("Item Added to Favorites");
-      toast.show();
-      loadFavorites();
-    },
-    error: function (jqXHR) {
-      if (jqXHR.status == 0) {
-        alert("Not connect.\n Verify Network.");
-      } else if (jqXHR.status == 401) {
-        console.log("error");
-      } else {
-        alert(jqXHR.status);
+      if (jqXHR.status == 201) {
+        $("#toast-message").text("Item Added to Favorites");
+        toast.show();
+        loadFavorites();
+        $("#no-favs").hide();
+        $(`#button-favorite-${id}`)
+          .find("i")
+          .removeClass()
+          .addClass("bi bi-heart-fill");
+      } else if (jqXHR.status == 200) {
+        $("#toast-message").text("Item Removed from Favorites");
+        toast.show();
+        $(`#cardfave-${id}`).remove();
+        $(`#modalfave-${id}`).remove();
+        $(`#button-favorite-${id}`)
+          .find("i")
+          .removeClass()
+          .addClass("bi bi-heart");
       }
-    },
-  });
-}
-
-function unfavorite(e, id) {
-  e.preventDefault();
-  $.ajax({
-    type: "POST",
-    url: "/removefrom_favorites",
-    data: {
-      id: id,
-    },
-    success: function (data) {
-      $(`#cardfave-${id}`).remove();
-      $(`#modalfave-${id}`).remove();
+      if (response == "0") {
+        $("#no-favs").show();
+      }
     },
     error: function (jqXHR) {
       if (jqXHR.status == 0) {

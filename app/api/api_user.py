@@ -61,12 +61,14 @@ def addto_favorites():
     item_exists = FavoriteItem.query.filter_by(
         product_id=request.form['id'], user_id=user.id).first()
     if item_exists:
-        return "Item Already in Favorites", 401
+        db.session.delete(item_exists)
+        db.session.commit()
+        return str(len(user.favorites)), 200
     else:
         favorite = FavoriteItem(user_id=user.id, product_id=request.form['id'])
         db.session.add(favorite)
         db.session.commit()
-        return 'Item added to Favorites', 200
+        return 'Item added to Favorites', 201
 
 
 @app.route('/removefrom_favorites', methods=['POST'])

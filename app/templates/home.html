@@ -39,15 +39,45 @@
     >
       <div class="d-flex bg-white rounded">
         <div class="bg-primary-green rounded-start" style="width: 1rem"></div>
-        <div class="toast-body mx-auto fs-6" id="toast-message">
-          Item Added to Cart
-        </div>
+        <div class="toast-body mx-auto fs-6">Item Added to Cart</div>
         <button
           type="button"
           class="btn-close btn-close-dark my-auto me-2"
           data-bs-dismiss="toast"
           aria-label="Close"
         ></button>
+      </div>
+    </div>
+
+    <div
+      id="toast_addedToCart"
+      class="toast position-fixed start-50 translate-middle-x"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      style="z-index: 11; top: 1rem"
+    >
+      <i
+        class="text-primary-green bi bi-triangle-fill position-absolute start-50 translate-middle-x"
+        style="bottom: 96%"
+      ></i>
+      <div class="toast-header bg-primary-green text-white">
+        <strong class="me-auto">Item Added to Cart</strong>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="d-flex toast-body bg-white p-2 align-items-center">
+        <img
+          src="{{products[0].image}}"
+          class="rounded me-3"
+          alt="..."
+          style="width: 30%; height: auto"
+        />
+        <p class="fs-6 text-start">Red pepper soup X 20 - ₱250.0</p>
       </div>
     </div>
 
@@ -147,45 +177,33 @@
           </div>
         </div>
       </div>
+
+      <nav class="navbar navbar-expand-lg navbar-light">
+        {% if user %}
+        <div
+          class="container justify-content-center justify-content-md-between"
+        >
+          <ul class="navbar-nav flex-row">
+            <li class="nav-item me-lg-0 d-md-inline-block">
+              <a class="nav-link text-link" href="#" onclick="swindividual()"
+                ><i class="bi bi-person"></i> &nbsp; Individual</a
+              >
+            </li>
+            <li class="nav-item ms-4 me-lg-0 d-md-inline-block">
+              <a class="nav-link text-link" href="#" onclick="swsubscription()"
+                ><i class="bi bi-box"></i> &nbsp; Subscription</a
+              >
+            </li>
+            <li class="nav-item ms-4 me-lg-0 d-md-inline-block">
+              <a class="nav-link text-link" href="#" onclick="swfavorites()"
+                ><i class="bi bi-star"></i> &nbsp; Favorites</a
+              >
+            </li>
+          </ul>
+        </div>
+        {% endif %}
+      </nav>
     </header>
-
-    <nav class="container my-3">
-      {% if user %}
-      <ul
-        class="nav justify-content-center justify-content-md-start"
-        role="tablist"
-      >
-        <li class="nav-item me-lg-2">
-          <a
-            class="nav-link text-link ps-md-2 active py-1"
-            data-bs-toggle="tab"
-            data-bs-target="#home-tab"
-            href=""
-            ><i class="bi bi-person"></i> &nbsp; Individual</a
-          >
-        </li>
-        <li class="nav-item me-lg-2">
-          <a
-            class="nav-link text-link py-1"
-            data-bs-toggle="tab"
-            data-bs-target="#subscription-tab"
-            href=""
-            ><i class="bi bi-box"></i> &nbsp; Subscription</a
-          >
-        </li>
-        <li class="nav-item me-lg-2">
-          <a
-            class="nav-link text-link py-1"
-            data-bs-toggle="tab"
-            data-bs-target="#favorites-tab"
-            href=""
-            ><i class="bi bi-star"></i> &nbsp; Favorites</a
-          >
-        </li>
-      </ul>
-      {% endif %}
-    </nav>
-
     <main>
       {% if expires %}
       <div
@@ -196,331 +214,155 @@
         <div>Your password will expire in {{expires}} day(s)</div>
       </div>
       {% endif %}
-      <div class="tab-content">
-        <div class="tab-pane fade show active" id="home-tab">
-          <section class="container carousel-pad">
-            <div
-              id="individualhead"
-              class="carousel slide"
-              data-bs-ride="carousel"
-              style="display: block"
-            >
-              <div class="carousel-indicators">
-                <button
-                  type="button"
-                  data-bs-target="#individualhead"
-                  data-bs-slide-to="0"
-                  class="active"
-                  aria-current="true"
-                  aria-label="Slide 1"
-                ></button>
-                <button
-                  type="button"
-                  data-bs-target="#individualhead"
-                  data-bs-slide-to="1"
-                  aria-label="Slide 2"
-                ></button>
-                <button
-                  type="button"
-                  data-bs-target="#individualhead"
-                  data-bs-slide-to="2"
-                  aria-label="Slide 3"
-                ></button>
-              </div>
-              <div class="carousel-inner w-100">
-                <div class="carousel-item active">
-                  <img
-                    src="/static/assets/individual1.png"
-                    class="store-carousel-bg w-100"
-                    alt="..."
-                  />
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5 class="text-link text-carousel">
-                      Solely for Individuals
-                    </h5>
-                    <p class="text-link text-carousel">
-                      Buy fresh ingredients and make your dish the way you want
-                      it.
-                    </p>
-                  </div>
-                </div>
-                <div class="carousel-item">
-                  <img
-                    src="/static/assets/individual2.png"
-                    class="store-carousel-bg w-100"
-                    alt="..."
-                  />
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5 class="text-link text-carousel">Broad Options</h5>
-                    <p class="text-link text-carousel">
-                      Many options are provided that you can choose from.
-                    </p>
-                  </div>
-                </div>
-                <div class="carousel-item">
-                  <img
-                    src="/static/assets/individual3.png"
-                    class="store-carousel-bg w-100"
-                    alt="..."
-                  />
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5 class="text-link text-carousel">Proper and Adequate</h5>
-                    <p class="text-link text-carousel">
-                      We have measured all the required ingredients optimally.
-                    </p>
-                  </div>
-                </div>
+      <section class="container carousel-pad">
+        <div
+          id="individualhead"
+          class="carousel slide"
+          data-bs-ride="carousel"
+          style="display: block"
+        >
+          <div class="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#individualhead"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#individualhead"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#individualhead"
+              data-bs-slide-to="2"
+              aria-label="Slide 3"
+            ></button>
+          </div>
+          <div class="carousel-inner w-100">
+            <div class="carousel-item active">
+              <img
+                src="/static/assets/individual1.png"
+                class="store-carousel-bg w-100"
+                alt="..."
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5 class="text-link">Solely for Individuals</h5>
+                <p class="text-link">
+                  Buy fresh ingredients and make your dish the way you want it.
+                </p>
               </div>
             </div>
-          </section>
-
-          <div class="album pt-4 pb-5">
-            <div
-              class="container elementToFadeInAndOut"
-              id="individualcards"
-              style="display: block"
-            >
-              <!--Individuals Section-->
-              <div
-                id="cards-container"
-                class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 g-sm-2 g-xxl-4 g-md-3"
-              >
-                {% for product in products %} {% if product.stock > 0 %}
-                <div class="col">
-                  <div
-                    class="card shadow-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modal-{{ product.id }}"
-                  >
-                    <!-- cards -->
-                    <img
-                      src="{{product.image}}"
-                      alt="{{product.name}}"
-                      class="card-img-top card-ggc"
-                    />
-                    <div class="card-body card-body-height">
-                      <h5 class="overflow-ellipsis">{{ product.name }}</h5>
-                      <p class="card-text card-description">
-                        {{ product.description }}
-                      </p>
-                    </div>
-                    <div
-                      class="d-flex justify-content-between align-items-center ms-3 mt-1 mb-3"
-                    >
-                      <span
-                        class="badge rounded-pill bg-primary-green prod-category"
-                        >{{ product.category }}</span
-                      >
-                    </div>
-                  </div>
-
-                  <div
-                    class="modal fade"
-                    id="modal-{{ product.id }}"
-                    tabindex="-1"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-                  >
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header border-0">
-                          <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                          ></button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="container px-lg-5 my-5 mt-3">
-                            <div class="row gx-4 gx-lg-5 align-items-center">
-                              <div class="col-md-12 col-lg-6">
-                                <img
-                                  class="card-img mb-5 mb-md-0"
-                                  src="{{ product.image }}"
-                                />
-                              </div>
-                              <div class="col-md-12 col-lg-6 mt-4">
-                                <span
-                                  class="badge rounded-pill bg-primary-green mb-1"
-                                  >{{ product.category }}</span
-                                >
-                                <p
-                                  class="fs-2 fw-bolder"
-                                  id="{{ product.id }}-product-name"
-                                >
-                                  {{ product.name }}
-                                </p>
-                                <div class="fs-5 mb-2">
-                                  <span id="{{ product.id }}-product-price"
-                                    >₱{{product.price}}</span
-                                  >
-                                </div>
-                                <p class="lead fs-6">
-                                  {{ product.description }}
-                                </p>
-                                <p class="lead fs-5 fw-bold">
-                                  What's in the box
-                                </p>
-                                <p class="lead fs-6 mt-1">
-                                  {{ product.ingredients }}
-                                </p>
-                                <div class="d-flex pt-4">
-                                  <input
-                                    class="form-control text-center me-3"
-                                    id="{{product.id}}-inputQuantity"
-                                    type="number"
-                                    max="9"
-                                    min="1"
-                                    value="1"
-                                    style="max-width: 3.5rem"
-                                  />
-
-                                  {% if user %} {% if product.id in favorites_id
-                                  %}
-                                  <button
-                                    onclick="unfavorite(event, '{{product.id}}')"
-                                    class="btn-favorite flex-shrink-0 me-2"
-                                    type="button"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                  >
-                                    <i class="bi bi-heart-fill"></i>
-                                  </button>
-                                  {% else %}
-                                  <button
-                                    onclick="favorite(event, '{{product.id}}')"
-                                    class="btn-favorite flex-shrink-0 me-2"
-                                    type="button"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                  >
-                                    <i class="bi bi-heart"></i></button
-                                  >{% endif %} {% endif %}
-
-                                  <button
-                                    onclick="addtoCart('{{user.id}}', '{{product.id}}')"
-                                    class="btn-primary-green flex-shrink-0"
-                                    type="button"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                  >
-                                    <i
-                                      class="bi bi-cart-plus me-1 text-white"
-                                    ></i>
-                                    Add to cart
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {% endif %} {% endfor %}
+            <div class="carousel-item">
+              <img
+                src="/static/assets/individual2.png"
+                class="store-carousel-bg w-100"
+                alt="..."
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5 class="text-link">Broad Options</h5>
+                <p class="text-link">
+                  Many options are provided that you can choose from.
+                </p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img
+                src="/static/assets/individual3.png"
+                class="store-carousel-bg w-100"
+                alt="..."
+              />
+              <div class="carousel-caption d-none d-md-block">
+                <h5 class="text-link">Proper and Adequate</h5>
+                <p class="text-link">
+                  We have measured all the required ingredients optimally.
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="album pb-5 tab-pane fade" id="subscription-tab">
-          <div class="container pb-0 pb-md-4 px-0 px-md-2">
-            <img
-              src="/static/assets/subsheader.png"
-              class="store-carousel-bg w-100"
-              alt="..."
-              id="subsheader"
-            />
-            <img
-              src="/static/assets/subsheadermobile.png"
-              class="store-carousel-bg w-100"
-              alt="..."
-              id="subsheader-mobile"
-              style="display: none"
-            />
+        <div
+          id="subscriptionhead"
+          class="carousel slide"
+          data-bs-ride="carousel"
+          style="display: none"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img
+                src="/static/assets/subsheader.png"
+                class="store-carousel-bg w-100"
+                alt="..."
+                id="subsheader"
+              />
+              <img
+                src="/static/assets/subsheadermobile.png"
+                class="store-carousel-bg w-100"
+                alt="..."
+                id="subsheader-mobile"
+                style="display: none"
+              />
+            </div>
           </div>
-          <div class="container elementToFadeInAndOut" id="subscriptioncards">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <div class="col">
-                <div class="card card-subscription mb-3 shadow-sm">
-                  <div class="card-body text-center">
-                    <h3 class="card-title">Single</h3>
-                    <h5 class="card-title">
-                      ₱1199.00<small class="text-muted fw-light">/week*</small>
-                    </h5>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li class="text-link">Once a week delivery.</li>
-                      <li class="text-link">2 meals for 1 person.</li>
-                      <li class="text-link">6 total meals.</li>
-                      <li class="text-link">Cancel any time.</li>
-                    </ul>
-                    <button
-                      type="button"
-                      class="w-100 btn-subscribe-green"
-                      data-bs-toggle="modal"
-                      data-bs-target="#subscription-modal"
-                    >
-                      Get Started
-                    </button>
-                  </div>
-                </div>
-              </div>
+        </div>
 
-              <div class="col">
-                <div class="card card-subscription mb-4 shadow-sm">
-                  <div class="card-body text-center">
-                    <h3 class="card-title">Couple</h3>
-                    <h5 class="card-title">
-                      ₱2299.00<small class="text-muted fw-light">/week*</small>
-                    </h5>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li class="text-link">Once a week delivery.</li>
-                      <li class="text-link">2 meals for 2 person.</li>
-                      <li class="text-link">12 total meals.</li>
-                      <li class="text-link">Cancel any time.</li>
-                    </ul>
-                    <button
-                      type="button"
-                      class="w-100 btn-subscribe-green"
-                      data-bs-toggle="modal"
-                      data-bs-target="#subscription-modal"
-                    >
-                      Get Started
-                    </button>
-                  </div>
-                </div>
-              </div>
+        <div
+          id="favoriteshead"
+          class="carousel slide"
+          data-bs-ride="carousel"
+          style="display: none"
+        ></div>
+      </section>
 
-              <div class="col">
-                <div class="card card-subscription mb-4 shadow-sm">
-                  <div class="card-body text-center">
-                    <h3 class="card-title">Family</h3>
-                    <h5 class="card-title">
-                      ₱3399.00<small class="text-muted fw-light">/week*</small>
-                    </h5>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li class="text-link">Twice a week delivery.</li>
-                      <li class="text-link">2 meals for 4 person.</li>
-                      <li class="text-link">24 total meals.</li>
-                      <li class="text-link">Cancel any time.</li>
-                    </ul>
-                    <button
-                      type="button"
-                      class="w-100 btn-subscribe-green"
-                      data-bs-toggle="modal"
-                      data-bs-target="#subscription-modal"
-                    >
-                      Get Started
-                    </button>
-                  </div>
+      <div class="album pt-4 pb-5">
+        <div
+          class="container elementToFadeInAndOut"
+          id="individualcards"
+          style="display: block"
+        >
+          <!--Individuals Section-->
+          <div
+            id="cards-container"
+            class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 g-sm-2 g-xxl-4 g-md-3"
+          >
+            {% for product in products %} {% if product.stock > 0 %}
+            <div class="col">
+              <div
+                class="card shadow-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#modal-{{ product.id }}"
+              >
+                <!-- cards -->
+                <img
+                  src="{{product.image}}"
+                  alt="{{product.name}}"
+                  class="card-img-top card-ggc"
+                />
+                <div class="card-body card-body-height">
+                  <h5 class="overflow-ellipsis">{{ product.name }}</h5>
+                  <!--                   <h6 class="card-text-price">₱{{product.price}}</h6> -->
+                  <p class="card-text card-description">
+                    {{ product.description }}
+                  </p>
+                </div>
+                <div
+                  class="d-flex justify-content-between align-items-center ms-3 mt-1 mb-3"
+                >
+                  <span
+                    class="badge rounded-pill bg-primary-green prod-category"
+                    >{{ product.category }}</span
+                  >
                 </div>
               </div>
 
               <div
                 class="modal fade"
-                id="subscription-modal"
+                id="modal-{{ product.id }}"
                 tabindex="-1"
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
@@ -537,453 +379,592 @@
                       ></button>
                     </div>
                     <div class="modal-body">
-                      <form onsubmit="">
-                        <div class="container">
-                          <p class="fs-3">Choose your preferences</p>
-                          <div id="checkboxes">
-                            <div class="row g-2 text-center">
-                              <div class="col-6 col-md-3">
-                                <input
-                                  type="checkbox"
-                                  id="meat-and-veggie"
-                                  value="mav"
-                                />
-                                <label
-                                  class="p-3 bg-light text-link w-100 cat-box"
-                                  style="height: 6rem"
-                                  for="meat-and-veggie"
-                                >
-                                  <img
-                                    src="/static/assets/meat_and_veggie.png"
-                                    style="max-width: 30px"
-                                  /><br />
-                                  Meat and Veggie
-                                </label>
-                              </div>
-                              <div class="col-6 col-md-3">
-                                <input
-                                  type="checkbox"
-                                  id="veggie"
-                                  value="veg"
-                                />
-                                <label
-                                  class="p-3 bg-light text-link w-100 cat-box"
-                                  style="height: 6rem"
-                                  for="veggie"
-                                >
-                                  <img
-                                    src="/static/assets/veggie.png"
-                                    style="max-width: 30px"
-                                  /><br />
-                                  Veggie
-                                </label>
-                              </div>
-                              <div class="col-6 col-md-3">
-                                <input
-                                  type="checkbox"
-                                  id="fam_friendly"
-                                  value="fam"
-                                />
-                                <label
-                                  class="p-3 bg-light text-link w-100 cat-box"
-                                  style="height: 6rem"
-                                  for="fam_friendly"
-                                >
-                                  <img
-                                    src="/static/assets/fammily_friendly.png"
-                                    style="max-width: 30px"
-                                  /><br />
-                                  Family Friendly
-                                </label>
-                              </div>
-                              <div class="col-6 col-md-3">
-                                <input
-                                  type="checkbox"
-                                  id="low_cal"
-                                  value="lcal"
-                                />
-                                <label
-                                  class="p-3 bg-light text-link w-100 cat-box"
-                                  style="height: 6rem"
-                                  for="low_cal"
-                                >
-                                  <img
-                                    src="/static/assets/low_calorie.png"
-                                    style="max-width: 30px"
-                                  /><br />
-                                  Low Calorie
-                                </label>
-                              </div>
-                            </div>
-                            <div class="row g-2 pt-2 text-center">
-                              <div class="col-6 col-md-3">
-                                <input
-                                  type="checkbox"
-                                  id="qck_ez"
-                                  value="qne"
-                                />
-                                <label
-                                  class="p-3 bg-light text-link w-100 cat-box"
-                                  style="height: 6rem"
-                                  for="qck_ez"
-                                >
-                                  <img
-                                    src="/static/assets/quick_and_easy.png"
-                                    style="max-width: 30px"
-                                  /><br />
-                                  Quick and Easy
-                                </label>
-                              </div>
-                              <div class="col-6 col-md-3">
-                                <input
-                                  type="checkbox"
-                                  id="pescat"
-                                  value="pct"
-                                />
-                                <label
-                                  class="p-3 bg-light text-link w-100 cat-box"
-                                  style="height: 6rem"
-                                  for="pescat"
-                                >
-                                  <img
-                                    src="/static/assets/pescatarian.png"
-                                    style="max-width: 30px"
-                                  /><br />
-                                  Pescatarian
-                                </label>
-                              </div>
-                              <div class="col-6 col-md-3">
-                                <input
-                                  type="checkbox"
-                                  id="org_fil"
-                                  value="fil"
-                                />
-                                <label
-                                  class="p-3 bg-light text-link w-100 cat-box"
-                                  style="height: 6rem"
-                                  for="org_fil"
-                                >
-                                  <img
-                                    src="/static/assets/original_filipino.png"
-                                    style="max-width: 30px"
-                                  /><br />
-                                  Original Filipino
-                                </label>
-                              </div>
-                              <div class="col-6 col-md-3">
-                                <input type="checkbox" id="lucky" value="luk" />
-                                <label
-                                  class="p-3 bg-light text-link w-100 cat-box"
-                                  style="height: 6rem"
-                                  for="lucky"
-                                >
-                                  <img
-                                    src="/static/assets/im_feeling_lucky.png"
-                                    style="max-width: 30px"
-                                  /><br />
-                                  Im Feeling Lucky
-                                </label>
-                              </div>
-                            </div>
+                      <div class="container px-lg-5 my-5 mt-3">
+                        <div class="row gx-4 gx-lg-5 align-items-center">
+                          <div class="col-md-12 col-lg-6">
+                            <img
+                              class="card-img mb-5 mb-md-0"
+                              src="{{ product.image }}"
+                            />
                           </div>
-                          <div class="row">
-                            <p class="fs-3 pt-4">Customize your plan</p>
-                            <div class="col-md-6">
-                              <p class="fs-6">Days per week</p>
-                              <div
-                                class="btn-group w-100"
-                                role="group"
-                                aria-label="Basic radio toggle button group"
-                              >
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="btnradio1"
-                                  id="dp3"
-                                  autocomplete="off"
-                                  checked
-                                />
-                                <label
-                                  class="btn btn-outline-secondary"
-                                  for="dp3"
-                                  >3</label
-                                >
-
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="btnradio1"
-                                  id="dp4"
-                                  autocomplete="off"
-                                />
-                                <label
-                                  class="btn btn-outline-secondary"
-                                  for="dp4"
-                                  >4</label
-                                >
-
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="btnradio1"
-                                  id="dp5"
-                                  autocomplete="off"
-                                />
-                                <label
-                                  class="btn btn-outline-secondary"
-                                  for="dp5"
-                                  >5</label
-                                >
-
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="btnradio1"
-                                  id="dp6"
-                                  autocomplete="off"
-                                />
-                                <label
-                                  class="btn btn-outline-secondary"
-                                  for="dp6"
-                                  >6</label
-                                >
-
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="btnradio1"
-                                  id="dp7"
-                                  autocomplete="off"
-                                />
-                                <label
-                                  class="btn btn-outline-secondary"
-                                  for="dp7"
-                                  >7</label
-                                >
-                              </div>
-
-                              <p class="fs-6 pt-3">Recipes per day</p>
-                              <div
-                                class="btn-group w-75"
-                                role="group"
-                                aria-label="Basic radio toggle button group"
-                              >
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="btnradio2"
-                                  id="rd1"
-                                  autocomplete="off"
-                                />
-                                <label
-                                  class="btn btn-outline-secondary"
-                                  for="rd1"
-                                  >1</label
-                                >
-
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="btnradio2"
-                                  id="rd2"
-                                  autocomplete="off"
-                                  checked
-                                />
-                                <label
-                                  class="btn btn-outline-secondary"
-                                  for="rd2"
-                                  >2</label
-                                >
-
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="btnradio2"
-                                  id="rd3"
-                                  autocomplete="off"
-                                />
-                                <label
-                                  class="btn btn-outline-secondary"
-                                  for="rd3"
-                                  >3</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row pt-4">
-                            <div class="col">
-                              <ul class="list-group list-group-flush">
-                                <li
-                                  class="list-group-item d-flex justify-content-between lh-sm"
-                                >
-                                  <div>
-                                    <h6 class="my-0">Days per Week</h6>
-                                  </div>
-                                  3
-                                </li>
-                                <li
-                                  class="list-group-item d-flex justify-content-between lh-sm"
-                                >
-                                  <div>
-                                    <h6 class="my-0">Meals per day</h6>
-                                  </div>
-                                  2
-                                </li>
-                                <hr />
-                                <li
-                                  class="list-group-item d-flex justify-content-between lh-sm"
-                                >
-                                  <div>
-                                    <h6 class="my-0">couple</h6>
-                                    <small class="text-muted"
-                                      >glean store subscription</small
-                                    >
-                                  </div>
-                                  1399
-                                </li>
-                                <li
-                                  class="list-group-item d-flex justify-content-between"
-                                >
-                                  <span>Total (PHP)</span>
-                                  <strong value="" id="total-price"
-                                    >1199</strong
-                                  >
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                          <div class="text-center pt-4 mb-5">
-                            <button
-                              type="submit"
-                              class="w-75 btn-subscribe-green"
-                              data-bs-toggle="modal"
-                              data-bs-target="#subscription-modal"
+                          <div class="col-md-12 col-lg-6 mt-4">
+                            <span
+                              class="badge rounded-pill bg-primary-green mb-1"
+                              >{{ product.category }}</span
                             >
-                              Select this plan
-                            </button>
+                            <p
+                              class="fs-2 fw-bolder"
+                              id="{{ product.id }}-product-name"
+                            >
+                              {{ product.name }}
+                            </p>
+                            <div class="fs-5 mb-2">
+                              <span id="{{ product.id }}-product-price"
+                                >₱{{product.price}}</span
+                              >
+                            </div>
+                            <p class="lead fs-6">{{ product.description }}</p>
+                            <p class="lead fs-5 fw-bold">What's in the box</p>
+                            <p class="lead fs-6 mt-1">
+                              {{ product.ingredients }}
+                            </p>
+                            <div class="d-flex pt-4">
+                              <input
+                                class="form-control text-center me-3"
+                                id="{{product.id}}-inputQuantity"
+                                type="number"
+                                max="9"
+                                min="1"
+                                value="1"
+                                style="max-width: 3.5rem"
+                              />
+
+                              {% if user %}
+                              <button
+                                onclick="favorite(event, '{{product.id}}')"
+                                class="btn-favorite flex-shrink-0 me-2"
+                                type="button"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              >
+                                <i class="bi bi-heart"></i>
+                              </button>
+                              {% endif %}
+
+                              <button
+                                onclick="addtoCart('{{user.id}}', '{{product.id}}')"
+                                class="btn-primary-green flex-shrink-0"
+                                type="button"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              >
+                                <i class="bi bi-cart-plus me-1 text-link"></i>
+                                Add to cart
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </form>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row text-center pt-4">
-              <small class="text-muted"
-                >* is an indication of the starting price</small
-              >
-            </div>
+            {% endif %} {% endfor %}
           </div>
         </div>
 
-        <div class="album pt-4 pb-5 tab-pane fade" id="favorites-tab">
-          <div class="container elementToFadeInAndOut" id="favoritescards">
-            <!--Favorites Section-->
-            <div
-              class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
-              id="container-favorites"
-            >
-              {% for item in favorites %}
-              <div class="col" id="cardfave-{{ item.product.id }}">
-                <div
-                  class="card shadow-sm"
-                  data-bs-toggle="modal"
-                  data-bs-target="#modalfave-{{ item.product.id }}"
-                >
-                  <img
-                    src="{{item.product.image}}"
-                    alt="{{item.product.name}}"
-                    class="card-img-top card-ggc"
-                  />
-                  <div class="card-body card-body-height">
-                    <h5 class="overflow-ellipsis">{{ item.product.name }}</h5>
-                    <p class="card-text card-description">
-                      {{ item.product.description }}
-                    </p>
-                  </div>
-                  <div
-                    class="d-flex justify-content-between align-items-center ms-3 mt-1 mb-3"
+        <div
+          class="container elementToFadeInAndOut"
+          id="subscriptioncards"
+          style="display: none"
+        >
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+              <div class="card card-subscription mb-3 shadow-sm">
+                <div class="card-body text-center">
+                  <h3 class="card-title">Single</h3>
+                  <h5 class="card-title">
+                    ₱1199.00<small class="text-muted fw-light">/week*</small>
+                  </h5>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li class="text-link">Once a week delivery.</li>
+                    <li class="text-link">2 meals for 1 person.</li>
+                    <li class="text-link">6 total meals.</li>
+                    <li class="text-link">Cancel any time.</li>
+                  </ul>
+                  <button
+                    type="button"
+                    class="w-100 btn-subscribe-green"
+                    data-bs-toggle="modal"
+                    data-bs-target="#subscription-modal"
                   >
-                    <span
-                      class="badge rounded-pill bg-primary-green prod-category"
-                      >{{ item.product.category }}</span
-                    >
+                    Get Started
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card card-subscription mb-4 shadow-sm">
+                <div class="card-body text-center">
+                  <h3 class="card-title">Couple</h3>
+                  <h5 class="card-title">
+                    ₱2299.00<small class="text-muted fw-light">/week*</small>
+                  </h5>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li class="text-link">Once a week delivery.</li>
+                    <li class="text-link">2 meals for 2 person.</li>
+                    <li class="text-link">12 total meals.</li>
+                    <li class="text-link">Cancel any time.</li>
+                  </ul>
+                  <button
+                    type="button"
+                    class="w-100 btn-subscribe-green"
+                    data-bs-toggle="modal"
+                    data-bs-target="#subscription-modal"
+                  >
+                    Get Started
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card card-subscription mb-4 shadow-sm">
+                <div class="card-body text-center">
+                  <h3 class="card-title">Family</h3>
+                  <h5 class="card-title">
+                    ₱3399.00<small class="text-muted fw-light">/week*</small>
+                  </h5>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li class="text-link">Twice a week delivery.</li>
+                    <li class="text-link">2 meals for 4 person.</li>
+                    <li class="text-link">24 total meals.</li>
+                    <li class="text-link">Cancel any time.</li>
+                  </ul>
+                  <button
+                    type="button"
+                    class="w-100 btn-subscribe-green"
+                    data-bs-toggle="modal"
+                    data-bs-target="#subscription-modal"
+                  >
+                    Get Started
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="modal fade"
+              id="subscription-modal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <!--cards-modal-->
+              <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header border-0">
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form onsubmit="">
+                      <div class="container">
+                        <p class="fs-3">Choose your preferences</p>
+                        <div id="checkboxes">
+                          <div class="row g-2 text-center">
+                            <div class="col-6 col-md-3">
+                              <input
+                                type="checkbox"
+                                id="meat-and-veggie"
+                                value="mav"
+                              />
+                              <label
+                                class="p-3 bg-light text-link w-100 cat-box"
+                                style="height: 6rem"
+                                for="meat-and-veggie"
+                              >
+                                <img
+                                  src="/static/assets/meat_and_veggie.png"
+                                  style="max-width: 30px"
+                                /><br />
+                                Meat and Veggie
+                              </label>
+                            </div>
+                            <div class="col-6 col-md-3">
+                              <input type="checkbox" id="veggie" value="veg" />
+                              <label
+                                class="p-3 bg-light text-link w-100 cat-box"
+                                style="height: 6rem"
+                                for="veggie"
+                              >
+                                <img
+                                  src="/static/assets/veggie.png"
+                                  style="max-width: 30px"
+                                /><br />
+                                Veggie
+                              </label>
+                            </div>
+                            <div class="col-6 col-md-3">
+                              <input
+                                type="checkbox"
+                                id="fam_friendly"
+                                value="fam"
+                              />
+                              <label
+                                class="p-3 bg-light text-link w-100 cat-box"
+                                style="height: 6rem"
+                                for="fam_friendly"
+                              >
+                                <img
+                                  src="/static/assets/fammily_friendly.png"
+                                  style="max-width: 30px"
+                                /><br />
+                                Family Friendly
+                              </label>
+                            </div>
+                            <div class="col-6 col-md-3">
+                              <input
+                                type="checkbox"
+                                id="low_cal"
+                                value="lcal"
+                              />
+                              <label
+                                class="p-3 bg-light text-link w-100 cat-box"
+                                style="height: 6rem"
+                                for="low_cal"
+                              >
+                                <img
+                                  src="/static/assets/low_calorie.png"
+                                  style="max-width: 30px"
+                                /><br />
+                                Low Calorie
+                              </label>
+                            </div>
+                          </div>
+                          <div class="row g-2 pt-2 text-center">
+                            <div class="col-6 col-md-3">
+                              <input type="checkbox" id="qck_ez" value="qne" />
+                              <label
+                                class="p-3 bg-light text-link w-100 cat-box"
+                                style="height: 6rem"
+                                for="qck_ez"
+                              >
+                                <img
+                                  src="/static/assets/quick_and_easy.png"
+                                  style="max-width: 30px"
+                                /><br />
+                                Quick and Easy
+                              </label>
+                            </div>
+                            <div class="col-6 col-md-3">
+                              <input type="checkbox" id="pescat" value="pct" />
+                              <label
+                                class="p-3 bg-light text-link w-100 cat-box"
+                                style="height: 6rem"
+                                for="pescat"
+                              >
+                                <img
+                                  src="/static/assets/pescatarian.png"
+                                  style="max-width: 30px"
+                                /><br />
+                                Pescatarian
+                              </label>
+                            </div>
+                            <div class="col-6 col-md-3">
+                              <input type="checkbox" id="org_fil" value="fil" />
+                              <label
+                                class="p-3 bg-light text-link w-100 cat-box"
+                                style="height: 6rem"
+                                for="org_fil"
+                              >
+                                <img
+                                  src="/static/assets/original_filipino.png"
+                                  style="max-width: 30px"
+                                /><br />
+                                Original Filipino
+                              </label>
+                            </div>
+                            <div class="col-6 col-md-3">
+                              <input type="checkbox" id="lucky" value="luk" />
+                              <label
+                                class="p-3 bg-light text-link w-100 cat-box"
+                                style="height: 6rem"
+                                for="lucky"
+                              >
+                                <img
+                                  src="/static/assets/im_feeling_lucky.png"
+                                  style="max-width: 30px"
+                                /><br />
+                                Im Feeling Lucky
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <p class="fs-3 pt-4">Customize your plan</p>
+                          <div class="col-md-6">
+                            <p class="fs-6">Days per week</p>
+                            <div
+                              class="btn-group w-100"
+                              role="group"
+                              aria-label="Basic radio toggle button group"
+                            >
+                              <input
+                                type="radio"
+                                class="btn-check"
+                                name="btnradio1"
+                                id="dp3"
+                                autocomplete="off"
+                                checked
+                              />
+                              <label class="btn btn-outline-secondary" for="dp3"
+                                >3</label
+                              >
+
+                              <input
+                                type="radio"
+                                class="btn-check"
+                                name="btnradio1"
+                                id="dp4"
+                                autocomplete="off"
+                              />
+                              <label class="btn btn-outline-secondary" for="dp4"
+                                >4</label
+                              >
+
+                              <input
+                                type="radio"
+                                class="btn-check"
+                                name="btnradio1"
+                                id="dp5"
+                                autocomplete="off"
+                              />
+                              <label class="btn btn-outline-secondary" for="dp5"
+                                >5</label
+                              >
+
+                              <input
+                                type="radio"
+                                class="btn-check"
+                                name="btnradio1"
+                                id="dp6"
+                                autocomplete="off"
+                              />
+                              <label class="btn btn-outline-secondary" for="dp6"
+                                >6</label
+                              >
+
+                              <input
+                                type="radio"
+                                class="btn-check"
+                                name="btnradio1"
+                                id="dp7"
+                                autocomplete="off"
+                              />
+                              <label class="btn btn-outline-secondary" for="dp7"
+                                >7</label
+                              >
+                            </div>
+
+                            <p class="fs-6 pt-3">Recipes per day</p>
+                            <div
+                              class="btn-group w-75"
+                              role="group"
+                              aria-label="Basic radio toggle button group"
+                            >
+                              <input
+                                type="radio"
+                                class="btn-check"
+                                name="btnradio2"
+                                id="rd1"
+                                autocomplete="off"
+                              />
+                              <label class="btn btn-outline-secondary" for="rd1"
+                                >1</label
+                              >
+
+                              <input
+                                type="radio"
+                                class="btn-check"
+                                name="btnradio2"
+                                id="rd2"
+                                autocomplete="off"
+                                checked
+                              />
+                              <label class="btn btn-outline-secondary" for="rd2"
+                                >2</label
+                              >
+
+                              <input
+                                type="radio"
+                                class="btn-check"
+                                name="btnradio2"
+                                id="rd3"
+                                autocomplete="off"
+                              />
+                              <label class="btn btn-outline-secondary" for="rd3"
+                                >3</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row pt-4">
+                          <div class="col">
+                            <ul class="list-group list-group-flush">
+                              <li
+                                class="list-group-item d-flex justify-content-between lh-sm"
+                              >
+                                <div>
+                                  <h6 class="my-0">Days per Week</h6>
+                                </div>
+                                3
+                              </li>
+                              <li
+                                class="list-group-item d-flex justify-content-between lh-sm"
+                              >
+                                <div>
+                                  <h6 class="my-0">Meals per day</h6>
+                                </div>
+                                2
+                              </li>
+                              <hr />
+                              <li
+                                class="list-group-item d-flex justify-content-between lh-sm"
+                              >
+                                <div>
+                                  <h6 class="my-0">couple</h6>
+                                  <small class="text-muted"
+                                    >glean store subscription</small
+                                  >
+                                </div>
+                                1399
+                              </li>
+                              <li
+                                class="list-group-item d-flex justify-content-between"
+                              >
+                                <span>Total (PHP)</span>
+                                <strong value="" id="total-price">1199</strong>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="text-center pt-4 mb-5">
+                          <button
+                            type="submit"
+                            class="w-75 btn-subscribe-green"
+                            data-bs-toggle="modal"
+                            data-bs-target="#subscription-modal"
+                          >
+                            Select this plan
+                          </button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="row text-center pt-4">
+            <small class="text-muted"
+              >* is an indication of the starting price</small
+            >
+          </div>
+        </div>
 
+        <div
+          class="container elementToFadeInAndOut"
+          id="favoritescards"
+          style="display: none"
+        >
+          <!--Favorites Section-->
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for product in favorites %}
+            <div class="col">
+              <div
+                class="card shadow-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#modalfave-{{ product.id }}"
+              >
+                <!-- cards -->
+                <img
+                  src="{{product.image}}"
+                  alt="{{product.name}}"
+                  class="card-img-top card-ggc"
+                />
+                <div class="card-body card-body-height">
+                  <h5 class="overflow-ellipsis">{{ product.name }}</h5>
+                  <!--                   <h6 class="card-text-price">₱{{product.price}}</h6> -->
+                  <p
+                    class="card-text prod-desc overflow-auto"
+                    style="height: 5rem"
+                  >
+                    {{ product.description }}
+                  </p>
+                </div>
                 <div
-                  class="modal fade"
-                  id="modalfave-{{ item.product.id }}"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
+                  class="d-flex justify-content-between align-items-center ms-3 mt-1 mb-3"
                 >
-                  <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header border-0">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="container px-lg-5 my-5 mt-3">
-                          <div class="row gx-4 gx-lg-5 align-items-center">
-                            <div class="col-md-12 col-lg-6">
-                              <img
-                                class="card-img mb-5 mb-md-0"
-                                src="{{ item.product.image }}"
-                              />
+                  <span
+                    class="badge rounded-pill bg-primary-green prod-category"
+                    >{{ product.category }}</span
+                  >
+                </div>
+              </div>
+
+              <div
+                class="modal fade"
+                id="modalfave-{{ product.id }}"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <!--cards-modal-->
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header border-0">
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="container px-lg-5 my-5 mt-3">
+                        <div class="row gx-4 gx-lg-5 align-items-center">
+                          <div class="col-md-12 col-lg-6">
+                            <img
+                              class="card-img mb-5 mb-md-0"
+                              src="{{ product.image }}"
+                            />
+                          </div>
+                          <div class="col-md-12 col-lg-6 mt-4">
+                            <span
+                              class="badge rounded-pill bg-primary-green mb-1"
+                              >{{ product.category }}</span
+                            >
+                            <h1 class="fs-2 fw-bolder">{{ product.name }}</h1>
+                            <div class="fs-4 mb-2">
+                              <span>₱{{product.price}}</span>
                             </div>
-                            <div class="col-md-12 col-lg-6 mt-4">
-                              <span
-                                class="badge rounded-pill bg-primary-green mb-1"
-                                >{{ item.product.category }}</span
+                            <p class="lead fs-5">{{ product.description }}</p>
+                            <div class="d-flex pt-4">
+                              <input
+                                class="form-control text-center me-3"
+                                id="{{product.id}}-inputQuantity"
+                                type="number"
+                                max="9"
+                                min="1"
+                                value="1"
+                                style="max-width: 3.5rem"
+                              />
+                              <button
+                                onclick="unfavorite(event, '{{product.id}}')"
+                                class="btn-favorite flex-shrink-0 me-2"
+                                type="button"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
                               >
-                              <h1 class="fs-2 fw-bolder">
-                                {{ item.product.name }}
-                              </h1>
-                              <div class="fs-4 mb-2">
-                                <span>₱{{item.product.price}}</span>
-                              </div>
-                              <p class="lead fs-5">
-                                {{ item.product.description }}
-                              </p>
-                              <div class="d-flex pt-4">
-                                <input
-                                  class="form-control text-center me-3"
-                                  id="{{item.product.id}}-inputQuantity"
-                                  type="number"
-                                  max="9"
-                                  min="1"
-                                  value="1"
-                                  style="max-width: 3.5rem"
-                                />
-                                <button
-                                  onclick="unfavorite(event, '{{item.product.id}}')"
-                                  class="btn-favorite flex-shrink-0 me-2"
-                                  type="button"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"
-                                >
-                                  <i class="bi bi-heart-fill"></i>
-                                </button>
-                                <button
-                                  onclick="addtoCart('{{id}}', '{{item.product.id}}')"
-                                  class="btn-primary-green flex-shrink-0"
-                                  type="button"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"
-                                >
-                                  <i
-                                    class="bi bi-cart-plus me-1 text-white"
-                                  ></i>
-                                  Add to cart
-                                </button>
-                              </div>
+                                <i class="bi bi-heart-fill"></i>
+                              </button>
+                              <button
+                                onclick="addtoCart('{{id}}', '{{product.id}}')"
+                                class="btn-primary-green flex-shrink-0"
+                                type="button"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              >
+                                <i class="bi bi-cart-plus me-1 text-link"></i>
+                                Add to cart
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -992,27 +973,27 @@
                   </div>
                 </div>
               </div>
-              {% endfor %}
             </div>
-            {% if favorites|length == 0 %}
-            <div class="row">
-              <div
-                id="no-favs"
-                class="d-flex flex-column align-items-center justify-content-center w-100"
-                style="height: 35rem"
-              >
-                <i class="fs-2 bi bi-heart text-muted"></i>
-                <p class="fs-4 mt-2 fw-lighter text-muted">
-                  There seems to be nothing here.
-                </p>
-              </div>
-            </div>
-            {% endif %}
+            {% endfor %}
           </div>
+          <!--no item prompt here-->
+          {% if favorites|length == 0 %}
+          <div class="row">
+            <div
+              id="no-favs"
+              class="d-flex flex-column align-items-center justify-content-center w-100"
+              style="height: 35rem"
+            >
+              <i class="fs-2 bi bi-heart text-muted"></i>
+              <p class="fs-4 mt-2 fw-lighter text-muted">
+                There seems to be nothing here.
+              </p>
+            </div>
+          </div>
+          {% endif %}
         </div>
       </div>
     </main>
-
     <div class="container">
       <footer
         class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"

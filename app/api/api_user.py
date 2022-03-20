@@ -43,16 +43,6 @@ def addto_cart():
     return str(utils.get_cart_total()), 200
 
 
-@app.route('/get_favorites', methods=['GET'])
-@utils.login_required
-def get_favorites():
-    user = utils.get_user()
-    favorites = utils.get_favorites()
-    serialized = [{key: value for key, value in item.product.__dict__.items()
-                   if type(value) in [str, int, float]} for item in favorites]
-    return {"id": user.id, "favorites": serialized}
-
-
 @app.route('/addto_favorites', methods=['POST'])
 @utils.login_required
 def addto_favorites():

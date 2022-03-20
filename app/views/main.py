@@ -27,11 +27,9 @@ def home():
 @utils.is_expired
 def login():
     if request.method == "POST":
-        user = utils.email_exists(request.form.get("email", None))
-        if not user:
-            return 'Account does not exist', 404
+        utils.email_exists(request.form.get("email"))
         msg, code = utils.login_attempts(
-            email=request.form.get("email", None)) or [None, None]
+            email=request.form.get("email")) or [None, None]
         if msg:
             return msg, int(code)
         else:

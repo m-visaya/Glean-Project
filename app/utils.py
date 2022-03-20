@@ -83,6 +83,8 @@ def checkexpired(id):
 
 def email_exists(email):
     user = User.query.filter_by(email=email).first()
+    if not user:
+        abort(404)
     return user
 
 
@@ -94,11 +96,11 @@ def auth_user(**kwargs):
         session['id'] = user.id
         session['firstname'] = user.firstname
         session['lastname'] = user.lastname
-        if user.password_expr <= datetime.now():
+        if user.password_expr <= datetime.utcnow():
             return '', 409
-        if user.password_expr <= datetime.now() + timedelta(days=10):
+        if user.password_expr <= datetime.utcnow() + timedelta(days=10):
             session['pass_expr'] = math.floor(
-                (user.password_expr - datetime.now()).days)
+                (user.password_expr - datetime.utcnow()).days)
         user.rem_attempts = 3
         user.try_again = None
         db.session.commit()
@@ -117,18 +119,17 @@ def login_attempts(email):
     user = get_user(email=email)
     if user.rem_attempts < 1:
         if not user.try_again:
-            if not user.try_again:
-                user.try_again = datetime.utcnow() + timedelta(minutes=5)
-                db.session.commit()
-            if user.try_again < datetime.utcnow():
-                user.rem_attempts = 3
-                user.try_again = None
-                db.session.commit()
-            else:
-                waittime = (user.try_again -
-                            datetime.utcnow()).seconds // 60
-                waittime = "< 1" if waittime == 0 else waittime
-                return str(f"Please try again in {waittime} minute(s)"), 406
+            user.try_again = datetime.utcnow() + timedelta(minutes=5)
+            db.session.commit()
+        if user.try_again < datetime.utcnow():
+            user.rem_attempts = 3
+            user.try_again = None
+            db.session.commit()
+        else:
+            waittime = (user.try_again -
+                        datetime.utcnow()).seconds // 60
+            waittime = "<1" if waittime == 0 else waittime
+            return str(f"Account locked! Try again in {waittime} min(s)"), 406
 
 
 def get_user(**kwargs):

@@ -842,7 +842,7 @@ function disableOTP(e) {
 
 function search(e) {
   if (e.key == "Enter" || e.keyCode == 13 || e.code == "Enter") {
-    let query = $("#search-product").val();
+    let query = $("#search-products").val() || $("#search-product").val();
     if (query != " " && query != "") {
       location.href = `/search/${query}`;
     }

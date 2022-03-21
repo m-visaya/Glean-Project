@@ -1,236 +1,451 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <title>Settings</title>
-  <meta name="viewport" content="width=device=width, initial-scale=1" />
-  <meta charset="utf-8" />
-	<link rel="stylesheet" href="/static/settings.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	 crossorigin="anonymous">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	 crossorigin="anonymous"></script>
-  <script
-    src="https://code.jquery.com/jquery-3.6.0.js"
-    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-    crossorigin="anonymous"
-  ></script>
-</head>
-<body>
-<header>
-  <div class="pt-3 text-center bg-white">
-    <div class="container">
-      <div class="pb-2 row">
-        <div class="col-md-4 d-flex mb-3 mt-1">
-          <a href="/store" class="ms-2">
-            <img src="/static/assets/logo.svg" class="logo-image"/>
-          </a>
-        </div>
-        <div class="col-md-4 my-auto mt-2">
-          <input
-            onkeyup="search(event)"
-            id="search-product"
-            type="text"
-            class="form-control bg-light border-0 rounded-pill search-bar"
-            placeholder="Search"
-          />
-        </div>
-        <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
-          <div class="d-flex">
-            {% if  id %}
-              <!-- <a class="nav-link text-link text-muted" href="/cart"><i class="bi bi-bag"></i> &nbsp;Cart</a> -->
-            <div class="dropdown">
-              <a class="nav-link text-link text-muted dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-person-circle"></i> &nbsp;{{user.firstname}}
+  <head>
+    <title>Settings</title>
+    <meta name="viewport" content="width=device=width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/settings.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <div class="container py-1 py-md-2 text-center px-0">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 col-md-4 d-flex mb-3 mt-3">
+              <a href="/store" class="ms-2">
+                <img src="/static/assets/logo.svg" class="logo-image" />
               </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item text-muted text-link" href="/profile"><i class="bi bi-person-circle"></i> &nbsp;&nbsp;My Account</a></li>
-                <li><a class="dropdown-item text-muted text-link" href="/tracking"><i class="bi bi-box"></i> &nbsp; Order Tracking</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-muted text-link" href="/logout"><i class="bi bi-box-arrow-right"></i> &nbsp; Log out</a></li>
-              </ul>
             </div>
-            {% else %}
-              <a class="nav-link text-link text-muted mx-2" href="/login">Sign in</a>
-            {% endif %}
+
+            <div
+              class="d-none d-md-block col-md-4 my-auto position-relative px-md-0 pt-1"
+            >
+              <input
+                onkeyup="search(event)"
+                id="search-product"
+                type="text"
+                class="form-control bg-light border-0 rounded-pill search-bar px-3"
+                placeholder="Search"
+              />
+              <i
+                class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-3 text-muted fw-bold pt-md-1 pt-xl-1"
+              ></i>
+            </div>
+
+            <div
+              class="pt-1 col-6 col-md-4 d-flex justify-content-end justify-content-md-end align-items-center"
+            >
+              <div class="d-flex">
+                {% if user %}
+                <div class="dropdown">
+                  <a
+                    class="nav-link text-link text-muted dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-person-circle"></i> &nbsp;{{user.firstname}}
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                      <a
+                        class="dropdown-item text-muted text-link"
+                        href="/profile"
+                        ><i class="bi bi-person-circle"></i> &nbsp;&nbsp;My
+                        Account</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-muted text-link"
+                        href="/tracking"
+                        ><i class="bi bi-box"></i> &nbsp; Order Tracking</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-muted text-link"
+                        href="/settings"
+                        ><i class="bi bi-gear"></i> &nbsp; Settings</a
+                      >
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-muted text-link"
+                        href="/logout"
+                        ><i class="bi bi-box-arrow-right"></i> &nbsp; Log out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+                {% else %}
+                <a class="nav-link text-link text-muted mx-2" href="/login"
+                  >Sign in</a
+                >
+                {% endif %}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div> 
-</header>
-  
-<main>
-  <section style="background-color: #f8f9fa;">
-    <div class="container settings" >
-        <div class="row">
-        <div class="col-md-6">
-         <div class="py-2" id="profile">
-            <h5>Profile Settings</h5>
-            <hr>
-            <form onsubmit="updateInfo(event)">
-              <h6 class="py-1">Change Personal Data</h6>
-              <div class="row form-group">
-                <div class="col-md-6">
-                <label for="fullName">First Name</label>
-                <input type="text" class="form-control" id="set-first" placeholder="Enter your given name" value="{{ user.firstname }}" readonly>                
-                </div>
-                <div class="col-md-6">
-                <label for="fullName">Last Name</label>
-                <input type="text" class="form-control" id="set-last" placeholder="Enter your last name" value="{{ user.lastname }}" readonly>                
-                </div>
-                <div class="">
-                <label for="fullName">Email</label>
-                <input type="email" class="form-control" id="set-email" placeholder="sambot@sambotdev.repl.co" value="{{ user.email }}">                   
-                </div>
-                <div class="">
-                <label for="fullName">Phone Number</label>
-                <input type="text" class="form-control" id="set-phone" placeholder="09*********" value="{{ user.phone }}" maxlength="11">                   
-                </div>
-              </div>
-              <div class="pt-4">
-                <button type="button" class="btn-primary-green" data-bs-toggle="modal" data-bs-target="#saveModal">Save Changes</button>
-                <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-password">
-                          <label class="py-2" for="fullName">To save the changes, please enter your password.</label>
-                          <input type="password" class="form-control" id="set-password" value="">
-                          <div class="py-3">
-                            <button type="submit" class="btn-primary-green">Continue</button>
+    </header>
+
+    <main>
+      <section class="pt-2" style="background-color: #f8f9fa">
+        <div class="d-block d-md-none container mt-3 position-relative">
+          <input
+            onkeyup="search(event)"
+            id="search-products"
+            type="text"
+            class="form-control bg-white border-0 rounded search-bar m-0"
+            placeholder="Search"
+          />
+          <i
+            class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-4 text-muted fw-bold"
+          ></i>
+        </div>
+        <div class="container settings py-3 py-md-3 py-lg-4">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="py-2" id="profile">
+                <h5>Profile Settings</h5>
+                <hr />
+                <form onsubmit="updateInfo(event)">
+                  <h6 class="py-1">Change Personal Data</h6>
+                  <div class="row form-group">
+                    <div class="col-md-6">
+                      <label for="fullName">First Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="set-first"
+                        placeholder="Enter your given name"
+                        value="{{ user.firstname }}"
+                        readonly
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label for="fullName">Last Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="set-last"
+                        placeholder="Enter your last name"
+                        value="{{ user.lastname }}"
+                        readonly
+                      />
+                    </div>
+                    <div class="">
+                      <label for="fullName">Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="set-email"
+                        placeholder="sambot@sambotdev.repl.co"
+                        value="{{ user.email }}"
+                      />
+                    </div>
+                    <div class="">
+                      <label for="fullName">Phone Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="set-phone"
+                        placeholder="09*********"
+                        value="{{ user.phone }}"
+                        maxlength="11"
+                      />
+                    </div>
+                  </div>
+                  <div class="pt-4">
+                    <button
+                      type="button"
+                      class="btn-primary-green"
+                      data-bs-toggle="modal"
+                      data-bs-target="#saveModal"
+                    >
+                      Save Changes
+                    </button>
+                    <div
+                      class="modal fade"
+                      id="saveModal"
+                      tabindex="-1"
+                      aria-labelledby="saveModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-password">
+                            <label class="py-2" for="fullName"
+                              >To save the changes, please enter your
+                              password.</label
+                            >
+                            <input
+                              type="password"
+                              class="form-control"
+                              id="set-password"
+                              value=""
+                            />
+                            <div class="py-3">
+                              <button type="submit" class="btn-primary-green">
+                                Continue
+                              </button>
+                            </div>
                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="py-2" id="security">
+                <h5>Security Settings</h5>
+                <hr />
+                <form
+                  onsubmit="newPassword(event)"
+                  class="needs-validation"
+                  novalidate
+                >
+                  <h6 class="py-1">Change Password</h6>
+                  <div class="row form-group">
+                    <div class="">
+                      <label for="settings-pass"
+                        >New Password
+                        <i
+                          class="bi bi-question-circle"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="bottom"
+                          title="Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji."
+                        ></i
+                      ></label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="settings-pass"
+                        placeholder="*********"
+                        value=""
+                      />
+                      <div class="invalid-feedback">
+                        Please provide a valid password
+                      </div>
+                    </div>
+                    <div class="">
+                      <label for="settings-repass">Re-Enter Password</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="settings-repass"
+                        placeholder="*********"
+                        value=""
+                      />
+                      <div class="invalid-feedback">Passwords do not match</div>
+                    </div>
+                  </div>
+                  <div class="pt-4">
+                    <button type="submit" class="btn-primary-green">
+                      Update Password
+                    </button>
+                  </div>
+                </form>
+                <!-- if totp is not active -->
+                {% if not otp %}
+                <div>
+                  <div class="form-group mt-3">
+                    <h6 class="py-2">Two Factor Authentication</h6>
+                    <button
+                      class="btn-primary-green"
+                      type="button"
+                      onclick="getTOTP()"
+                      data-bs-toggle="modal"
+                      data-bs-target="#MFAModal"
+                    >
+                      Enable two-factor authentication
+                    </button>
+                    <p class="small text-muted mt-2">
+                      Two-factor authentication adds an additional layer of
+                      security to your account by requiring more than just a
+                      password to log in.
+                    </p>
+                  </div>
+                  <div
+                    class="modal fade"
+                    id="MFAModal"
+                    tabindex="-1"
+                    aria-labelledby="MFAModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="form-group">
+                          <div class="modal-mfa">
+                            <div class="d-flex justify-content-center">
+                              <div class="qr-code"></div>
+                            </div>
+                            <form onsubmit="verifyTOTP(event)">
+                              <div class="form-group pt-4">
+                                <label for="secret">Secret Token</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="totp-secret"
+                                  value=""
+                                  readonly
+                                />
+                              </div>
+                              <div class="form-group pt-2">
+                                <label for="secret">OTP Code</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="totp-value"
+                                  value=""
+                                />
+                              </div>
+                              <div class="form-group pt-2">
+                                <label for="secret">Password</label>
+                                <input
+                                  type="password"
+                                  class="form-control"
+                                  id="totp-passw"
+                                  value=""
+                                />
+                              </div>
+                              <div class="py-3">
+                                <button type="submit" class="btn-primary-green">
+                                  Enable
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-         <div class="py-2" id="security">
-            <h5>Security Settings</h5>
-            <hr>
-            <form onsubmit="newPassword(event)" class="needs-validation" novalidate>
-              <h6 class="py-1">Change Password</h6>
-              <div class="row form-group">
-                <div class="">
-                <label for="settings-pass">New Password <i class="bi bi-question-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title='Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.'></i></label>
-                <input type="password" class="form-control" id="settings-pass" placeholder="*********" value="">
-                <div class="invalid-feedback">
-                  Please provide a valid password
-                </div>
-                </div>
-                <div class="">
-                <label for="settings-repass">Re-Enter Password</label>
-                <input type="password" class="form-control" id="settings-repass" placeholder="*********" value="">                
-                <div class="invalid-feedback">
-                  Passwords do not match
-                </div>
-                </div>
-              </div>
-              <div class="pt-4">
-                <button type="submit" class="btn-primary-green">Update Password</button>
-              </div>
-            </form>
-           <!-- if totp is not active -->
-            {% if not otp %}
-            <div>
-            <div class="form-group mt-3">
-              <h6 class="py-2">Two Factor Authentication</h6>
-              <button class="btn-primary-green" type="button" onclick="getTOTP()" data-bs-toggle="modal" data-bs-target="#MFAModal">Enable two-factor authentication</button>
-              <p class="small text-muted mt-2">Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to log in.</p>
-            </div>
-            <div class="modal fade" id="MFAModal" tabindex="-1" aria-labelledby="MFAModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                   <div class="form-group">
-                      <div class="modal-mfa">                
-                        <div class="d-flex justify-content-center">
-                          <div class="qr-code">
-                          </div>
+                {% else %}
+                <!-- else if totp active -->
+                <div>
+                  <div class="form-group mt-3">
+                    <h6 class="py-2">Two Factor Authentication</h6>
+                    <button
+                      class="btn-primary-green"
+                      type="button"
+                      onclick=""
+                      data-bs-toggle="modal"
+                      data-bs-target="#disMFAModal"
+                    >
+                      Disable two-factor authentication
+                    </button>
+                    <p class="small text-muted mt-2">
+                      Two-factor authentication adds an additional layer of
+                      security to your account by requiring more than just a
+                      password to log in.
+                    </p>
+                  </div>
+                  <div
+                    class="modal fade"
+                    id="disMFAModal"
+                    tabindex="-1"
+                    aria-labelledby="disableModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-password">
+                          <form onsubmit="disableOTP(event)">
+                            <label class="py-2" for="disable-mfa-password"
+                              >To confirm the changes, please enter your
+                              password.</label
+                            >
+                            <input
+                              type="password"
+                              class="form-control"
+                              id="disable-mfa-password"
+                              value=""
+                            />
+                            <div class="py-3">
+                              <button type="submit" class="btn-primary-green">
+                                Continue
+                              </button>
+                            </div>
+                          </form>
                         </div>
-                        <form onsubmit="verifyTOTP(event)"> 
-                          <div class="form-group pt-4">
-                            <label for="secret">Secret Token</label>
-                            <input type="text" class="form-control" id="totp-secret" value="" readonly>
-                          </div>
-                          <div class="form-group pt-2">
-                            <label for="secret">OTP Code</label>
-                            <input type="text" class="form-control" id="totp-value" value="" >
-                          </div>
-                          <div class="form-group pt-2">
-                            <label for="secret">Password</label>
-                            <input type="password" class="form-control" id="totp-passw" value="" >
-                          </div>
-                          <div class="py-3">
-                            <button type="submit" class="btn-primary-green">Enable</button>
-                          </div>
-                        </form>
                       </div>
-                </div>
-            </div>
-
-              </div>
-            </div>
-          </div>
-            {% else %}
-            <!-- else if totp active -->
-            <div>
-            <div class="form-group mt-3">
-              <h6 class="py-2">Two Factor Authentication</h6>
-              <button class="btn-primary-green" type="button" onclick="" data-bs-toggle="modal" data-bs-target="#disMFAModal">Disable two-factor authentication</button>
-              <p class="small text-muted mt-2">Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to log in.</p>
-            </div>
-            <div class="modal fade" id="disMFAModal" tabindex="-1" aria-labelledby="disableModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-password">
-                    <form onsubmit="disableOTP(event)">
-                      <label class="py-2" for="disable-mfa-password">To confirm the changes, please enter your password.</label>
-                      <input type="password" class="form-control" id="disable-mfa-password" value="">
-                      <div class="py-3">
-                        <button type="submit" class="btn-primary-green">Continue</button>
-                      </div>
-                    </form>
+                    </div>
                   </div>
                 </div>
+                {% endif %}
               </div>
             </div>
-          </div>     
-           {% endif %}
-        </div>
-        </div>
-      
-        <div class="row pb-5">
-        <div class="py-2" id="danger-zone">
-          <h5>Account Settings</h5>
-          <hr>
-            <div class="form-group">
-              <label class="d-block text-danger">Danger Zone</label>
-              <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain.</p>
+
+            <div class="row pb-5">
+              <div class="py-2" id="danger-zone">
+                <h5>Account Settings</h5>
+                <hr />
+                <div class="form-group">
+                  <label class="d-block text-danger">Danger Zone</label>
+                  <p class="text-muted font-size-sm">
+                    Once you delete your account, there is no going back. Please
+                    be certain.
+                  </p>
+                </div>
+                <button
+                  class="btn-secondary-danger"
+                  type="button"
+                  onclick="deleteUser(event)"
+                >
+                  Delete Account
+                </button>
+              </div>
             </div>
-            <button class="btn-secondary-danger" type="button" onclick="deleteUser(event)">Delete Account</button>
-          </form>
+          </div>
         </div>
-        </div>
+      </section>
+    </main>
 
-
+    <div class="container">
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+      >
+        <p class="col-md-4 mb-0 text-muted text-link">
+          &copy; 2022 gleanprojecteam
+        </p>
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item">
+            <a href="/store" class="nav-link px-2 text-muted text-link">Home</a>
+          </li>
+        </ul>
+      </footer>
     </div>
-  </section>
-</main>
-  
-      <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-          <p class="col-md-4 mb-0 text-muted text-link">&copy; 2022 gleanprojecteam</p>
-          <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="/store" class="nav-link px-2 text-muted text-link">Home</a></li>
-          </ul>
-        </footer>
-      </div>
-  
-	<script type="text/javascript" src="/static/script.js"></script>
-  
-    </body>
+
+    <script type="text/javascript" src="/static/script.js"></script>
+  </body>
 </html>

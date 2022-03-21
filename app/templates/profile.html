@@ -29,33 +29,35 @@
   </head>
   <body>
     <header>
-      <div class="pt-3 text-center bg-white">
+      <div class="container py-1 py-md-2 text-center px-0">
         <div class="container">
-          <div class="pb-2 row">
-            <div class="col-md-4 d-flex mb-3 mt-1">
+          <div class="row">
+            <div class="col-6 col-md-4 d-flex mb-3 mt-3">
               <a href="/store" class="ms-2">
                 <img src="/static/assets/logo.svg" class="logo-image" />
               </a>
             </div>
-            <div class="col-md-4">
-              <form class="d-flex input-group w-auto my-auto mt-2">
-                <input
-                  autocomplete="off"
-                  type="search"
-                  class="form-control border-0 rounded-pill search-bar"
-                  placeholder="Search"
-                  style="background-color: #f8f9fa"
-                />
-              </form>
-            </div>
+
             <div
-              class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center"
+              class="d-none d-md-block col-md-4 my-auto position-relative px-md-0 pt-1"
+            >
+              <input
+                onkeyup="search(event)"
+                id="search-product"
+                type="text"
+                class="form-control bg-light border-0 rounded-pill search-bar px-3"
+                placeholder="Search"
+              />
+              <i
+                class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-3 text-muted fw-bold pt-md-1 pt-xl-1"
+              ></i>
+            </div>
+
+            <div
+              class="pt-1 col-6 col-md-4 d-flex justify-content-end justify-content-md-end align-items-center"
             >
               <div class="d-flex">
-                {% if id %}
-                <a class="nav-link text-link text-muted" href="/cart"
-                  ><i class="bi bi-bag"></i> &nbsp;Cart</a
-                >
+                {% if user %}
                 <div class="dropdown">
                   <a
                     class="nav-link text-link text-muted dropdown-toggle"
@@ -68,7 +70,14 @@
                     <i class="bi bi-person-circle"></i> &nbsp;{{user.firstname}}
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <!-- <li><a class="dropdown-item text-muted text-link" href="/profile"><i class="bi bi-person-circle"></i> &nbsp;&nbsp;My Account</a></li> -->
+                    <li>
+                      <a
+                        class="dropdown-item text-muted text-link"
+                        href="/profile"
+                        ><i class="bi bi-person-circle"></i> &nbsp;&nbsp;My
+                        Account</a
+                      >
+                    </li>
                     <li>
                       <a
                         class="dropdown-item text-muted text-link"
@@ -83,7 +92,9 @@
                         ><i class="bi bi-gear"></i> &nbsp; Settings</a
                       >
                     </li>
-                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
                     <li>
                       <a
                         class="dropdown-item text-muted text-link"
@@ -105,8 +116,23 @@
       </div>
     </header>
     <main>
-      <section style="background-color: #f8f9fa">
-        <div class="container profile">
+      <section
+        class="pt-2"
+        style="background-color: #f8f9fa; height: 90vh !important"
+      >
+        <div class="d-block d-md-none container mt-3 position-relative">
+          <input
+            onkeyup="search(event)"
+            id="search-products"
+            type="text"
+            class="form-control bg-white border-0 rounded search-bar m-0"
+            placeholder="Search"
+          />
+          <i
+            class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-4 text-muted fw-bold"
+          ></i>
+        </div>
+        <div class="container profile my-auto">
           <div class="row d-flex justify-content-center align-items-center">
             <h1>Personal details</h1>
             <h2 class="mt-4 mb-4">{{ user.firstname+" "+user.lastname }}</h2>

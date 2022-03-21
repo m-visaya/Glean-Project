@@ -52,32 +52,37 @@
     </div>
 
     <header>
-      <div class="pt-3 text-center">
+      <div class="container py-1 py-md-2 text-center border-bottom px-0">
         <div class="container">
-          <div class="pb-2 row border-bottom">
-            <div class="col-md-4 d-flex mb-3 mt-1">
+          <div class="row">
+            <div class="col-6 col-md-4 d-flex mb-3 mt-3">
               <a href="/store" class="ms-2">
                 <img src="/static/assets/logo.svg" class="logo-image" />
               </a>
             </div>
 
-            <div class="col-md-4 my-auto mt-2">
+            <div
+              class="d-none d-md-block col-md-4 my-auto position-relative px-md-0 pt-1"
+            >
               <input
                 onkeyup="search(event)"
                 id="search-product"
                 type="text"
-                class="form-control bg-light border-0 rounded-pill search-bar"
+                class="form-control bg-light border-0 rounded-pill search-bar px-3"
                 placeholder="Search"
               />
+              <i
+                class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-3 text-muted fw-bold pt-md-1 pt-xl-1"
+              ></i>
             </div>
 
             <div
-              class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center"
+              class="pt-1 col-6 col-md-4 d-flex justify-content-end justify-content-md-end align-items-center"
             >
               <div class="d-flex">
                 {% if user %}
                 <a
-                  class="nav-link text-link text-muted position-relative"
+                  class="nav-link text-link text-muted position-relative d-flex"
                   href="/cart"
                   ><i class="bi bi-bag"></i>
                   <span
@@ -147,8 +152,21 @@
       </div>
     </header>
 
+    <div class="d-block d-md-none container mt-3 position-relative">
+      <input
+        onkeyup="search(event)"
+        id="search-products"
+        type="text"
+        class="form-control bg-light border-0 rounded search-bar m-0"
+        placeholder="Search"
+      />
+      <i
+        class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-4 text-muted fw-bold"
+      ></i>
+    </div>
+
     <main>
-      <div class="container pt-4">
+      <div class="container pt-3 pb-2 pb-md-0 pt-md-4">
         <h4>
           Search results for:
           <span class="text-primary-green"
@@ -159,14 +177,15 @@
 
       {% if products|length < 1 %}
       <div
-        class="contaier p-5 m-5 justify-content-center align-items-center d-flex flex-column"
+        class="container py-5 my-5 justify-content-center align-items-center d-flex flex-column"
       >
-        <i class="bi bi-inbox display-1 text-primary-green mt-4 pt-4"></i>
-        <h1 class="text-muted pb-4 mb-4">No results found.</h1>
+        <i class="bi bi-inbox display-1 text-primary-green mt-5 pt-5"></i>
+        <h1 class="text-muted pb-5 mb-5">No results found.</h1>
+        <div class="container d-block d-md-none py-4 my-5"></div>
       </div>
       {% endif %}
 
-      <div class="album pt-4 pb-5">
+      <div class="album pt-md-4 pb-5">
         <div
           class="container elementToFadeInAndOut"
           id="individualcards"

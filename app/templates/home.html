@@ -52,32 +52,37 @@
     </div>
 
     <header>
-      <div class="pt-3 text-center">
+      <div class="container py-1 py-md-2 text-center border-bottom px-0">
         <div class="container">
-          <div class="pb-2 row border-bottom">
-            <div class="col-md-4 d-flex mb-3 mt-1">
+          <div class="row">
+            <div class="col-6 col-md-4 d-flex mb-3 mt-3">
               <a href="/store" class="ms-2">
                 <img src="/static/assets/logo.svg" class="logo-image" />
               </a>
             </div>
 
-            <div class="col-md-4 my-auto mt-2">
+            <div
+              class="d-none d-md-block col-md-4 my-auto position-relative px-md-0 pt-1"
+            >
               <input
                 onkeyup="search(event)"
                 id="search-product"
                 type="text"
-                class="form-control bg-light border-0 rounded-pill search-bar"
+                class="form-control bg-light border-0 rounded-pill search-bar px-3"
                 placeholder="Search"
               />
+              <i
+                class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-3 text-muted fw-bold pt-md-1 pt-xl-1"
+              ></i>
             </div>
 
             <div
-              class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center"
+              class="pt-1 col-6 col-md-4 d-flex justify-content-end justify-content-md-end align-items-center"
             >
               <div class="d-flex">
                 {% if user %}
                 <a
-                  class="nav-link text-link text-muted position-relative"
+                  class="nav-link text-link text-muted position-relative d-flex"
                   href="/cart"
                   ><i class="bi bi-bag"></i>
                   <span
@@ -146,6 +151,19 @@
         </div>
       </div>
     </header>
+
+    <div class="d-block d-md-none container mt-3 position-relative">
+      <input
+        onkeyup="search(event)"
+        id="search-products"
+        type="text"
+        class="form-control bg-light border-0 rounded search-bar m-0"
+        placeholder="Search"
+      />
+      <i
+        class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-4 text-muted fw-bold"
+      ></i>
+    </div>
 
     <nav class="container my-3">
       {% if user %}
@@ -281,7 +299,7 @@
               <!--Individuals Section-->
               <div
                 id="cards-container"
-                class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 g-sm-2 g-xxl-4 g-md-3"
+                class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-2 g-sm-2 g-xxl-4 g-md-3"
               >
                 {% for product in products %} {% if product.stock > 0 %}
                 <div class="col">
@@ -877,11 +895,11 @@
           </div>
         </div>
 
-        <div class="album pt-4 pb-5 tab-pane fade" id="favorites-tab">
+        <div class="album pb-5 tab-pane fade" id="favorites-tab">
           <div class="container elementToFadeInAndOut" id="favoritescards">
             <!--Favorites Section-->
             <div
-              class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+              class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 px-5 px-sm-0"
               id="container-favorites"
             >
               {% for item in favorites %}
@@ -994,7 +1012,8 @@
               </div>
               {% endfor %}
             </div>
-            <div class="row" id="no-favs">
+            {% if favorites_id|length > 0 %}
+            <div class="container d-none" id="no-favs">
               <div
                 class="d-flex flex-column align-items-center justify-content-center w-100"
                 style="height: 35rem"
@@ -1005,6 +1024,19 @@
                 </p>
               </div>
             </div>
+            {% else %}
+            <div class="container" id="no-favs">
+              <div
+                class="d-flex flex-column align-items-center justify-content-center w-100"
+                style="height: 35rem"
+              >
+                <i class="fs-2 bi bi-heart text-muted"></i>
+                <p class="fs-4 mt-2 fw-lighter text-muted">
+                  There seems to be nothing here.
+                </p>
+              </div>
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>

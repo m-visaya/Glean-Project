@@ -22,6 +22,19 @@ def home():
                            total=utils.get_cart_total(), favorites=utils.get_favorites(), favorites_id=favorites_id)
 
 
+@app.route('/search/<query>')
+def search(query):
+    products = utils.get_products(query=query)
+
+    if 'id' not in session:
+        return render_template("search.html", user=None, id=None, products=products, expires=None, query=query)
+
+    favorites_id = [favorite.product_id for favorite in utils.get_favorites()]
+
+    return render_template("search.html", user=utils.get_user(), id=utils.get_user().id, products=products, expires=session['pass_expr'],
+                           total=utils.get_cart_total(), favorites=utils.get_favorites(), favorites_id=favorites_id, query=query)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 @utils.logged_in
 @utils.is_expired

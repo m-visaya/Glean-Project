@@ -26,10 +26,14 @@
             <img src="/static/assets/logo.svg" class="logo-image"/>
           </a>
         </div>
-        <div class="col-md-4">
-          <form class="d-flex input-group w-auto my-auto mt-2">
-            <input autocomplete="off" type="search" class="form-control border-0 rounded-pill search-bar" placeholder="Search" style="background-color:#f8f9fa"/>
-          </form>
+        <div class="col-md-4 my-auto mt-2">
+          <input
+            onkeyup="search(event)"
+            id="search-product"
+            type="text"
+            class="form-control bg-light border-0 rounded-pill search-bar"
+            placeholder="Search"
+          />
         </div>
         <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
           <div class="d-flex">

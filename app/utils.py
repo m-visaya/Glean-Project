@@ -150,9 +150,12 @@ def register_user(data):
         return f"Registration failed: {e}", 404
 
 
-def get_products():
-    products = db.session.query(Product).all()
-    return products
+def get_products(query=None):
+    if query is not None:
+        return db.session.query(Product).filter(
+            Product.name.contains(query)).all()
+
+    return db.session.query(Product).all()
 
 
 def get_cart():

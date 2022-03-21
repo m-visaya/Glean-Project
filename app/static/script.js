@@ -841,122 +841,13 @@ function disableOTP(e) {
 }
 
 function search(e) {
-  e.preventDefault();
-  $.ajax({
-    type: "POST",
-    url: "/search_products",
-    data: {
-      name: document.getElementById("search-product").value,
-    },
-    success: function (data) {
-      products = data["products"];
-      id = data["id"];
-      cards = ``;
-      for (let i = 0; i < products.length; i++) {
-        if (products[i]["stock"] > 0) {
-          cards +=
-            `
-            <div class="col">
-              <div class="card shadow-sm" data-bs-toggle="modal" data-bs-target="#modal-` +
-            products[i]["id"] +
-            `">  <!-- cards -->
-                <img src=` +
-            products[i]["image"] +
-            ` alt=` +
-            products[i]["name"] +
-            ` class="card-img-top card-ggc">
-                <div class="card-body card-body-height">
-                  <h5 class="overflow-ellipsis"> ` +
-            products[i]["name"] +
-            ` </h5>
-<!--                   <h6 class="card-text-price">₱` +
-            products[i]["price"] +
-            `</h6> -->
-                  <p class="card-text prod-desc overflow-auto" style="height: 5rem"> ` +
-            products[i]["description"] +
-            `</p>
-                </div>
-                  <div class="d-flex justify-content-between align-items-center ms-3 mt-1 mb-3">
-                      <span class="badge rounded-pill bg-primary-green prod-category">` +
-            products[i]["category"] +
-            `</span>
-                  </div>
-              </div>
-              
-              <div class="modal fade" id="modal-` +
-            products[i]["id"] +
-            `" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!--cards-modal-->
-              <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header border-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="container px-lg-5 my-5 mt-3">
-                      <div class="row gx-4 gx-lg-5 align-items-center">
-                          <div class="col-md-12 col-lg-6"><img class="card-img mb-5 mb-md-0" src="` +
-            products[i]["image"] +
-            `"/></div>
-                          <div class="col-md-12 col-lg-6 mt-4">
-                              <span class="badge rounded-pill bg-primary-green mb-1">` +
-            products[i]["category"] +
-            `</span>
-                              <p class="fs-2 fw-bolder" id="` +
-            products[i]["id"] +
-            `-product-name">` +
-            products[i]["name"] +
-            `</p>
-                              <div class="fs-5 mb-2">
-                                  <span id="` +
-            products[i]["id"] +
-            `-product-price">₱` +
-            products[i]["price"] +
-            `</span>
-                              </div>
-                              <p class="lead fs-6">` +
-            products[i]["description"] +
-            `</p>
-                              <p class="lead fs-5 fw-bold">What's in the box</p>
-                              <p class="lead fs-6 mt-1">` +
-            products[i]["ingredients"] +
-            `</p>
-                              <div class="d-flex pt-4">
-                                <input class="form-control text-center me-3" id="` +
-            products[i]["id"] +
-            `-inputQuantity" type="number" max="9" min="1" value="1" style="max-width: 3.5rem">
-                                
-                                <button onclick="favorite(event, '` +
-            products[i]["id"] +
-            `')" class="btn-favorite flex-shrink-0 me-2" type="button"  data-bs-dismiss="modal" aria-label="Close">
-                                    <i class="bi bi-heart"></i>
-                                </button>
-                                
-                                <button onclick="addtoCart('` +
-            id +
-            `', '` +
-            products[i]["id"] +
-            `')" class="btn-primary-green flex-shrink-0" type="button"  data-bs-dismiss="modal" aria-label="Close">
-                                    <i class="bi bi-cart-plus me-1 text-link"></i>
-                                    Add to cart
-                                </button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
-            </div>
-`;
-        }
-      }
-      document.getElementById("cards-container").innerHTML = cards;
-    },
-    error: function (jqXHR) {
-      console.log(jqXHR.status);
-    },
-  });
+  if (e.key == "Enter" || e.keyCode == 13 || e.code == "Enter") {
+    let query = $("#search-product").val();
+    if (query != " " && query != "") {
+      location.href = `/search/${query}`;
+    }
+  }
+  return;
 }
 
 function favorite(e, id) {

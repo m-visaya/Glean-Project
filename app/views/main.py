@@ -8,6 +8,11 @@ def index():
     return render_template("index.html")
 
 
+@app.route('/subscription')
+def subscription():
+    return render_template("subscription.html")
+
+
 @app.route('/store')
 @utils.is_expired
 def home():

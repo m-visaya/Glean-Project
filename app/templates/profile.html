@@ -29,7 +29,7 @@
   </head>
   <body>
     <header>
-      <div class="container py-1 py-md-2 text-center px-0">
+      <div class="container py-1 py-md-2 text-center px-0 border-bottom">
         <div class="container">
           <div class="row">
             <div class="col-6 col-md-4 d-flex mb-3 mt-3">
@@ -116,42 +116,163 @@
       </div>
     </header>
     <main>
-      <section
-        class="pt-2"
-        style="background-color: #f8f9fa; height: 90vh !important"
-      >
-        <div class="d-block d-md-none container mt-3 position-relative">
+      <section class="pt-2">
+        <div class="d-block d-md-none container mt-1 position-relative">
           <input
             onkeyup="search(event)"
             id="search-products"
             type="text"
-            class="form-control bg-white border-0 rounded search-bar m-0"
+            class="form-control bg-light border-0 rounded search-bar m-0"
             placeholder="Search"
           />
           <i
             class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-4 text-muted fw-bold"
           ></i>
         </div>
-        <div class="container profile my-auto">
-          <div class="row d-flex justify-content-center align-items-center">
-            <h1>Personal details</h1>
-            <h2 class="mt-4 mb-4">{{ user.firstname+" "+user.lastname }}</h2>
-            <div class="col-md-4">
-              <p class="res-text">Email</p>
-              <p class="res-text">{{ user.email }}</p>
+
+        <div class="container px-0 mt-3 mt-md-0">
+          <img
+            id="hero-img"
+            src="/static/assets/2.jpg"
+            alt="..."
+            class="w-100 rounded"
+            style="
+              height: 15rem;
+              object-fit: cover !important;
+              filter: saturate(95%);
+            "
+          />
+        </div>
+        <div class="mt-3 container d-flex flex-column justify-content-center">
+          <div
+            class="row d-flex justify-content-center align-items-center my-3"
+          >
+            <div class="text-center">
+              <h1 class="text-secondary-gray display-1 fw-bold lh-1 mb-0">
+                {{ user.firstname|upper + " " + user.lastname|upper }}
+              </h1>
+              <p class="mt-1 text-muted fs-5" id="member-since">
+                Glean Project member since:
+                <span class="text-glean fw-bold"
+                  >{{ user.created_on.strftime("%B %d, %Y") }}</span
+                >
+              </p>
             </div>
-            <div class="col-md-4">
-              <p class="res-text">Phone</p>
-              <p class="res-text">{{ user.phone }}</p>
+          </div>
+          <div class="row justify-content-center mt-md-1 g-4">
+            <div class="col-md-6 col-lg-5 col-xl-4">
+              <div
+                class="shadow-sm border rounded d-flex px-4 py-4 flex-column position-relative"
+                style="border-radius: 1rem !important"
+              >
+                <i
+                  class="ms-auto bi bi-telephone text-glean fs-1 position-absolute top-0 end-0 pe-3 opacity-75"
+                ></i>
+                <div
+                  class="d-flex border-start border-5 p-0 ps-3 flex-column justify-content-center my-1 py-2"
+                  style="border-color: #95c22b !important"
+                >
+                  <h3 class="text-secondary-gray mb-0 fw-bolder mt-1">
+                    Contact Number
+                  </h3>
+                  <p class="text-secondary-gray fs-5 mt-1 mb-2">
+                    {{user.phone}}
+                  </p>
+                </div>
+                <button
+                  class="btn btn-sm bg-glean text-white rounded-pill position-absolute bottom-0 end-0 me-3 mb-3 px-3"
+                  onclick="location.href='/settings'"
+                >
+                  Change
+                </button>
+              </div>
             </div>
-            <div class="col-md-4">
-              <p class="res-text">Password</p>
-              <p class="res-text">**********</p>
+            <div class="col-md-6 col-lg-5 col-xl-4">
+              <div
+                class="shadow-sm border rounded d-flex px-4 py-4 flex-column position-relative"
+                style="border-radius: 1rem !important"
+              >
+                <i
+                  class="ms-auto bi bi-envelope text-glean display-5 position-absolute top-0 end-0 pe-3 opacity-75"
+                ></i>
+                <div
+                  class="d-flex border-start border-5 p-0 ps-3 flex-column justify-content-center my-1 py-2"
+                  style="border-color: #95c22b !important"
+                >
+                  <h3 class="text-secondary-gray mb-0 fw-bolder mt-1">Email</h3>
+                  <p class="text-secondary-gray fs-5 mt-1 mb-2">
+                    {{user.email}}
+                  </p>
+                </div>
+                <button
+                  class="btn btn-sm bg-glean text-white rounded-pill position-absolute bottom-0 end-0 me-3 mb-3 px-3"
+                  onclick="location.href='/settings'"
+                >
+                  Change
+                </button>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-10 col-xl-8">
+              <div
+                class="shadow-sm border rounded d-flex px-4 py-5 flex-column position-relative"
+                style="border-radius: 1rem !important"
+              >
+                <i
+                  class="ms-auto bi bi-truck text-glean display-1 position-absolute top-0 end-0 pe-3 opacity-75"
+                ></i>
+                <div
+                  class="d-flex border-start border-5 p-0 ps-3 flex-column justify-content-center my-1 py-2"
+                  style="border-color: #95c22b !important"
+                >
+                  <h2 class="text-secondary-gray mb-0 fw-bolder mt-1">
+                    Shipping Address
+                  </h2>
+                  <div class="row mt-4 mb-3 row-cols-sm-3 row-cols-auto">
+                    <div class="col d-flex flex-column">
+                      <h4 class="text-secondary-gray mb-0 fw-normal mt-1">
+                        Province
+                      </h4>
+                      <p class="text-secondary-gray fs-5 mt-1 mb-2 fw-lighter">
+                        {{ user.location.province or "Not Provided" }}
+                      </p>
+                    </div>
+                    <div class="col d-flex flex-column">
+                      <h4 class="text-secondary-gray mb-0 fw-normal mt-1">
+                        City
+                      </h4>
+                      <p class="text-secondary-gray fs-5 mt-1 mb-2 fw-lighter">
+                        {{ user.location.city or "Not Provided" }}
+                      </p>
+                    </div>
+                    <div class="col d-flex flex-column">
+                      <h4 class="text-secondary-gray mb-0 fw-normal mt-1">
+                        Zip
+                      </h4>
+                      <p class="text-secondary-gray fs-5 mt-1 mb-2 fw-lighter">
+                        {{ user.location.zip or "Not Provided" }}
+                      </p>
+                    </div>
+                  </div>
+                  <h4 class="text-secondary-gray mb-0 fw-normal mt-1">
+                    Address
+                  </h4>
+                  <p class="text-secondary-gray fs-5 mt-1 mb-2 fw-light">
+                    {{ user.location.address or "Not Provided" }}
+                  </p>
+                </div>
+                <button
+                  class="btn bg-glean text-white rounded-pill position-absolute bottom-0 end-0 me-4 mb-3 px-3"
+                  onclick="location.href='/settings'"
+                >
+                  Change
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
     </main>
+
     <div class="container">
       <footer
         class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"

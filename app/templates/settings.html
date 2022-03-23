@@ -137,9 +137,11 @@
                 <hr />
                 <form onsubmit="updateInfo(event)">
                   <h6 class="py-1">Change Personal Data</h6>
-                  <div class="row form-group">
+                  <div class="row form-group g-2">
                     <div class="col-md-6">
-                      <label for="fullName">First Name</label>
+                      <label for="fullName" class="form-label"
+                        >First Name</label
+                      >
                       <input
                         type="text"
                         class="form-control"
@@ -150,7 +152,7 @@
                       />
                     </div>
                     <div class="col-md-6">
-                      <label for="fullName">Last Name</label>
+                      <label for="fullName" class="form-label">Last Name</label>
                       <input
                         type="text"
                         class="form-control"
@@ -160,8 +162,8 @@
                         readonly
                       />
                     </div>
-                    <div class="">
-                      <label for="fullName">Email</label>
+                    <div class="col-12">
+                      <label for="fullName" class="form-label">Email</label>
                       <input
                         type="email"
                         class="form-control"
@@ -170,8 +172,10 @@
                         value="{{ user.email }}"
                       />
                     </div>
-                    <div class="">
-                      <label for="fullName">Phone Number</label>
+                    <div class="col-12">
+                      <label class="form-label" for="fullName"
+                        >Phone Number</label
+                      >
                       <input
                         type="text"
                         class="form-control"
@@ -181,7 +185,96 @@
                         maxlength="11"
                       />
                     </div>
+
+                    <div class="col">
+                      <label for="country" class="form-label">Province</label>
+                      <select
+                        class="form-select"
+                        id="countrySelect"
+                        onchange="makeSubmenu(this.value)"
+                      >
+                        {% if user.location %}
+                        <option
+                          value="{{ user.location.province }}"
+                          disabled
+                          selected
+                        >
+                          {{ user.location.province or "Choose..." }}
+                        </option>
+                        <option value="NCR">NCR</option>
+                        <option value="Bulacan">Bulacan</option>
+                        <option value="Rizal">Rizal</option>
+                        {% else %}
+                        <option value="" selected>Choose...</option>
+                        <option value="NCR">NCR</option>
+                        <option value="Bulacan">Bulacan</option>
+                        <option value="Rizal">Rizal</option>
+                        {% endif %}
+                      </select>
+                      <div class="invalid-feedback">
+                        Please select a valid province.
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <label for="state" class="form-label">City</label>
+                      <select
+                        class="form-select"
+                        id="citySelect"
+                        onchange="setZip(this.value)"
+                      >
+                        {% if user.location %}
+                        <option
+                          value="{{ user.location.city }}"
+                          disabled
+                          selected
+                        >
+                          {{ user.location.city or "Choose..." }}
+                        </option>
+                        {% else %}
+                        <option value="" disabled selected>Choose...</option>
+                        {% endif %}
+                      </select>
+                      <div class="invalid-feedback">
+                        Please provide a valid state.
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <label for="zip" class="form-label">Zip</label>
+                      {% if user.location %}
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="zip"
+                        placeholder=""
+                        readonly
+                        value="{{ user.location.zip or '' }}"
+                      />
+                      {% else %}
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="zip"
+                        placeholder=""
+                        readonly
+                        value=""
+                      />
+                      {% endif %}
+                      <div class="invalid-feedback">Zip code required.</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="address" class="form-label">Address </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="address"
+                        placeholder="Apartment or suite"
+                      />
+                    </div>
                   </div>
+
                   <div class="pt-4">
                     <button
                       type="button"
@@ -235,9 +328,9 @@
                   novalidate
                 >
                   <h6 class="py-1">Change Password</h6>
-                  <div class="row form-group">
+                  <div class="row form-group g-2">
                     <div class="">
-                      <label for="settings-pass"
+                      <label for="settings-pass" class="form-label"
                         >New Password
                         <i
                           class="bi bi-question-circle"
@@ -258,7 +351,9 @@
                       </div>
                     </div>
                     <div class="">
-                      <label for="settings-repass">Re-Enter Password</label>
+                      <label for="settings-repass" class="form-label"
+                        >Re-Enter Password</label
+                      >
                       <input
                         type="password"
                         class="form-control"
@@ -447,5 +542,6 @@
     </div>
 
     <script type="text/javascript" src="/static/script.js"></script>
+    <script type="text/javascript" src="/static/address.js"></script>
   </body>
 </html>

@@ -5,7 +5,7 @@ from flask import session, request
 
 from app import app, db
 from .. import utils
-from ..database.tables import CartItem, FavoriteItem, User, Order, OrderItem
+from ..database.tables import CartItem, FavoriteItem, Location, User, Order, OrderItem
 
 
 @app.route('/change_password/', methods=['POST'])
@@ -13,13 +13,13 @@ from ..database.tables import CartItem, FavoriteItem, User, Order, OrderItem
 def change_password():
     user = utils.get_user()
     password_history = json.loads(user.password_history)
-    if hash(request.form['password']) in password_history or hash(request.form['password']) == user.password:
+    if utils.hash_data(request.form['password']) in password_history or utils.hash_data(request.form['password']) == user.password:
         return 'Invalid Password', 401
     password_history.append(user.password)
     if len(password_history) == 6:
         password_history.pop(0)
     user.password_history = json.dumps(password_history)
-    user.password = hash(request.form['password'])
+    user.password = utils.hash_data(request.form['password'])
     user.password_expr = datetime.utcnow() + timedelta(days=30)
     session['pass_expr'] = None
     db.session.commit()
@@ -99,15 +99,24 @@ def rem_item():
 @utils.login_required
 def update_info():
     user = utils.get_user()
-
-    user = User.query.filter_by(
-        id=session['id'], password=hash(request.form['password'])).first()
-
-    if not user:
-        return 'Invalid Credentials', 404
+    user = User.query.filter_by(id=session['id'], password=utils.hash_data(
+        request.form['password'])).first_or_404()
 
     user.email = request.form['email']
     user.phone = request.form['phone']
+
+    if user.location:
+        Location.query.filter_by(user_id=user.id).delete()
+
+    location = Location(
+        province=request.form.get("province", ""),
+        city=request.form.get("city", ""),
+        zip=int(request.form.get("zip", "") or 0),
+        address=request.form.get("address", ""),
+        user_id=user.id
+    )
+
+    db.session.add(location)
     db.session.commit()
     return 'Changes Saved', 200
 
@@ -142,7 +151,7 @@ def get_totp():
 def activate_totp():
     utils.get_user()
     user = User.query.filter_by(
-        id=session['id'], password=hash(request.form['password'])).first()
+        id=session['id'], password=utils.hash_data(request.form['password'])).first()
     if not user:
         return 'Invalid Credentials', 404
     if not utils.check_otp(request.form['otpCode']):
@@ -160,7 +169,7 @@ def activate_totp():
 def disable_totp():
     utils.get_user()
     user = User.query.filter_by(
-        id=session['id'], password=hash(request.form['password'])).first()
+        id=session['id'], password=utils.hash_data(request.form['password'])).first()
     if not user:
         return 'Invalid Credentials', 401
 

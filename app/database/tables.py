@@ -29,7 +29,8 @@ class User(db.Model):
     rem_attempts = db.Column(db.Integer, default=3)
     try_again = db.Column(db.DateTime, nullable=True)
     totp_key = db.Column(db.String(100), nullable=True)
-    location = db.relationship('Location', backref='user', uselist=False)
+    location = db.relationship(
+        'Location', backref='user', uselist=False)
     subscription = db.relationship(
         'Subscription', backref='user', uselist=False)
 

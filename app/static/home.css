@@ -202,7 +202,7 @@ input[type="number"] {
   background-color: #f7fceb !important;
   /* color: #f1f1f1 !important; */
   color: #95c22b !important;
-  animation: category-select 200ms ease-in-out;
+  animation: category-select 300ms ease-in-out;
 }
 
 @keyframes category-select {

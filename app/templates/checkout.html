@@ -26,7 +26,7 @@
     ></script>
   </head>
 
-  <body onload="resetSelection()">
+  <body>
     <header>
       <div class="pt-3 text-center bg-white">
         <div class="container">
@@ -160,6 +160,16 @@
 
                   <div class="col-12">
                     <label for="address" class="form-label">Address</label>
+                    {% if user.location %}
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="address"
+                      placeholder="1234 Main St"
+                      required
+                      value="{{ user.location.address or '' }}"
+                    />
+                    {% else %}
                     <input
                       type="text"
                       class="form-control"
@@ -167,6 +177,7 @@
                       placeholder="1234 Main St"
                       required
                     />
+                    {% endif %}
                     <div class="invalid-feedback">
                       Please enter your shipping address.
                     </div>
@@ -193,10 +204,23 @@
                       onchange="makeSubmenu(this.value)"
                       required
                     >
-                      <option value="" disabled selected>Choose...</option>
+                      {% if user.location %}
+                      <option
+                        value="{{ user.location.province }}"
+                        disabled
+                        selected
+                      >
+                        {{ user.location.province or "Choose..." }}
+                      </option>
                       <option value="NCR">NCR</option>
                       <option value="Bulacan">Bulacan</option>
                       <option value="Rizal">Rizal</option>
+                      {% else %}
+                      <option value="" selected>Choose...</option>
+                      <option value="NCR">NCR</option>
+                      <option value="Bulacan">Bulacan</option>
+                      <option value="Rizal">Rizal</option>
+                      {% endif %}
                     </select>
                     <div class="invalid-feedback">
                       Please select a valid province.
@@ -205,9 +229,23 @@
 
                   <div class="col-md-4">
                     <label for="state" class="form-label">City</label>
-                    <select class="form-select" id="citySelect" required>
+                    <select
+                      class="form-select"
+                      id="citySelect"
+                      required
+                      onchange="setZip(this.value)"
+                    >
+                      {% if user.location %}
+                      <option
+                        value="{{ user.location.city }}"
+                        disabled
+                        selected
+                      >
+                        {{ user.location.city or "Choose..." }}
+                      </option>
+                      {% else %}
                       <option value="" disabled selected>Choose...</option>
-                      <option></option>
+                      {% endif %}
                     </select>
                     <div class="invalid-feedback">
                       Please provide a valid state.
@@ -216,26 +254,27 @@
 
                   <div class="col-md-3">
                     <label for="zip" class="form-label">Zip</label>
+                    {% if user.location %}
                     <input
                       type="text"
                       class="form-control"
                       id="zip"
                       placeholder=""
-                      required
+                      readonly
+                      value="{{ user.location.zip or '' }}"
                     />
+                    {% else %}
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="zip"
+                      placeholder=""
+                      readonly
+                      value=""
+                    />
+                    {% endif %}
                     <div class="invalid-feedback">Zip code required.</div>
                   </div>
-                </div>
-
-                <div class="form-check mt-4">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="save-info"
-                  />
-                  <label class="form-check-label" for="save-info"
-                    >Same as my account address</label
-                  >
                 </div>
 
                 <hr class="my-4" />
@@ -381,5 +420,6 @@
       });
     </script>
     <script type="text/javascript" src="/static/script.js"></script>
+    <script type="text/javascript" src="/static/address.js"></script>
   </body>
 </html>

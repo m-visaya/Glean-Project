@@ -576,7 +576,7 @@
                     </p>
                   </div>
                   <button
-                    class="btn btn-sm color-glean text-white rounded-pill ms-auto mb-3"
+                    class="btn btn-sm color-glean text-white rounded-pill ms-auto mb-3 opacity-0"
                     style="width: fit-content"
                   >
                     Settings
@@ -637,7 +637,7 @@
         </div>
         {% else %}
         <div class="album pb-5 tab-pane fade" id="subscription-tab">
-          <div class="container pb-0 pb-md-4 px-0 px-md-2">
+          <div class="container pb-0 pb-md-4 px-0 px-md-2 mb-sm-3">
             <img
               src="/static/assets/subsheader.png"
               class="store-carousel-bg w-100"
@@ -653,8 +653,8 @@
             />
           </div>
           <div class="container elementToFadeInAndOut" id="subscriptioncards">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <div class="col">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-sm-3">
+              <div class="col position-relative">
                 <div class="card card-subscription mb-3 shadow-sm">
                   <div class="card-body text-center">
                     <h3 class="card-title">Single</h3>
@@ -680,9 +680,12 @@
                     </button>
                   </div>
                 </div>
+                <i
+                  class="bi bi-person position-absolute top-0 end-0 display-1 text-glean opacity-75 pe-4"
+                ></i>
               </div>
 
-              <div class="col">
+              <div class="col position-relative">
                 <div class="card card-subscription mb-4 shadow-sm">
                   <div class="card-body text-center">
                     <h3 class="card-title">Couple</h3>
@@ -708,9 +711,12 @@
                     </button>
                   </div>
                 </div>
+                <i
+                  class="bi bi-people position-absolute top-0 end-0 display-1 text-glean opacity-75 pe-4"
+                ></i>
               </div>
 
-              <div class="col">
+              <div class="col position-relative">
                 <div class="card card-subscription mb-4 shadow-sm">
                   <div class="card-body text-center">
                     <h3 class="card-title">Family</h3>
@@ -736,6 +742,9 @@
                     </button>
                   </div>
                 </div>
+                <i
+                  class="bi bi-house position-absolute top-0 end-0 display-1 text-glean opacity-75 pe-4"
+                ></i>
               </div>
 
               <div
@@ -1243,7 +1252,7 @@
               {% endfor %}
             </div>
             {% if favorites_id|length > 0 %}
-            <div class="container d-none" id="no-favs">
+            <div class="container" id="no-favs" style="display: none">
               <div
                 class="d-flex flex-column align-items-center justify-content-center w-100"
                 style="height: 35rem"

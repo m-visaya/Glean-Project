@@ -572,110 +572,6 @@ function addSubscription(e) {
   });
 }
 
-// Checkout Select Municipality Based on Region/City
-var citiesByState = {
-  NCR: [
-    "Caloocan",
-    "Las Piñas",
-    "Makati",
-    "Malabon",
-    "Mandaluyong",
-    "Manila",
-    "Marikina",
-    "Muntinlupa",
-    "Navotas",
-    "Parañaque",
-    "Pasay",
-    "Pasig",
-    "Quezon City",
-    "San Juan",
-    "Taguig",
-    "Valenzuela",
-  ],
-  Bulacan: [
-    "Angat",
-    "Balagtas",
-    "Baliuag",
-    "Bocaue",
-    "Bulakan",
-    "Bustos",
-    "Calumpit",
-    "Doña Remedios Trinidad",
-    "Guiguinto",
-    "Hagonoy",
-    "Marilao",
-    "Norzagaray",
-    "Obando",
-    "Pandi",
-    "Paombong",
-    "Plaridel",
-    "Pulilan",
-    "San Ildefonso",
-    "San Miguel",
-    "San Rafael",
-    "Santa Maria",
-  ],
-  Rizal: [
-    "Antipolo",
-    "Angono",
-    "Baras",
-    "Binangonan",
-    "Cainta",
-    "Cardona",
-    "Jalajala",
-    "Morong",
-    "Pililia",
-    "Rodriguez",
-    "San Mateo",
-    "Tanay",
-    "Taytay",
-    "Teresa",
-  ],
-};
-
-function resetSelection() {
-  document.getElementById("countrySelect").selectedIndex = 0;
-  document.getElementById("citySelect").selectedIndex = 0;
-  document.getElementById("countrySelect-bill").selectedIndex = 0;
-  document.getElementById("citySelect-bill").selectedIndex = 0;
-}
-
-function makeSubmenu(value) {
-  if (value.length == 0)
-    document.getElementById("citySelect").innerHTML = "<option></option>";
-  else {
-    var citiesOptions = "";
-    for (cityId in citiesByState[value]) {
-      citiesOptions +=
-        "<option " +
-        "value=" +
-        citiesByState[value][cityId] +
-        " >" +
-        citiesByState[value][cityId] +
-        "</option>";
-    }
-    document.getElementById("citySelect").innerHTML = citiesOptions;
-  }
-}
-
-function makeSubmenuforbill(value) {
-  if (value.length == 0)
-    document.getElementById("citySelect-bill").innerHTML = "<option></option>";
-  else {
-    var citiesOptions = "";
-    for (cityId in citiesByState[value]) {
-      citiesOptions +=
-        "<option " +
-        "value=" +
-        citiesByState[value][cityId] +
-        ">" +
-        citiesByState[value][cityId] +
-        "</option>";
-    }
-    document.getElementById("citySelect-bill").innerHTML = citiesOptions;
-  }
-}
-
 async function passwordExpired(e) {
   e.preventDefault();
   document.getElementById("pwexpPassword").setCustomValidity("");
@@ -721,6 +617,10 @@ function updateInfo(e) {
       phone: document.getElementById("set-phone").value,
       email: document.getElementById("set-email").value,
       password: document.getElementById("set-password").value,
+      province: $("#countrySelect").val(),
+      city: $("#citySelect").val(),
+      zip: $("#zip").val(),
+      address: $("#address").val(),
     },
     success: function (data) {
       alert("user info updated");
@@ -730,7 +630,6 @@ function updateInfo(e) {
       if (jqXHR.status == 0) {
         alert("Not connect.\n Verify Network.");
       } else if (jqXHR.status == 404) {
-        console.log("wrong");
         alert("wrong password");
       } else {
         alert(jqXHR.status);

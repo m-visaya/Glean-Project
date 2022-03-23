@@ -13,7 +13,7 @@ from .database.tables import Order, Product, User, CartItem
 from .database.tables import Admin as AdminModel, Courier as CourierModel
 
 
-def hash(data):
+def hash_data(data):
     return hashlib.sha224(str.encode(data)).hexdigest()
 
 
@@ -90,7 +90,7 @@ def email_exists(email):
 
 def auth_user(**kwargs):
     user = User.query.filter_by(
-        email=kwargs.get("email"), password=hash(kwargs.get("password"))).first()
+        email=kwargs.get("email"), password=hash_data(kwargs.get("password"))).first()
     if user:
         session['pass_expr'] = None
         session['id'] = user.id
@@ -140,7 +140,7 @@ def get_user(**kwargs):
 
 def register_user(data):
     try:
-        data['password'] = hash(data['password'])
+        data['password'] = hash_data(data['password'])
         user = User(**data)
         db.session.add(user)
         db.session.commit()

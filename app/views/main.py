@@ -8,11 +8,6 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/subscription')
-def subscription():
-    return render_template("subscription.html")
-
-
 @app.route('/store')
 @utils.is_expired
 def home():
@@ -21,10 +16,10 @@ def home():
         return "No Products"
 
     if 'id' not in session:
-        return render_template("home.html", user=None, id=None, products=products, expires=None)
+        return render_template("home.html", user=None, id=None, products=products, expires=None, subscription=None)
     favorites_id = [favorite.product_id for favorite in utils.get_favorites()]
     return render_template("home.html", user=utils.get_user(), id=utils.get_user().id, products=products, expires=session['pass_expr'],
-                           total=utils.get_cart_total(), favorites=utils.get_favorites(), favorites_id=favorites_id)
+                           total=utils.get_cart_total(), favorites=utils.get_favorites(), favorites_id=favorites_id, subscription=utils.get_subscription(), preferences=utils.get_preferences())
 
 
 @app.route('/search/<query>')
@@ -107,15 +102,20 @@ def tracking():
     return render_template("tracking.html", orders=utils.get_pending_orders(), user=utils.get_user())
 
 
-@app.route('/checkout')
+@app.route('/checkout', methods=['GET', 'POST'])
 @utils.login_required
 @utils.is_expired
 def checkout():
-    if utils.get_cart_total() < 1:
-        return redirect(url_for('cart'))
+    if request.method == "GET":
+        if utils.get_cart_total() < 1:
+            return redirect(url_for('cart'))
 
-    return render_template("checkout.html", user=utils.get_user(),
-                           cart=utils.get_cart(), total=utils.get_cart_total())
+        return render_template("checkout.html", user=utils.get_user(),
+                               cart=utils.get_cart(), total=utils.get_cart_total())
+    elif request.method == "POST":
+        preferences = [key.removeprefix("categ:") for key in request.form.keys()
+                       if key.startswith("categ:")]
+        return render_template("checkout_subscription.html", user=utils.get_user(), total=utils.get_cart_total(), form_data=request.form.to_dict(), preferences=preferences)
 
 
 @app.route('/profile')

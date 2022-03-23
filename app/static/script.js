@@ -539,6 +539,39 @@ function addOrder(e) {
   });
 }
 
+function addSubscription(e) {
+  e.preventDefault();
+  let form = document.getElementById("formCheckout");
+  if (!form.checkValidity()) {
+    return;
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/add_subscription",
+    data: {
+      delivery_day: $("#delivery-day").text(),
+      subscription_type: $("#subscription-type").text(),
+      preferences: $("#preferences").text(),
+      total: $("#total-price").text(),
+      province: document.getElementById("countrySelect").value,
+      city: document.getElementById("citySelect").value,
+      zip: document.getElementById("zip").value,
+      address: document.getElementById("address").value,
+    },
+    success: function () {
+      window.location.href = "/store";
+    },
+    error: async function (jqXHR, exception) {
+      if (jqXHR.status == 0) {
+        alert("Not connect.\n Verify Network.");
+      } else {
+        alert(jqXHR.status);
+      }
+    },
+  });
+}
+
 // Checkout Select Municipality Based on Region/City
 var citiesByState = {
   NCR: [
@@ -839,7 +872,6 @@ function disableOTP(e) {
     },
   });
 }
-
 function search(e) {
   if (e.key == "Enter" || e.keyCode == 13 || e.code == "Enter") {
     let query = $("#search-products").val() || $("#search-product").val();

@@ -30,6 +30,8 @@ class User(db.Model):
     try_again = db.Column(db.DateTime, nullable=True)
     totp_key = db.Column(db.String(100), nullable=True)
     location = db.relationship('Location', backref='user', uselist=False)
+    subscription = db.relationship(
+        'Subscription', backref='user', uselist=False)
 
     def __repr__(self) -> str:
         return repr(self)
@@ -58,6 +60,23 @@ class Order(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     courier_id = db.Column(db.Integer, db.ForeignKey('courier.id'))
     location = db.relationship('Location', backref='order', uselist=False)
+
+    def __repr__(self) -> str:
+        return repr(self)
+
+
+class Subscription(db.Model):
+    """ Represents the database model for Subscription """
+    type = db.Column(db.String(50), nullable=False)
+    delivery_day = db.Column(db.String(10), nullable=False)
+    next_payment = db.Column(
+        db.DateTime(), default=lambda: datetime.utcnow() + timedelta(days=7))
+    price = db.Column(db.Integer, nullable=False)
+    created_on = db.Column(db.DateTime(), default=datetime.utcnow)
+    preferences = db.Column(db.String(200), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    location = db.relationship(
+        'Location', backref='subscription', uselist=False)
 
     def __repr__(self) -> str:
         return repr(self)
@@ -142,6 +161,8 @@ class Location(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     order_id = db.Column(db.Integer, db.ForeignKey(
         'order.id'))
+    subscription_id = db.Column(db.Integer, db.ForeignKey(
+        'subscription.user_id'))
     courier_id = db.Column(db.Integer, db.ForeignKey(
         'courier.id'))
 

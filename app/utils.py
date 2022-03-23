@@ -170,6 +170,19 @@ def get_cart_total():
     return total
 
 
+def get_subscription():
+    return get_user().subscription
+
+
+def get_preferences():
+    try:
+        preferences = get_user().subscription.preferences
+        preferences = preferences.split(",")
+        return preferences
+    except:
+        return None
+
+
 def get_pending_orders():
     orders = db.session.query(Order).filter(
         Order.user_id == session.get("id", "") and Order.status != "Delivered").all()

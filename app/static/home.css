@@ -51,6 +51,26 @@ html {
   color: #95c22b !important;
 }
 
+.text-glean {
+  color: #95c22b;
+}
+
+.text-glean2 {
+  color: #b0f026da;
+}
+
+.text-glean3 {
+  color: #cbe790d3;
+}
+
+.text-glean4 {
+  color: #e6f3c9cc;
+}
+
+.text-secondary-gray {
+  color: #5c5e5c !important;
+}
+
 .text-link {
   color: #7c7676 !important;
 }
@@ -179,6 +199,29 @@ input[type="number"] {
 
 #checkboxes input[type="checkbox"]:checked + .cat-box {
   border-color: #95c22b;
+  background-color: #f7fceb !important;
+  /* color: #f1f1f1 !important; */
+  color: #95c22b !important;
+  animation: category-select 200ms ease-in-out;
+}
+
+@keyframes category-select {
+  25% {
+    transform: scale(1.025);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  75% {
+    transform: scale(1.025);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#checkboxes input[type="checkbox"] + .cat-box {
+  transition: ease-in-out 200ms;
 }
 
 .card-description {

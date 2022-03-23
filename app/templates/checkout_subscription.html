@@ -49,39 +49,44 @@
               <h4
                 class="d-flex justify-content-between align-items-center mb-3"
               >
-                <span class="text-primary-green">Your cart</span>
+                <span class="text-primary-green">Your Order</span>
                 <span class="badge bg-primary-green rounded-pill"
                   >{{ total }}</span
                 >
               </h4>
               <ul class="list-group mb-3">
                 <!-- drawing para sa cart items -->
-                {% set total_price = namespace(value = 0) %} {% for item in cart
-                %}
                 <li
                   class="list-group-item d-flex justify-content-between lh-sm"
                 >
                   <div>
                     <h6 class="my-0">
-                      {{item.product.name}} x{{item.quantity}}
+                      {{form_data['subscription-type']}} - Glean Store
+                      Subscription
                     </h6>
-                    <small class="text-muted">{{item.product.category}}</small>
+                    <small class="text-muted"
+                      >{{form_data['radio-meals']}} meals per day</small
+                    >
                   </div>
-                  <span class="text-muted"
-                    >{{item.product.price * item.quantity}}</span
-                  >
-                  {% set total_price.value = total_price.value +
-                  (item.product.price * item.quantity) %}
+                  <span class="text-muted">{{form_data['total-price']}}</span>
                 </li>
-                {% endfor %}
 
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Total (PHP)</span>
-                  <strong value="{{total_price.value}}" id="total-price"
-                    >{{ total_price.value }}</strong
+                  <strong id="total-price"
+                    >{{ form_data['total-price'] }}</strong
                   >
                 </li>
               </ul>
+              <div id="preferences" class="visually-hidden">
+                {% for category in preferences %}{{category}},{% endfor %}
+              </div>
+              <div id="delivery-day" class="visually-hidden">
+                {{form_data['radio-day']}}
+              </div>
+              <div id="subscription-type" class="visually-hidden">
+                {{form_data['subscription-type']}}
+              </div>
             </div>
 
             <div class="col-md-7 col-lg-8">
@@ -89,7 +94,7 @@
 
               <form
                 id="formCheckout"
-                onsubmit="addOrder(event)"
+                onsubmit="addSubscription(event)"
                 class="needs-validation"
                 novalidate
               >
@@ -336,9 +341,9 @@
                 <div class="col-md-6 mt-3">
                   <button
                     class="w-100 btn-secondary-white"
-                    onclick="location.href='/cart'"
+                    onclick="location.href='/store'"
                   >
-                    Return to Cart
+                    Cancel
                   </button>
                 </div>
                 <div class="col-md-6 mt-3">
@@ -347,7 +352,7 @@
                     class="w-100 btn-primary-green"
                     form="formCheckout"
                   >
-                    Place Order
+                    Confirm Subscription
                   </button>
                 </div>
               </div>

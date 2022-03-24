@@ -194,11 +194,7 @@
                         onchange="makeSubmenu(this.value)"
                       >
                         {% if user.location %}
-                        <option
-                          value="{{ user.location.province }}"
-                          disabled
-                          selected
-                        >
+                        <option value="{{ user.location.province }}" selected>
                           {{ user.location.province or "Choose..." }}
                         </option>
                         <option value="NCR">NCR</option>
@@ -224,11 +220,7 @@
                         onchange="setZip(this.value)"
                       >
                         {% if user.location %}
-                        <option
-                          value="{{ user.location.city }}"
-                          disabled
-                          selected
-                        >
+                        <option value="{{ user.location.city }}" selected>
                           {{ user.location.city or "Choose..." }}
                         </option>
                         {% else %}
@@ -266,12 +258,22 @@
 
                     <div class="col-12">
                       <label for="address" class="form-label">Address </label>
+                      {% if user.location %}
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="address"
+                        placeholder="Apartment or suite"
+                        value="{{ user.location.address or '' }}"
+                      />
+                      {% else %}
                       <input
                         type="text"
                         class="form-control"
                         id="address"
                         placeholder="Apartment or suite"
                       />
+                      {% endif %}
                     </div>
                   </div>
 

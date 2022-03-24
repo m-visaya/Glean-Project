@@ -210,11 +210,7 @@
                       required
                     >
                       {% if user.location %}
-                      <option
-                        value="{{ user.location.province }}"
-                        disabled
-                        selected
-                      >
+                      <option value="{{ user.location.province }}" selected>
                         {{ user.location.province or "Choose..." }}
                       </option>
                       <option value="NCR">NCR</option>
@@ -241,15 +237,11 @@
                       onchange="setZip(this.value)"
                     >
                       {% if user.location %}
-                      <option
-                        value="{{ user.location.city }}"
-                        disabled
-                        selected
-                      >
+                      <option value="{{ user.location.city }}" selected>
                         {{ user.location.city or "Choose..." }}
                       </option>
                       {% else %}
-                      <option value="" disabled selected>Choose...</option>
+                      <option value="" selected>Choose...</option>
                       {% endif %}
                     </select>
                     <div class="invalid-feedback">

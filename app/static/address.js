@@ -69,9 +69,9 @@ function resetSelection() {
 function makeSubmenu(value) {
   document.getElementById("citySelect").selectedIndex = 0;
   document.getElementById("zip").value = "";
-  if (value.length == 0)
+  if (value.length == 0) {
     document.getElementById("citySelect").innerHTML = "<option></option>";
-  else {
+  } else {
     var citiesOptions = "<option value='' disabled selected>Choose...</option>";
 
     for (cityId in citiesByState[value]) {
@@ -84,3 +84,18 @@ function makeSubmenu(value) {
 function setZip(city) {
   $("#zip").val(citiesByState[$("#countrySelect").val()][city]);
 }
+
+$(document).ready(function () {
+  province = $("#countrySelect").val();
+  city = $("#citySelect").val();
+  zip = $("#zip").val();
+  if (province != "") {
+    makeSubmenu(province);
+  }
+  if (city != "") {
+    $("#citySelect").val(city);
+  }
+  if (zip != "") {
+    $("#zip").val(zip);
+  }
+});

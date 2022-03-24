@@ -22,10 +22,10 @@ function loginValidated() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       $("#loginBtn2").toggle();
       $("#loginBtn").toggle();
-      if (data.totp) {
-        window.location.href = "/user-totp";
+      if (data == "TOTP") {
+        location.href = "/user-totp";
       } else {
-        window.location.href = "/store";
+        location.href = "/store";
       }
     },
     error: async function (jqXHR, exception) {
@@ -374,15 +374,13 @@ async function hasWord(word) {
   });
 })();
 
-async function newPassword(e) {
+async function newPassword(e, fname, lname) {
   e.preventDefault();
   document.getElementById("settings-repass").setCustomValidity("");
   document.getElementById("settings-pass").setCustomValidity("");
 
   password = document.getElementById("settings-pass").value;
   confirm = document.getElementById("settings-repass").value;
-  fname = user["firstname"];
-  lname = user["lastname"];
 
   let pass = true;
 
@@ -405,11 +403,14 @@ async function newPassword(e) {
       password: password,
     },
     success: function (data) {
-      alert("password changed");
-      window.location.href = "/profile";
+      let modal = new bootstrap.Modal(
+        document.getElementById("modal-feedback")
+      );
+      $("#modal-feedback p").text("Password Changed");
+      $("#modal-feedback button").attr("onclick", "location.reload()");
+      modal.toggle();
     },
     error: function () {
-      document.getElementById("settings-repass").setCustomValidity("error");
       document.getElementById("settings-pass").setCustomValidity("error");
     },
   });
@@ -623,14 +624,24 @@ function updateInfo(e) {
       address: $("#address").val(),
     },
     success: function (data) {
-      alert("user info updated");
-      location.reload();
+      let modal = new bootstrap.Modal(
+        document.getElementById("modal-feedback")
+      );
+      $("#modal-feedback p").text("User Info Updated");
+      $("#modal-feedback button").attr("onclick", "location.reload()");
+      modal.toggle();
     },
     error: function (jqXHR) {
       if (jqXHR.status == 0) {
         alert("Not connect.\n Verify Network.");
       } else if (jqXHR.status == 404) {
-        alert("wrong password");
+        let modal = new bootstrap.Modal(
+          document.getElementById("modal-feedback")
+        );
+        $("#modal-feedback p").text("Wrong Password, Changes not Saved");
+        $("#modal-feedback button").removeAttr("onclick");
+        $("#set-password").val("");
+        modal.toggle();
       } else {
         alert(jqXHR.status);
       }
@@ -643,15 +654,28 @@ function deleteUser(e) {
   $.ajax({
     type: "DELETE",
     url: "/delete_user",
-    data: {},
+    data: {
+      password: $("#input-confirm-password").val(),
+    },
     success: function () {
-      window.location.href = "/logout";
+      let modal = new bootstrap.Modal(
+        document.getElementById("modal-feedback")
+      );
+      $("#modal-feedback p").text("Account Deleted");
+      $("#modal-feedback button").attr("onclick", "location.href='/signup'");
+      modal.toggle();
     },
     error: function (jqXHR) {
       if (jqXHR.status == 0) {
         alert("Not connect.\n Verify Network.");
       } else {
-        alert(jqXHR.status);
+        let modal = new bootstrap.Modal(
+          document.getElementById("modal-feedback")
+        );
+        $("#modal-feedback p").text("Invalid Credential");
+        $("#modal-feedback button").removeAttr("onclick");
+        $("#input-confirm-password").val("");
+        modal.toggle();
       }
     },
   });
@@ -708,7 +732,7 @@ function verifyOTP(e, user) {
       if (jqXHR.status == 0) {
         alert("Not connect.\n Verify Network.");
       } else if (jqXHR.status == 401) {
-        alert(jqXHR.responseText);
+        $("#totp-login").get(0).setCustomValidity("error");
       } else {
         alert(jqXHR.status);
       }
@@ -731,16 +755,25 @@ function verifyTOTP(e) {
       otpKey: otpKey,
     },
     success: function (data) {
-      alert("success");
-      location.reload();
+      let modal = new bootstrap.Modal(
+        document.getElementById("modal-feedback")
+      );
+      $("#modal-feedback p").text("2FA Activated");
+      $("#modal-feedback button").attr("onclick", "location.reload()");
+      modal.toggle();
     },
     error: function (jqXHR) {
       if (jqXHR.status == 0) {
         alert("Not connect.\n Verify Network.");
-      } else if (jqXHR.status == 401) {
-        alert(jqXHR.responseText);
-      } else {
-        alert(jqXHR.status);
+      } else if (jqXHR.status == 401 || jqXHR.status == 404) {
+        let modal = new bootstrap.Modal(
+          document.getElementById("modal-feedback")
+        );
+        $("#modal-feedback p").text(jqXHR.responseText);
+        $("#modal-feedback button").removeAttr("onclick");
+        $("#totp-passw").val("");
+        $("#totp-value").val("");
+        modal.toggle();
       }
     },
   });
@@ -757,14 +790,24 @@ function disableOTP(e) {
       password: password,
     },
     success: function (data) {
-      alert("success");
-      location.reload();
+      let modal = new bootstrap.Modal(
+        document.getElementById("modal-feedback")
+      );
+      $("#modal-feedback p").text("2FA Deactivated");
+      $("#modal-feedback button").attr("onclick", "location.reload()");
+      modal.toggle();
     },
     error: function (jqXHR) {
       if (jqXHR.status == 0) {
         alert("Not connect.\n Verify Network.");
       } else if (jqXHR.status == 401) {
-        alert("Invalid Password");
+        let modal = new bootstrap.Modal(
+          document.getElementById("modal-feedback")
+        );
+        $("#modal-feedback p").text("Invalid Credential");
+        $("#modal-feedback button").removeAttr("onclick");
+        $("#disable-mfa-password").val("");
+        modal.toggle();
       } else {
         alert(jqXHR.status);
       }

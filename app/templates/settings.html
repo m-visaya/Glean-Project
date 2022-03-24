@@ -307,7 +307,12 @@
                               value=""
                             />
                             <div class="py-3">
-                              <button type="submit" class="btn-primary-green">
+                              <button
+                                type="submit"
+                                class="btn-primary-green"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              >
                                 Continue
                               </button>
                             </div>
@@ -325,7 +330,7 @@
                 <h5>Security Settings</h5>
                 <hr />
                 <form
-                  onsubmit="newPassword(event)"
+                  onsubmit="newPassword(event, '{{user.firstname}}', '{{user.lastname}}')"
                   class="needs-validation"
                   novalidate
                 >
@@ -373,7 +378,7 @@
                   </div>
                 </form>
                 <!-- if totp is not active -->
-                {% if not otp %}
+                {% if not user.totp_key %}
                 <div>
                   <div class="form-group mt-3">
                     <h6 class="py-2">Two Factor Authentication</h6>
@@ -436,7 +441,12 @@
                                 />
                               </div>
                               <div class="py-3">
-                                <button type="submit" class="btn-primary-green">
+                                <button
+                                  type="submit"
+                                  class="btn-primary-green"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                >
                                   Enable
                                 </button>
                               </div>
@@ -489,7 +499,11 @@
                               value=""
                             />
                             <div class="py-3">
-                              <button type="submit" class="btn-primary-green">
+                              <button
+                                type="submit"
+                                class="btn-primary-green"
+                                data-bs-dismiss="modal"
+                              >
                                 Continue
                               </button>
                             </div>
@@ -517,10 +531,45 @@
                 <button
                   class="btn-secondary-danger"
                   type="button"
-                  onclick="deleteUser(event)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal-delete-account"
                 >
                   Delete Account
                 </button>
+              </div>
+              <div
+                class="modal fade"
+                id="modal-delete-account"
+                tabindex="-1"
+                aria-labelledby="saveModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-password">
+                      <label class="py-2" for="input-confirm-password"
+                        >To delete your account, please enter your
+                        password.</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="input-confirm-password"
+                        value=""
+                      />
+                      <div class="py-3">
+                        <button
+                          class="btn-primary-green"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                          onclick="deleteUser(event)"
+                        >
+                          Continue
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -541,6 +590,33 @@
           </li>
         </ul>
       </footer>
+    </div>
+
+    <div
+      class="modal fade"
+      id="modal-feedback"
+      tabindex="-1"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body p-4 text-center">
+            <p class="fs-5">Password Changed</p>
+            <div class="d-flex gap-2 justify-content-center mt-4">
+              <button
+                onclick="location.href='/store'"
+                class="btn bg-glean text-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script type="text/javascript" src="/static/script.js"></script>

@@ -21,16 +21,14 @@ def get_secret_key():
     return pyotp.random_base32()
 
 
-def check_otp(otp):
-    id = session.get("temp_id", "")
-    user_key = db.session.query(User).filter_by(
-        id=id).first().totp_key
+def check_otp(otp, key=None):
+    id = session.get("temp_id") or get_user().id
+    user_key = key or db.session.query(User).get(int(id)).totp_key
     if pyotp.TOTP(user_key).now() == otp:
-        session.clear()
+        session.pop("temp_id", None)
         session['id'] = id
-        session['otp'] = True
-        return "OTP verified", 200
-    return "Invalid OTP", 401
+        return True
+    return False
 
 
 def login_required(func):
@@ -106,8 +104,9 @@ def auth_user(**kwargs):
         db.session.commit()
         session.permanent = True
         if user.totp_key:
-            return {"totp": True}
-        return {"totp": False}
+            session['temp_id'] = session.pop("id")
+            return "TOTP"
+        return "Login Validated"
     else:
         user = User.query.filter_by(email=kwargs.get("email")).first()
         user.rem_attempts = user.rem_attempts - 1

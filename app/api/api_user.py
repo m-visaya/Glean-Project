@@ -8,13 +8,17 @@ from .. import utils
 from ..database.tables import CartItem, FavoriteItem, Location, User, Order, OrderItem
 
 
-@app.route('/change_password/', methods=['POST'])
+@app.route('/change_password', methods=['POST'])
 @utils.login_required
 def change_password():
     user = utils.get_user()
+    if not user.password_history:
+        user.password_history = "[]"
+        db.session.commit()
     password_history = json.loads(user.password_history)
     if utils.hash_data(request.form['password']) in password_history or utils.hash_data(request.form['password']) == user.password:
         return 'Invalid Password', 401
+
     password_history.append(user.password)
     if len(password_history) == 6:
         password_history.pop(0)
@@ -124,7 +128,8 @@ def update_info():
 @app.route('/delete_user', methods=['DELETE'])
 @utils.login_required
 def delete_me():
-    user = utils.get_user()
+    user = utils.get_user(password=utils.hash_data(
+        request.form.get("password", "")))
 
     CartItem.query.filter_by(user_id=user.id).delete()
     orders = Order.query.all()
@@ -136,6 +141,7 @@ def delete_me():
 
     db.session.delete(user)
     db.session.commit()
+    session.clear()
     return 'User Account Deleted', 200
 
 
@@ -151,10 +157,12 @@ def get_totp():
 def activate_totp():
     utils.get_user()
     user = User.query.filter_by(
-        id=session['id'], password=utils.hash_data(request.form['password'])).first()
+        id=session['id'], password=utils.hash_data(request.form.get('password', ""))).first()
     if not user:
         return 'Invalid Credentials', 404
-    if not utils.check_otp(request.form['otpCode']):
+
+    if not utils.check_otp(request.form.get('otpCode', " "),
+                           request.form.get('otpKey')):
         return 'Invalid OTP Code', 401
 
     user.totp_key = request.form['otpKey']
@@ -175,6 +183,5 @@ def disable_totp():
 
     user.totp_key = None
     db.session.commit()
-    session.pop("otp")
 
     return 'TOTP Disabled', 200

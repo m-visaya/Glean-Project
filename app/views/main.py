@@ -1,4 +1,4 @@
-from app import app
+from app import app, db
 from flask import render_template, redirect, request, session, url_for
 from .. import utils
 
@@ -39,6 +39,7 @@ def search(query):
 @utils.logged_in
 @utils.is_expired
 def login():
+    session.clear()
     if request.method == "POST":
         utils.email_exists(request.form.get("email"))
         msg, code = utils.login_attempts(
@@ -76,16 +77,16 @@ def pwexpired():
 
 
 @app.route('/user-totp', methods=['GET', 'POST'])
-@utils.login_required
-@utils.is_expired
 def totp():
+    if not session.get("temp_id"):
+        return redirect(url_for('.login'))
     if request.method == "GET":
-        user, fname, lname = session['id'], session['fname'], session['lastname']
-        session.clear()
-        session['temp_id'] = user
-        return render_template("mfaprompt.html", fname=fname, lname=lname)
+        return render_template("mfaprompt.html", fname=session.get("firstname"), lname=session.get(
+            "lastname"), user=session.get("temp_id"))
     else:
-        return utils.check_otp(request.form['otpCode'])
+        if not utils.check_otp(request.form['otpCode']):
+            return "Invalid OTP Code", 401
+        return "OTP Code Validated", 200
 
 
 @app.route('/cart')
@@ -129,7 +130,13 @@ def profile():
 @utils.login_required
 @utils.is_expired
 def settings():
-    return render_template("settings.html", user=utils.get_user(), otp=session.get("otp", None))
+    return render_template("settings.html", user=utils.get_user())
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template('error_500.html'), 500
 
 
 @app.route('/clear')

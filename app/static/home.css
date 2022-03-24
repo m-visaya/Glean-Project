@@ -197,6 +197,25 @@ input[type="number"] {
   display: none;
 }
 
+.btn-check:active + .btn-outline-glean,
+.btn-check:checked + .btn-outline-glean,
+.btn-outline-glean.active,
+.btn-outline-glean.dropdown-toggle.show,
+.btn-outline-glean:active .btn-outline-glean {
+  background-color: #95c22b !important;
+  color: #f1f1f1 !important;
+}
+
+.btn-outline-glean {
+  border: #95c22b solid 1px !important;
+  color: #5c5e5c !important;
+}
+
+.btn-outline-glean:hover {
+  background-color: #95c22b !important;
+  color: #f1f1f1 !important;
+}
+
 #checkboxes input[type="checkbox"]:checked + .cat-box {
   border-color: #95c22b;
   background-color: #f7fceb !important;

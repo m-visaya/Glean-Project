@@ -204,12 +204,14 @@
 
     <main>
       {% if expires %}
-      <div
-        class="alert alert-warning d-flex align-items-center mb-0 justify-content-center"
-        role="alert"
-      >
-        <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
-        <div>Your password will expire in {{expires}} day(s)</div>
+      <div class="container px-0 mb-sm-3 px-sm-2">
+        <div
+          class="alert alert-warning d-flex align-items-center mb-0 justify-content-center"
+          role="alert"
+        >
+          <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+          <div>Your password will expire in {{expires}} day(s)</div>
+        </div>
       </div>
       {% endif %}
       <div class="tab-content">

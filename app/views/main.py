@@ -100,7 +100,7 @@ def cart():
 @utils.login_required
 @utils.is_expired
 def tracking():
-    return render_template("tracking.html", orders=utils.get_pending_orders(), user=utils.get_user())
+    return render_template("tracking.html", orders=utils.get_pending_orders(), user=utils.get_user(), total=utils.get_cart_total())
 
 
 @app.route('/checkout', methods=['GET', 'POST'])
@@ -123,14 +123,14 @@ def checkout():
 @utils.login_required
 @utils.is_expired
 def profile():
-    return render_template("profile.html", user=utils.get_user())
+    return render_template("profile.html", user=utils.get_user(), total=utils.get_cart_total())
 
 
 @app.route('/settings')
 @utils.login_required
 @utils.is_expired
 def settings():
-    return render_template("settings.html", user=utils.get_user())
+    return render_template("settings.html", user=utils.get_user(), total=utils.get_cart_total())
 
 
 @app.errorhandler(500)

@@ -57,6 +57,19 @@
             >
               <div class="d-flex">
                 {% if user %}
+                <a
+                  class="nav-link text-link text-muted position-relative d-flex"
+                  href="/cart"
+                  ><i class="bi bi-bag"></i>
+                  <span
+                    id="badge_cartQty"
+                    class="position-absolute translate-middle badge rounded-pill bg-danger"
+                    style="top: 10%; left: 90%"
+                  >
+                    {{ total }}
+                  </span>
+                  &nbsp;Cart
+                </a>
                 <div class="dropdown">
                   <a
                     class="nav-link text-link text-muted dropdown-toggle"

@@ -34,132 +34,139 @@
     </style>
   </head>
   <body class="bg-light">
-    <main class="container-fluid-login" style="overflow: hidden">
-      <div
-        class="wrapper-card-login bg-white elementToFadeInAndOut"
-        id="signup-screen"
-      >
-        <img
-          src="/static/assets/logo.svg"
-          width="40%"
-          alt="gleanproject"
-          class="mb-4"
-          onclick="location.href='/store'"
-          style="cursor: pointer"
-        />
-        <form
-          id="formSignup"
-          onsubmit="signup(event);"
-          class="row g-3 needs-validation"
-          novalidate
+    <main
+      class="d-flex justify-content-center align-items-center align-content-center"
+      style="overflow: hidden"
+    >
+      <div class="row py-5 px-sm-0 px-4 justify-content-center">
+        <div
+          class="col-12 col-sm-8 col-lg-5 col-xl-4 d-flex flex-column p-4 p-sm-5 bg-white elementToFadeInAndOut rounded"
+          id="signup-screen"
         >
-          <div class="col-sm-6">
-            <label for="signupFirstname" class="form-label">Firstname</label>
-            <input
-              type="text"
-              class="form-control"
-              id="signupFirstname"
-              required
-            />
-            <div class="invalid-feedback">Please provide a firstname</div>
-          </div>
-          <div class="col-sm-6">
-            <label for="signupLastname" class="form-label">Lastname</label>
-            <input
-              type="text"
-              class="form-control"
-              id="signupLastname"
-              required
-            />
-            <div class="invalid-feedback">Please provide a lastname</div>
-          </div>
-          <div class="col-12">
-            <label class="form-label">Email address</label>
-            <input
-              type="email"
-              class="form-control"
-              id="signupEmail"
-              required
-            />
-            <div class="invalid-feedback">
-              Please provide a valid email address
+          <img
+            src="/static/assets/logo.svg"
+            width="40%"
+            alt="gleanproject"
+            class="mb-4"
+            onclick="location.href='/store'"
+            style="cursor: pointer"
+          />
+          <form
+            id="formSignup"
+            onsubmit="signup(event);"
+            class="row g-3 needs-validation"
+            novalidate
+          >
+            <div class="col-sm-6">
+              <label for="signupFirstname" class="form-label">Firstname</label>
+              <input
+                type="text"
+                class="form-control"
+                id="signupFirstname"
+                required
+              />
+              <div class="invalid-feedback">Please provide a firstname</div>
             </div>
-          </div>
-          <div class="col-md-8">
-            <label class="form-label">Phone number</label>
-            <input
-              type="tel"
-              class="form-control"
-              id="signupPhone"
-              pattern="[0-9]{11}"
-              maxlength="11"
-              required
-            />
-            <div class="invalid-feedback">
-              Please provide a valid phone number
+            <div class="col-sm-6">
+              <label for="signupLastname" class="form-label">Lastname</label>
+              <input
+                type="text"
+                class="form-control"
+                id="signupLastname"
+                required
+              />
+              <div class="invalid-feedback">Please provide a lastname</div>
             </div>
-          </div>
-          <div class="col-sm-6">
-            <label class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="signupPassword"
-              required
-            />
-            <div class="invalid-feedback">Please provide a valid password</div>
-          </div>
-          <div class="col-sm-6">
-            <label class="form-label">Confirm Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="signupRePassword"
-              required
-            />
-            <div class="invalid-feedback">Passwords don't match</div>
-          </div>
-          <div id="passwordHelpBlock" class="form-text">
-            Your password must be atleast 10 characters, contain uppercase
-            letter, number and symbols, must not contain dictionary words of
-            more than 3 letters as well as your first and last name.
-          </div>
-          <div class="d-flex">
-            <button type="submit" class="btn-primary-green" id="signupBtn">
-              Create Account
-            </button>
-            <button
-              id="signupBtn2"
-              class="btn-dark-green"
-              type="button"
-              disabled
-            >
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-              Loading...
-            </button>
-          </div>
-          <div class="form-text mt-4 d-flex" onclick="swlogin()">
-            Already have an account ?
-            <p id="button-login">&nbsp Log In</p>
-          </div>
-        </form>
+            <div class="col-12">
+              <label class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="signupEmail"
+                required
+              />
+              <div class="invalid-feedback">
+                Please provide a valid email address
+              </div>
+            </div>
+            <div class="col-md-8">
+              <label class="form-label">Phone number</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="signupPhone"
+                pattern="[0-9]{11}"
+                maxlength="11"
+                required
+              />
+              <div class="invalid-feedback">
+                Please provide a valid phone number
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="signupPassword"
+                required
+              />
+              <div class="invalid-feedback">
+                Please provide a valid password
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="signupRePassword"
+                required
+              />
+              <div class="invalid-feedback">Passwords don't match</div>
+            </div>
+            <div id="passwordHelpBlock" class="form-text">
+              Your password must be atleast 10 characters, contain uppercase
+              letter, number and symbols, must not contain dictionary words of
+              more than 3 letters as well as your first and last name.
+            </div>
+            <div class="d-flex">
+              <button type="submit" class="btn-primary-green" id="signupBtn">
+                Create Account
+              </button>
+              <button
+                id="signupBtn2"
+                class="btn-dark-green"
+                type="button"
+                disabled
+              >
+                <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Loading...
+              </button>
+            </div>
+            <div class="form-text mt-4 d-flex" onclick="swlogin()">
+              Already have an account ?
+              <p id="button-login">&nbsp Log In</p>
+            </div>
+          </form>
+        </div>
       </div>
+      <div
+        class="g-recaptcha"
+        data-sitekey="6LdYee4eAAAAAIA9fSK4-1fLJDwo-fkczaqXYu-G"
+        data-size="invisible"
+        data-callback="signupValidated"
+        style=""
+      ></div>
     </main>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="/static/script.js"></script>
     <script>
       $("#signupBtn2").toggle();
     </script>
-    <div
-      class="g-recaptcha"
-      data-sitekey="6LdYee4eAAAAAIA9fSK4-1fLJDwo-fkczaqXYu-G"
-      data-size="invisible"
-      data-callback="signupValidated"
-      style=""
-    ></div>
   </body>
 </html>

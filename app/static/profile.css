@@ -32,6 +32,28 @@
   background-color: #95c22b !important;
 }
 
+.row .col-md-6:nth-child(1) {
+  animation: animate-card 500ms ease-in-out;
+}
+
+.row .col-md-6:nth-child(2) {
+  animation: animate-card 500ms ease-in-out;
+}
+.row .col-md-12 {
+  animation: animate-card 500ms ease-in-out 100ms;
+}
+
+@keyframes animate-card {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* responsive css */
 
 @media (max-width: 1920px) {

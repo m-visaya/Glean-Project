@@ -221,7 +221,7 @@
           <section class="container carousel-pad">
             <div
               id="individualhead"
-              class="carousel slide"
+              class="carousel slide d-none"
               data-bs-ride="carousel"
               style="display: block"
             >
@@ -293,6 +293,22 @@
               </div>
             </div>
           </section>
+
+          <div
+            class="row container carousel carousel-pad rounded d-flex justify-content-center align-content-center placeholder mx-auto"
+            style="height: 33.75rem"
+            id="carousel-skeleton"
+          >
+            <h1 class="placeholder-glow display-1 text-center my-5">
+              <span class="placeholder col-6"></span>
+            </h1>
+            <h1 class="placeholder-wave text-center mt-5 d-none d-md-block">
+              <span class="placeholder col-4"></span>
+            </h1>
+            <h3 class="placeholder-wave text-center d-none d-md-block">
+              <span class="placeholder col-6"></span>
+            </h3>
+          </div>
 
           <div class="album pt-4 pb-5">
             <div
@@ -1296,5 +1312,12 @@
         </ul>
       </footer>
     </div>
+    <script>
+      $(window).on("load", function () {
+        $("#carousel-skeleton").removeClass("d-flex");
+        $("#carousel-skeleton").css("display", "none");
+        $("#individualhead").removeClass("d-none");
+      });
+    </script>
   </body>
 </html>

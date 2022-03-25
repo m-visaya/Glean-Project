@@ -72,8 +72,8 @@ def logout():
 
 @app.route('/expired')
 @utils.login_required
-def pwexpired():
-    return render_template("pwexp.html", fname=session['fname'], lname=session['lastname'])
+def expired():
+    return render_template("pwexp.html", fname=session['firstname'], lname=session['lastname'])
 
 
 @app.route('/user-totp', methods=['GET', 'POST'])

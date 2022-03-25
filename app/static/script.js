@@ -254,9 +254,9 @@ function loadFavorites() {
                           <input
                             class="form-control text-center me-3"
                             id="${product.id}-inputQuantity"
-                            type="number"
-                            max="9"
-                            min="1"
+                            type="text"
+                            maxlength="2"
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                             value="1"
                             style="max-width: 3.5rem"
                           />

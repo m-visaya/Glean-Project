@@ -46,6 +46,7 @@
                 type="text"
                 class="form-control bg-light border-0 rounded-pill search-bar px-3"
                 placeholder="Search"
+                maxlength="50"
               />
               <i
                 class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-3 text-muted fw-bold pt-md-1 pt-xl-1"
@@ -137,6 +138,7 @@
             type="text"
             class="form-control bg-white border-0 rounded search-bar m-0"
             placeholder="Search"
+            maxlength="50"
           />
           <i
             class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-4 text-muted fw-bold"
@@ -183,6 +185,7 @@
                         id="set-email"
                         placeholder="sambot@sambotdev.repl.co"
                         value="{{ user.email }}"
+                        maxlength="50"
                       />
                     </div>
                     <div class="col-12">
@@ -278,6 +281,7 @@
                         id="address"
                         placeholder="Apartment or suite"
                         value="{{ user.location.address or '' }}"
+                        maxlength="100"
                       />
                       {% else %}
                       <input
@@ -285,6 +289,7 @@
                         class="form-control"
                         id="address"
                         placeholder="Apartment or suite"
+                        maxlength="100"
                       />
                       {% endif %}
                     </div>
@@ -318,6 +323,7 @@
                               class="form-control"
                               id="set-password"
                               value=""
+                              maxlength="50"
                             />
                             <div class="py-3">
                               <button
@@ -365,6 +371,7 @@
                         id="settings-pass"
                         placeholder="*********"
                         value=""
+                        maxlength="50"
                       />
                       <div class="invalid-feedback">
                         Please provide a valid password
@@ -380,6 +387,7 @@
                         id="settings-repass"
                         placeholder="*********"
                         value=""
+                        maxlength="50"
                       />
                       <div class="invalid-feedback">Passwords do not match</div>
                     </div>
@@ -433,6 +441,7 @@
                                   id="totp-secret"
                                   value=""
                                   readonly
+                                  maxlength="50"
                                 />
                               </div>
                               <div class="form-group pt-2">
@@ -442,6 +451,7 @@
                                   class="form-control"
                                   id="totp-value"
                                   value=""
+                                  maxlength="50"
                                 />
                               </div>
                               <div class="form-group pt-2">
@@ -451,6 +461,7 @@
                                   class="form-control"
                                   id="totp-passw"
                                   value=""
+                                  maxlength="50"
                                 />
                               </div>
                               <div class="py-3">
@@ -510,6 +521,7 @@
                               class="form-control"
                               id="disable-mfa-password"
                               value=""
+                              maxlength="50"
                             />
                             <div class="py-3">
                               <button
@@ -569,6 +581,7 @@
                         class="form-control"
                         id="input-confirm-password"
                         value=""
+                        maxlength="50"
                       />
                       <div class="py-3">
                         <button

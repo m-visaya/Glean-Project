@@ -70,6 +70,7 @@
                 type="text"
                 class="form-control bg-light border-0 rounded-pill search-bar px-3"
                 placeholder="Search"
+                maxlength="50"
               />
               <i
                 class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-3 text-muted fw-bold pt-md-1 pt-xl-1"
@@ -159,6 +160,7 @@
         type="text"
         class="form-control bg-light border-0 rounded search-bar m-0"
         placeholder="Search"
+        maxlength="50"
       />
       <i
         class="bi bi-search position-absolute top-50 end-0 translate-middle-y pe-4 text-muted fw-bold"
@@ -387,9 +389,9 @@
                                   <input
                                     class="form-control text-center me-3"
                                     id="{{product.id}}-inputQuantity"
-                                    type="number"
-                                    max="9"
-                                    min="1"
+                                    type="text"
+                                    maxlength="2"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     value="1"
                                     style="max-width: 3.5rem"
                                   />
@@ -1210,9 +1212,9 @@
                                 <input
                                   class="form-control text-center me-3"
                                   id="{{item.product.id}}-inputQuantity"
-                                  type="number"
-                                  max="9"
-                                  min="1"
+                                  type="text"
+                                  maxlength="2"
+                                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                   value="1"
                                   style="max-width: 3.5rem"
                                 />

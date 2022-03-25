@@ -172,6 +172,7 @@
                       id="address"
                       placeholder="1234 Main St"
                       required
+                      maxlength="100"
                       value="{{ user.location.address or '' }}"
                     />
                     {% else %}
@@ -180,6 +181,7 @@
                       class="form-control"
                       id="address"
                       placeholder="1234 Main St"
+                      maxlength="100"
                       required
                     />
                     {% endif %}
@@ -196,6 +198,7 @@
                     <input
                       type="text"
                       class="form-control"
+                      maxlength="100"
                       id="address2"
                       placeholder="Apartment or suite"
                     />
@@ -315,6 +318,7 @@
                       id="cc-name"
                       placeholder=""
                       required
+                      maxlength="50"
                     />
                     <small class="text-muted"
                       >Full name as displayed on card</small
@@ -332,6 +336,7 @@
                       id="cc-number"
                       placeholder=""
                       required
+                      maxlength="50"
                     />
                     <div class="invalid-feedback">
                       Credit card number is required
@@ -348,6 +353,7 @@
                       id="cc-expiration"
                       placeholder=""
                       required
+                      maxlength="50"
                     />
                     <div class="invalid-feedback">Expiration date required</div>
                   </div>
@@ -360,6 +366,7 @@
                       id="cc-cvv"
                       placeholder=""
                       required
+                      maxlength="50"
                     />
                     <div class="invalid-feedback">Security code required</div>
                   </div>

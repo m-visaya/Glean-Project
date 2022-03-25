@@ -501,8 +501,11 @@ function proceedCheckout() {
       } else if (jqXHR.status == 404) {
         let toastElem = $("#toast-cart");
         let toast = new bootstrap.Toast(toastElem);
-        $("#toast-message").text(jqXHR.responseText);
+        $("#toast-message").text(jqXHR.responseJSON.message);
         toast.show();
+        $(`#${jqXHR.responseJSON.id}`).css("backgroundColor", "#f8d7da");
+        $(`#${jqXHR.responseJSON.id}`).css("color", "#842029");
+        $(`#${jqXHR.responseJSON.id}`).css("transition", "ease-in-out 100ms");
       } else {
         alert(jqXHR.status);
       }

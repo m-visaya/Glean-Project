@@ -12,7 +12,7 @@ def proceed_checkout():
 
     for item in cart:
         if item.quantity > item.product.stock:
-            return f"{item.product.name}'s unavailable", 404
+            return {"id": item.product.id, "message": f"{item.product.name}'s unavailable"}, 404
 
     return '', 200
 

@@ -161,46 +161,57 @@
             <div class="col">
               {% if total > 0 %}
               <p><span class="h2">Shopping Cart </span></p>
-              <p><span class="h5"> {{ total }} item(s) in your cart</span></p>
+              <p>
+                <span class="h5 text-primary-green">
+                  {{ total }} item(s) in your cart</span
+                >
+              </p>
               {% endif %}
               <div class="card border-0 mb-4">
                 {% set total_price = namespace(value=0) %} {% for item in cart
                 %}
-                <div id="{{item.product.id}}" class="card-body p-4 text-center">
+                <div
+                  id="{{item.product.id}}"
+                  class="card-body p-4 text-center border-bottom"
+                >
                   <!-- cart cards-->
-                  <div class="row align-items-center">
-                    <div class="col-md-2 mb-3">
+                  <div
+                    class="row align-items-center justify-content-center gy-sm-0 gy-1"
+                  >
+                    <div class="col-md-2 mb-2 mb-md-0">
                       <img
                         src="{{item.product.image}}"
-                        class="img-fluid"
+                        class="img-fluid rounded"
                         alt="Generic placeholder image"
                       />
                     </div>
                     <div class="col-md-2">
                       <p class="small text-muted cart-text">Item</p>
-                      <p class="det-text">{{ item.product.name }}</p>
+                      <p class="">{{ item.product.name }}</p>
                     </div>
                     <div class="col-md-2">
-                      <p class="small text-muted cart-text">Category</p>
-                      <p class="det-text">{{ item.product.category }}</p>
-                    </div>
-                    <div class="col-md-2">
-                      <p class="small text-muted cart-text">Quantity</p>
-                      <p class="det-text">{{ item.quantity }}</p>
-                    </div>
-                    <div class="col-md-2">
-                      <p class="small text-muted cart-text">Price</p>
-                      <p class="det-text">{{ item.product.price }}</p>
-                    </div>
-                    <div class="col-md-1">
-                      <p class="small text-muted cart-text">Total</p>
-                      <p class="det-text">
-                        {{ item.product.price * item.quantity }}
+                      <p class="small text-muted cart-text d-md-block d-none">
+                        Category
                       </p>
+                      <p class="badge color-glean">
+                        {{ item.product.category }}
+                      </p>
+                    </div>
+                    <div class="col-4 col-md-1">
+                      <p class="small text-muted cart-text">Qty</p>
+                      <p class="">{{ item.quantity }}</p>
+                    </div>
+                    <div class="col-4 col-md-2">
+                      <p class="small text-muted cart-text">Price</p>
+                      <p class="">{{ item.product.price }}</p>
+                    </div>
+                    <div class="col-4 col-md-2 pe-sm-5">
+                      <p class="small text-muted cart-text">Total</p>
+                      <p class="">{{ item.product.price * item.quantity }}</p>
                     </div>
                     <div class="col-md-1">
                       <i
-                        class="bi bi-trash3 my-2"
+                        class="bi bi-trash3 my-2 fs-5 pe-md-5"
                         id="cart-item-delete"
                         onclick="remItem(event, '{{ item.product.id }}')"
                         style="cursor: pointer"
@@ -208,6 +219,9 @@
                         data-bs-placement="top"
                         title="Remove from cart"
                       ></i>
+                      <p class="text-danger cart-text d-md-none">
+                        Remove from Cart
+                      </p>
                       <!-- remove item from cart, insert onclick function here -->
                     </div>
                   </div>

@@ -158,40 +158,36 @@
               <div class="card border-0 mb-4">
                 <!-- loop here -->
                 {% for order in orders %}
-                <div class="card-body p-4 text-center">
-                  <div class="row align-items-center">
+                <div class="card-body p-4 text-center border-bottom">
+                  <div class="row align-items-center justify-content-center">
                     <div class="col-md-3">
                       <img
-                        src="{{order.image}}"
-                        class="img-fluid"
+                        src="{{ order.products[0].product.image }}"
+                        class="img-fluid rounded"
                         alt="Generic placeholder image"
                       />
                     </div>
-                    <div class="col-md-3">
-                      <div class="row">
+                    <div class="col-md-3 mt-md-0 mt-3">
+                      <div class="row mb-3">
                         <p class="small text-muted track-text">Item(s)</p>
-                        <ul class="text-start m-0">
                           {% set total_price = namespace(value=0) %} {% for item
                           in order.products %}
-                          <li class="m-0 lh-1">
-                            <p class="det-text lh-1" style="font-size: 1rem">
+                            <p class="lh-1 mb-2 ">
                               {{ item.product.name }} x{{ item.quantity }}
                             </p>
-                          </li>
                           {% set total_price.value = total_price.value +
                           (item.product.price * item.quantity) %} {% endfor %}
-                        </ul>
                       </div>
                       <div class="row">
                         <p class="small text-muted track-text">Order Number</p>
-                        <p class="det-text">{{ order.id }}</p>
+                        <p class="">{{ order.id }}</p>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="row">
                         <p class="small text-muted track-text">Shipping From</p>
                         <div class="overflow-auto" style="height: 3rem">
-                          <p class="det-text">
+                          <p class="">
                             The Glean Store, Quezon City 469
                           </p>
                         </div>
@@ -199,7 +195,7 @@
                       <div class="row">
                         <p class="small text-muted track-text">Shipping To</p>
                         <div class="overflow-auto" style="height: 3rem">
-                          <p class="det-text">
+                          <p class="">
                             {{ order.location.city ~ " " ~
                             order.location.province ~ " " ~ order.location.zip ~
                             ", " ~ order.location.address }}
@@ -210,11 +206,11 @@
                     <div class="col-md-3">
                       <div class="row">
                         <p class="small text-muted track-text">Total Amount</p>
-                        <p class="det-text">₱ {{ total_price.value }}</p>
+                        <p class="">₱ {{ total_price.value }}</p>
                       </div>
                       <div class="row">
                         <p class="small text-muted track-text">Order Status</p>
-                        <p class="det-text">{{ order.status }}</p>
+                        <p class="">{{ order.status }}</p>
                       </div>
                     </div>
                   </div>

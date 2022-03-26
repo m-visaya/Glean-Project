@@ -117,6 +117,7 @@ function deleteProduct() {
 
 function createCourier(e) {
   e.preventDefault();
+
   $.ajax({
     type: "POST",
     url: "/admin/create_courier",
@@ -125,9 +126,9 @@ function createCourier(e) {
       lastname: $("#add-courier-lname").val(),
       email: $("#add-courier-email").val(),
       password: $("#add-courier-password").val(),
-      province: $("#add-courier-province").val(),
-      city: $("#add-courier-city").val(),
-      zip: $("#add-courier-zip").val(),
+      province: $("#countrySelect").val(),
+      city: $("#citySelect").val(),
+      zip: $("#zip").val(),
       available: $("#add-courier-status")[0].checked,
     },
     success: function (data) {
@@ -135,7 +136,11 @@ function createCourier(e) {
       location.reload();
     },
     error: function (jqXHR, exception) {
-      alert(jqXHR.status);
+      if (jqXHR.status == 400) {
+        alert("Account not Created! Invalid ZIP Code");
+      } else {
+        alert("Something went wrong");
+      }
     },
   });
 }

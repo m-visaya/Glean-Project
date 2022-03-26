@@ -73,7 +73,6 @@ function makeSubmenu(value) {
     document.getElementById("citySelect").innerHTML = "<option></option>";
   } else {
     var citiesOptions = "<option value='' disabled selected>Choose...</option>";
-
     for (cityId in citiesByState[value]) {
       citiesOptions += `<option value='${String(cityId)}'> ${cityId} </option>`;
     }

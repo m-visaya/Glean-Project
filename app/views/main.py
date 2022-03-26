@@ -41,7 +41,8 @@ def search(query):
 def login():
     session.clear()
     if request.method == "POST":
-        utils.email_exists(request.form.get("email"))
+        if not utils.email_exists(request.form.get("email")):
+            return "Account does not exists", 404
         msg, code = utils.login_attempts(
             email=request.form.get("email")) or [None, None]
         if msg:
@@ -58,7 +59,7 @@ def login():
 def signup():
     if request.method == "POST":
         if utils.email_exists(request.form.get("email", "")):
-            return 'Email Exists', 409
+            return 'Email Already Exists', 409
         return utils.register_user(request.form.to_dict())
     else:
         return render_template("signup.html")

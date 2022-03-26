@@ -220,7 +220,7 @@
                       <option value="Bulacan">Bulacan</option>
                       <option value="Rizal">Rizal</option>
                       {% else %}
-                      <option value="" selected>Choose...</option>
+                      <option value="" selected disabled>Choose...</option>
                       <option value="NCR">NCR</option>
                       <option value="Bulacan">Bulacan</option>
                       <option value="Rizal">Rizal</option>
@@ -239,7 +239,7 @@
                         {{ user.location.city or "Choose..." }}
                       </option>
                       {% else %}
-                      <option value="" selected>Choose...</option>
+                      <option value="" selected disabled>Choose...</option>
                       {% endif %}
                     </select>
                     <div class="invalid-feedback">
@@ -272,7 +272,7 @@
                       value=""
                     />
                     {% endif %}
-                    <div class="invalid-feedback">Zip code required.</div>
+                    <div class="invalid-feedback">Invalid ZIP code</div>
                   </div>
                 </div>
 

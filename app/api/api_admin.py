@@ -31,6 +31,10 @@ def get_couriers():
 @utils.Admin.authorized_only
 def create_courier():
     params = request.form.to_dict()
+
+    if not utils.checkzip(params['city'], params['zip']):
+        return {"error": "zip"}, 400
+
     courier = Courier(
         firstname=params['firstname'],
         lastname=params['lastname'],

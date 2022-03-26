@@ -516,10 +516,13 @@ function proceedCheckout() {
 function addOrder(e) {
   e.preventDefault();
   let form = document.getElementById("formCheckout");
-  if (!form.checkValidity()) {
+  if (
+    !form.checkValidity() &&
+    (document.getElementById("zip").value == "" ||
+      document.getElementById("zip").value === null)
+  ) {
     return;
   }
-
   $.ajax({
     type: "POST",
     url: "/add_order",
@@ -536,6 +539,9 @@ function addOrder(e) {
     error: async function (jqXHR, exception) {
       if (jqXHR.status == 0) {
         alert("Not connect.\n Verify Network.");
+      } else if (jqXHR.status == 400) {
+        let error = `#${jqXHR.responseJSON.error}`;
+        $(error).get(0).setCustomValidity("error");
       } else {
         alert(jqXHR.status);
       }
@@ -546,7 +552,11 @@ function addOrder(e) {
 function addSubscription(e) {
   e.preventDefault();
   let form = document.getElementById("formCheckout");
-  if (!form.checkValidity()) {
+  if (
+    !form.checkValidity() &&
+    (document.getElementById("zip").value == "" ||
+      document.getElementById("zip").value === null)
+  ) {
     return;
   }
 
@@ -569,6 +579,9 @@ function addSubscription(e) {
     error: async function (jqXHR, exception) {
       if (jqXHR.status == 0) {
         alert("Not connect.\n Verify Network.");
+      } else if (jqXHR.status == 400) {
+        let error = `#${jqXHR.responseJSON.error}`;
+        $(error).get(0).setCustomValidity("error");
       } else {
         alert(jqXHR.status);
       }
@@ -612,65 +625,50 @@ async function passwordExpired(e) {
   });
 }
 
-async function updateInfo(e) {
+function updateInfo(e) {
   e.preventDefault();
 
-  let proceed = true;
-
-  if ($("#citySelect").val() != "" && $("#citySelect").val() !== null) {
-    await $.ajax({
-      type: "POST",
-      url: "/check_zip",
-      data: {
-        city: $("#citySelect").val(),
-        zip: $("#zip").val(),
-      },
-      success: function (response) {},
-      error: function (jqXHR) {
-        proceed = false;
-        document.getElementById("zip").setCustomValidity("error");
-      },
-    });
-  }
-
-  if (proceed) {
-    await $.ajax({
-      type: "POST",
-      url: "/update_info",
-      data: {
-        phone: document.getElementById("set-phone").value,
-        email: document.getElementById("set-email").value,
-        password: document.getElementById("set-password").value,
-        province: $("#countrySelect").val(),
-        city: $("#citySelect").val(),
-        zip: $("#zip").val(),
-        address: $("#address").val(),
-      },
-      success: function (data) {
+  $.ajax({
+    type: "POST",
+    url: "/update_info",
+    data: {
+      phone: document.getElementById("set-phone").value,
+      email: document.getElementById("set-email").value,
+      password: document.getElementById("set-password").value,
+      province: $("#countrySelect").val(),
+      city: $("#citySelect").val(),
+      zip: $("#zip").val(),
+      address: $("#address").val(),
+    },
+    success: function (data) {
+      let modal = new bootstrap.Modal(
+        document.getElementById("modal-feedback")
+      );
+      $("#modal-feedback p").text("User Info Updated");
+      $("#modal-feedback button").attr("onclick", "location.reload()");
+      modal.toggle();
+    },
+    error: function (jqXHR) {
+      if (jqXHR.status == 0) {
+        alert("Not connect.\n Verify Network.");
+      } else if (jqXHR.status == 404) {
         let modal = new bootstrap.Modal(
           document.getElementById("modal-feedback")
         );
-        $("#modal-feedback p").text("User Info Updated");
-        $("#modal-feedback button").attr("onclick", "location.reload()");
+        $("#modal-feedback p").text("Wrong Password, Changes not Saved");
+        $("#modal-feedback button").removeAttr("onclick");
         modal.toggle();
-      },
-      error: function (jqXHR) {
-        if (jqXHR.status == 0) {
-          alert("Not connect.\n Verify Network.");
-        } else if (jqXHR.status == 404) {
-          let modal = new bootstrap.Modal(
-            document.getElementById("modal-feedback")
-          );
-          $("#modal-feedback p").text("Wrong Password, Changes not Saved");
-          $("#modal-feedback button").removeAttr("onclick");
-          $("#set-password").val("");
-          modal.toggle();
-        } else {
-          alert(jqXHR.status);
-        }
-      },
-    });
-  }
+        setTimeout(() => {
+          $("#form-personal-data").removeClass("was-validated");
+          $("#set-password").get(0).setCustomValidity("");
+        }, 1000);
+      } else if (jqXHR.status == 400) {
+        let error = `#${jqXHR.responseJSON.error}`;
+        $(error).get(0).setCustomValidity("error");
+      }
+    },
+  });
+  $("#set-password").val("");
 }
 
 function deleteUser(e) {

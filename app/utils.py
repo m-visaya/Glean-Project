@@ -82,8 +82,8 @@ def checkexpired(id):
 def email_exists(email):
     user = User.query.filter_by(email=email).first()
     if not user:
-        abort(404)
-    return user
+        return False
+    return True
 
 
 def auth_user(**kwargs):

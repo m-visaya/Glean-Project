@@ -106,20 +106,33 @@ def update_info():
     user = User.query.filter_by(id=session['id'], password=utils.hash_data(
         request.form['password'])).first_or_404()
 
-    user.email = request.form['email']
-    user.phone = request.form['phone']
+    email = request.form['email']
+    phone = request.form['phone']
+    province = request.form.get("province", "")
+    city = request.form.get("city", "")
+    address = request.form.get("address", "")
+    zip = request.form.get("zip", 0)
+
+    if email != user.email:
+        if utils.email_exists(email):
+            return {"error": "set-email"}, 400
+
+    if city and zip:
+        if not utils.checkzip(city, zip):
+            return {"error": "zip"}, 400
 
     if user.location:
         Location.query.filter_by(user_id=user.id).delete()
 
     location = Location(
-        province=request.form.get("province", ""),
-        city=request.form.get("city", ""),
-        zip=int(request.form.get("zip", "") or 0),
-        address=request.form.get("address", ""),
+        province=province,
+        city=city,
+        zip=zip,
+        address=address,
         user_id=user.id
     )
-
+    user.email = email
+    user.phone = phone
     db.session.add(location)
     db.session.commit()
     return 'Changes Saved', 200
@@ -185,12 +198,3 @@ def disable_totp():
     db.session.commit()
 
     return 'TOTP Disabled', 200
-
-
-@app.route('/check_zip', methods=['POST'])
-@utils.login_required
-def check_zip():
-    if utils.checkzip(city=request.form.get("city"), zip=request.form.get("zip")):
-        return "Valid Zip", 200
-    else:
-        return "Invalid Zip", 404

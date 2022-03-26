@@ -21,6 +21,10 @@ def proceed_checkout():
 @utils.login_required
 def add_order():
     user = utils.get_user()
+
+    if not utils.checkzip(request.form.get("city", ""), request.form.get("zip", 0)):
+        return {"error": "zip"}, 400
+
     order = Order(user_id=user.id)
     db.session.add(order)
 
@@ -48,6 +52,10 @@ def add_order():
 @utils.login_required
 def add_subscription():
     user = utils.get_user()
+
+    if not utils.checkzip(request.form.get("city", ""), request.form.get("zip", 0)):
+        return {"error": "zip"}, 400
+
     preferences = request.form.get("preferences").replace("\n", "").strip()
     subscription_type = request.form.get(
         "subscription_type").replace("\n", "").strip()
@@ -86,6 +94,10 @@ def cancel_subscription():
 @utils.login_required
 def edit_subscription():
     user = utils.get_user()
+
+    if not utils.checkzip(request.form.get("city", ""), request.form.get("zip", 0)):
+        return redirect(url_for('home'))
+
     subscription = user.subscription
     location = subscription.location
     location.province = request.form.get("province")

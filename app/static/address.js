@@ -30,7 +30,7 @@ var citiesByState = {
     Guiguinto: 3012,
     Hagonoy: 3012,
     Marilao: 3012,
-    Norzagaray: 3012,
+    Norzagaray: 3013,
     Obando: 3012,
     Pandi: 3012,
     Paombong: 3012,

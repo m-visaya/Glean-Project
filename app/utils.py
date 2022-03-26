@@ -291,8 +291,8 @@ class Courier:
 
     @staticmethod
     def get_deliveries():
-        deliveries = db.session.query(
-            CourierModel).filter_by(id=session.get("courier_id", "")).first().orders
+        deliveries = db.session.query(Order).filter(
+            Order.courier_id == session.get("courier_id", ""), Order.status != "Delivered").all()
         return deliveries
 
     @staticmethod

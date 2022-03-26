@@ -434,8 +434,7 @@
                                     id="button-favorite-{{product.id}}"
                                   >
                                     <i class="bi bi-heart"></i></button
-                                  >{% endif %} {% endif %}
-
+                                  >{% endif %} {% endif %} {% if user %}
                                   <button
                                     onclick="addtoCart('{{user.id}}', '{{product.id}}')"
                                     class="btn-primary-green flex-shrink-0"
@@ -448,6 +447,20 @@
                                     ></i>
                                     Add to cart
                                   </button>
+                                  {% else %}
+                                  <button
+                                    onclick="location.href='/login'"
+                                    class="btn-primary-green flex-shrink-0"
+                                    type="button"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                  >
+                                    <i
+                                      class="bi bi-cart-plus me-1 text-white"
+                                    ></i>
+                                    Add to cart
+                                  </button>
+                                  {% endif %}
                                 </div>
                               </div>
                             </div>

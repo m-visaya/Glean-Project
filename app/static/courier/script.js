@@ -77,11 +77,13 @@ function updateOrderStatus(e, id) {
 
 var percent = Math.floor(
   (parseInt(document.querySelector("#count-completed").textContent) /
-    parseInt(document.querySelector("#count-deliveries").textContent)) *
+    (parseInt(document.querySelector("#count-completed").textContent) +
+      parseInt(document.querySelector("#count-deliveries").textContent))) *
     100
 );
 
 percent = isNaN(percent) ? 100 : percent;
+percent = isFinite(percent) ? percent : 100;
 
 var options = {
   series: [percent],

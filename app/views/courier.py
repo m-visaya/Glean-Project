@@ -9,15 +9,6 @@ app = Blueprint('courier', __name__, url_prefix='/courier/')
 @app.route('/')
 @utils.Courier.login_required
 def index():
-    # return render_template('courier/home.html',
-    #                        deliveries=utils.Courier.get_deliveries(),
-    #                        courier=utils.Courier.get_courier(),
-    #                        completed_today=len(
-    #                            utils.Courier.get_completed_today()),
-    #                        completed_orders=len(
-    #                            utils.Courier.get_completedorders()),
-    #                        today=datetime.now().strftime('%A, %d %B %Y')
-    #                        )
     return render_template('courier/home.html',
                            display_orders=utils.Courier.get_displayorders(),
                            deliveries=utils.Courier.get_deliveries(),

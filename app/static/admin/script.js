@@ -85,7 +85,6 @@ function open_editProduct(product_id) {
 
 function edit_product(e) {
   e.preventDefault();
-  console.log(document.getElementById("editProduct-id").value);
   $.ajax({
     type: "PUT",
     url: "/admin/edit_product",
@@ -150,7 +149,6 @@ function loadCharts() {
     type: "GET",
     url: "/admin/get_sales",
     success: function (data) {
-      console.log(data);
       createChart(data);
     },
     error: function (jqXHR, exception) {
@@ -203,7 +201,6 @@ function createChart(info) {
       },
     ],
   };
-  console.log(info.product_sales);
   config = {
     type: "bar",
     data: data,

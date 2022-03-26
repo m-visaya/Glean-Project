@@ -170,7 +170,6 @@ function swindividual() {
     state3.style.display = "block";
     state4.style.display = "none";
     state5.style.display = "none";
-    console.log("individual displayed");
   }
 }
 

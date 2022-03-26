@@ -38,7 +38,6 @@ def login_required(func):
         if session.get("id", None):
             return func()
         else:
-            print("no session id")
             return redirect(url_for(".login"))
 
     return inner
@@ -51,7 +50,6 @@ def logged_in(func):
         if not session.get("id", None):
             return func()
         else:
-            print("already logged in")
             return redirect(url_for(".home"))
 
     return inner
@@ -64,7 +62,6 @@ def is_expired(func):
         if not checkexpired(session.get("id", '')):
             return func()
         else:
-            print("account expired")
             return redirect(url_for(".expired"))
 
     return inner
@@ -145,7 +142,6 @@ def register_user(data):
         db.session.commit()
         return "Account Registered", 200
     except Exception as e:
-        print(e)
         return f"Registration failed: {e}", 404
 
 
@@ -220,7 +216,6 @@ class Admin:
             if session.get("admin", None):
                 return func()
             else:
-                print("no session id")
                 return redirect(url_for(".login"))
 
         return inner
@@ -233,7 +228,6 @@ class Admin:
             if not session.get("admin", None):
                 return func()
             else:
-                print("already logged in")
                 return redirect(url_for(".index"))
 
         return inner
@@ -280,7 +274,6 @@ class Courier:
             if session.get("courier_id", None):
                 return func()
             else:
-                print("no session id")
                 return redirect(url_for(".login"))
 
         return inner
@@ -293,7 +286,6 @@ class Courier:
             if not session.get("courier_id", None):
                 return func()
             else:
-                print("already logged in")
                 return redirect(url_for(".index"))
 
         return inner

@@ -80,3 +80,18 @@ def cancel_subscription():
     db.session.commit()
 
     return redirect(url_for('home'))
+
+
+@app.route('/edit_subscription', methods=['POST'])
+@utils.login_required
+def edit_subscription():
+    user = utils.get_user()
+    subscription = user.subscription
+    location = subscription.location
+    location.province = request.form.get("province")
+    location.city = request.form.get("city")
+    location.zip = request.form.get("zip")
+    location.address = request.form.get("address")
+    db.session.commit()
+
+    return redirect(url_for('home'))

@@ -520,6 +520,8 @@
                       <span
                         class="my-auto pt-1 text-secondary-gray"
                         style="cursor: pointer"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modal-address-subscription"
                       >
                         Change</span
                       >
@@ -620,6 +622,112 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="modal-address-subscription"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <form
+                method="POST"
+                action="/edit_subscription"
+                id="form-change-shipping"
+              >
+                <div class="modal-body p-4 text-center">
+                  <p class="fs-5 fw-bold text-muted mb-4">
+                    Change Shipping Address
+                  </p>
+
+                  <div class="row text-start mb-4 gy-3">
+                    <div class="col-4">
+                      <label for="country" class="form-label">Province</label>
+                      <select
+                        class="form-select"
+                        id="countrySelect"
+                        onchange="makeSubmenu(this.value)"
+                        required
+                        name="province"
+                      >
+                        <option value="" selected disabled>Choose...</option>
+                        <option value="NCR">NCR</option>
+                        <option value="Bulacan">Bulacan</option>
+                        <option value="Rizal">Rizal</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please select a valid province.
+                      </div>
+                    </div>
+
+                    <div class="col-4">
+                      <label for="state" class="form-label">City</label>
+                      <select
+                        class="form-select"
+                        id="citySelect"
+                        onchange="setZip(this.value)"
+                        required
+                        name="city"
+                      >
+                        <option value="" disabled selected>Choose...</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please provide a valid state.
+                      </div>
+                    </div>
+
+                    <div class="col-4">
+                      <label for="zip" class="form-label">Zip</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="zip"
+                        placeholder=""
+                        readonly
+                        value=""
+                        required
+                        name="zip"
+                      />
+                      <div class="invalid-feedback">Zip code required.</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="address" class="form-label">Address </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="address"
+                        placeholder="Apartment or suite"
+                        maxlength="100"
+                        required
+                        name="address"
+                      />
+                      <div class="invalid-feedback">Address required.</div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex gap-2 justify-content-center mt-2">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                      onclick="$('#form-change-shipping').trigger('reset')"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn bg-primary-green text-white"
+                    >
+                      Confirm
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -1319,5 +1427,6 @@
         $("#individualhead").removeClass("d-none");
       });
     </script>
+    <script type="text/javascript" src="/static/address.js"></script>
   </body>
 </html>

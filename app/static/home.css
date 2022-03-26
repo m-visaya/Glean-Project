@@ -292,6 +292,10 @@ input[type="number"] {
   animation: animate-card 500ms ease-in-out 400ms forwards;
 }
 
+#subscription-tab .col:nth-child(3) {
+  animation: animate-card 500ms ease-in-out 600ms forwards;
+}
+
 #subscription-tab .col {
   opacity: 0;
 }

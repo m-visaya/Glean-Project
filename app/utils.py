@@ -59,7 +59,7 @@ def is_expired(func):
     """ route decorator for preventing expired accounts to access views """
     @wraps(func)
     def inner():
-        if not checkexpired(session.get("id", '')):
+        if not checkexpired(session.get("id", None)):
             return func()
         else:
             return redirect(url_for(".expired"))

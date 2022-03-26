@@ -4,3 +4,4 @@ env
 *.db
 .flaskenv
 testing
+.env

@@ -36,7 +36,7 @@ def manage_couriers():
 @app.route('/manage_products')
 @utils.Admin.login_required
 def manage_products():
-    products = utils.get_products() or []
+    products = utils.get_products(ordered=True) or []
     return render_template('admin/manage_products.html', products=products)
 
 

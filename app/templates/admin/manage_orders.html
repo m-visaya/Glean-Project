@@ -117,14 +117,13 @@
           </div>
         </div>
 
-        <table id="processing" class="table table-hover">
+        <table id="processing" class="table table-hover text-center">
           <thead>
             <tr>
               <th scope="col">id</th>
               <th scope="col">assigned_user</th>
               <th scope="col">assigned_courier</th>
               <th scope="col">date_ordered</th>
-              <th scope="col">date_delivered</th>
               <th scope="col">destination</th>
               <th scope="col">status</th>
             </tr>
@@ -137,8 +136,7 @@
               <td>
                 {{ order.courier.firstname }} {{ order.courier.lastname }}
               </td>
-              <td>{{ order.created_on }}</td>
-              <td>{{ order.date_finished }}</td>
+              <td>{{ order.created_on.strftime('%m-%d-%Y') }}</td>
               <td>
                 {{ order.location.city ~ " " ~ order.location.province ~ " " ~
                 order.location.zip ~ ", " ~ order.location.address }}
@@ -149,14 +147,17 @@
           </tbody>
         </table>
 
-        <table id="picked-up" style="display: none" class="table table-hover">
+        <table
+          id="picked-up"
+          style="display: none"
+          class="table table-hover text-center"
+        >
           <thead>
             <tr>
               <th scope="col">id</th>
               <th scope="col">assigned_user</th>
               <th scope="col">assigned_courier</th>
               <th scope="col">date_ordered</th>
-              <th scope="col">date_delivered</th>
               <th scope="col">destination</th>
               <th scope="col">status</th>
             </tr>
@@ -169,8 +170,7 @@
               <td>
                 {{ order.courier.firstname }} {{ order.courier.lastname }}
               </td>
-              <td>{{ order.created_on }}</td>
-              <td>{{ order.date_finished }}</td>
+              <td>{{ order.created_on.strftime('%m-%d-%Y') }}</td>
               <td>
                 {{ order.location.city ~ " " ~ order.location.province ~ " " ~
                 order.location.zip ~ ", " ~ order.location.address }}
@@ -181,14 +181,17 @@
           </tbody>
         </table>
 
-        <table id="in-transit" style="display: none" class="table table-hover">
+        <table
+          id="in-transit"
+          style="display: none"
+          class="table table-hover text-center"
+        >
           <thead>
             <tr>
               <th scope="col">id</th>
               <th scope="col">assigned_user</th>
               <th scope="col">assigned_courier</th>
               <th scope="col">date_ordered</th>
-              <th scope="col">date_delivered</th>
               <th scope="col">destination</th>
               <th scope="col">status</th>
             </tr>
@@ -201,8 +204,7 @@
               <td>
                 {{ order.courier.firstname }} {{ order.courier.lastname }}
               </td>
-              <td>{{ order.created_on }}</td>
-              <td>{{ order.date_finished }}</td>
+              <td>{{ order.created_on.strftime('%m-%d-%Y') }}</td>
               <td>
                 {{ order.location.city ~ " " ~ order.location.province ~ " " ~
                 order.location.zip ~ ", " ~ order.location.address }}
@@ -213,7 +215,11 @@
           </tbody>
         </table>
 
-        <table id="delivered" style="display: none" class="table table-hover">
+        <table
+          id="delivered"
+          style="display: none"
+          class="table table-hover text-center"
+        >
           <thead>
             <tr>
               <th scope="col">id</th>
@@ -233,8 +239,8 @@
               <td>
                 {{ order.courier.firstname }} {{ order.courier.lastname }}
               </td>
-              <td>{{ order.created_on }}</td>
-              <td>{{ order.date_finished }}</td>
+              <td>{{ order.created_on.strftime('%m-%d-%Y') }}</td>
+              <td>{{ order.updated_on.strftime('%m-%d-%Y') }}</td>
               <td>
                 {{ order.location.city ~ " " ~ order.location.province ~ " " ~
                 order.location.zip ~ ", " ~ order.location.address }}

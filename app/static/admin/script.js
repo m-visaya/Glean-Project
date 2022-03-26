@@ -102,7 +102,7 @@ function edit_product(e) {
   });
 }
 
-function deleteProduct(product_id) {
+function deleteProduct() {
   $.ajax({
     type: "DELETE",
     url: "/admin/delete_product",
@@ -250,3 +250,10 @@ function changeStatView(e, id) {
     $(`#button-orderStat`).text("Delivered");
   }
 }
+
+var product_id;
+
+$("#modal-delete-product").on("show.bs.modal", function (e) {
+  //get data-id attribute of the clicked element
+  product_id = $(e.relatedTarget).data("product-id");
+});

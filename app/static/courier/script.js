@@ -16,7 +16,7 @@ function login(e) {
       if (jqXHR.status === 0) {
         msg = "Not connect.\n Verify Network.";
       } else if (jqXHR.status == 401) {
-        alert("Account not retrieved");
+        alert("Invalid credentials");
       }
     },
   });

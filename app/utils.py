@@ -253,8 +253,8 @@ class Admin:
 
     @staticmethod
     def auth(data):
-        admin = AdminModel.query.filter_by().first()
-        print(admin)
+        admin = AdminModel.query.filter_by(
+            username=data['username'], password=hash_data(data['password'])).first()
         if admin:
             session['admin'] = data['username']
             return 'Logged In', 200
@@ -339,7 +339,8 @@ class Courier:
 
     @staticmethod
     def auth(data):
-        courier = CourierModel.query.filter_by(**data).first()
+        courier = CourierModel.query.filter_by(
+            email=data['email'], password=hash_data(data['password'])).first()
         if courier:
             session['courier_id'] = courier.id
             return 'Logged In', 200

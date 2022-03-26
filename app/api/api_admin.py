@@ -34,7 +34,7 @@ def create_courier():
     courier = Courier(
         firstname=params['firstname'],
         lastname=params['lastname'],
-        password=params['password'],
+        password=utils.hash_data(params['password']),
         email=params['email'],
         available=False if params['available'] == "false" else True
     )

@@ -15,7 +15,7 @@ class User(db.Model):
     firstname = db.Column(db.String(50), nullable=False)
     lastname = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.String(20), nullable=False)
     created_on = db.Column(db.DateTime(), default=datetime.utcnow)
     updated_on = db.Column(
@@ -23,7 +23,7 @@ class User(db.Model):
     orders = db.relationship('Order', backref='user')
     cart = db.relationship('CartItem', backref='user')
     favorites = db.relationship('FavoriteItem', backref='user')
-    password_history = db.Column(db.String(500))
+    password_history = db.Column(db.String(600))
     password_expr = db.Column(
         db.DateTime, default=lambda: datetime.utcnow() + timedelta(days=30))
     rem_attempts = db.Column(db.Integer, default=3)
@@ -132,7 +132,7 @@ class Courier(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(50), nullable=False)
     location = db.relationship("Location", backref='courier', uselist=False)
     available = db.Column(db.Boolean, default=False)
@@ -146,7 +146,7 @@ class Admin(db.Model):
     """ Represents the database model for Admin Accounts """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
 
     def __repr__(self) -> str:
         return repr(self)

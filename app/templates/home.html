@@ -682,7 +682,6 @@
                       <select
                         class="form-select"
                         id="citySelect"
-                        onchange="setZip(this.value)"
                         required
                         name="city"
                       >
@@ -700,7 +699,8 @@
                         class="form-control"
                         id="zip"
                         placeholder=""
-                        readonly
+                        maxlength="4"
+                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                         value=""
                         required
                         name="zip"

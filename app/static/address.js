@@ -30,7 +30,7 @@ var citiesByState = {
     Guiguinto: 3012,
     Hagonoy: 3012,
     Marilao: 3012,
-    Norzagaray: 3013,
+    Norzagaray: 3012,
     Obando: 3012,
     Pandi: 3012,
     Paombong: 3012,
@@ -79,10 +79,6 @@ function makeSubmenu(value) {
     }
     document.getElementById("citySelect").innerHTML = citiesOptions;
   }
-}
-
-function setZip(city) {
-  $("#zip").val(citiesByState[$("#countrySelect").val()][city]);
 }
 
 $(document).ready(function () {

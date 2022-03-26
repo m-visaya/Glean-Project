@@ -150,7 +150,11 @@
               <div class="py-2" id="profile">
                 <h5>Profile Settings</h5>
                 <hr />
-                <form onsubmit="updateInfo(event)">
+                <form
+                  onsubmit="updateInfo(event)"
+                  class="needs-validation"
+                  novalidate
+                >
                   <h6 class="py-1">Change Personal Data</h6>
                   <div class="row form-group g-2">
                     <div class="col-md-6">
@@ -230,11 +234,7 @@
 
                     <div class="col">
                       <label for="state" class="form-label">City</label>
-                      <select
-                        class="form-select"
-                        id="citySelect"
-                        onchange="setZip(this.value)"
-                      >
+                      <select class="form-select" id="citySelect">
                         {% if user.location %}
                         <option value="{{ user.location.city }}" selected>
                           {{ user.location.city or "Choose..." }}
@@ -256,8 +256,9 @@
                         class="form-control"
                         id="zip"
                         placeholder=""
-                        readonly
                         value="{{ user.location.zip or '' }}"
+                        maxlength="4"
+                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                       />
                       {% else %}
                       <input
@@ -265,11 +266,14 @@
                         class="form-control"
                         id="zip"
                         placeholder=""
-                        readonly
                         value=""
+                        maxlength="4"
+                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                       />
                       {% endif %}
-                      <div class="invalid-feedback">Zip code required.</div>
+                      <div class="invalid-feedback">
+                        Please provide a valid ZIP code
+                      </div>
                     </div>
 
                     <div class="col-12">

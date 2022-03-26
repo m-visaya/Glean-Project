@@ -201,6 +201,15 @@ def get_favorites():
     return favorites
 
 
+def checkzip(city, zip):
+    gl = Nominatim(user_agent="Glean-Project")
+    try:
+        gl.geocode({'city': str(city), 'postalcode': int(zip)}).raw
+        return True
+    except:
+        return False
+
+
 class Admin:
     """ class for admin utils """
     @staticmethod
@@ -298,7 +307,7 @@ class Courier:
     @staticmethod
     def get_displayorders():
         res = []
-        gl = Nominatim(user_agent="Glean-Store")
+        gl = Nominatim(user_agent="Glean-Project")
         courier = CourierModel.query.filter_by(
             id=session.get("courier_id", "")).first()
         orders = Order.query.filter_by(status="Processing").all()

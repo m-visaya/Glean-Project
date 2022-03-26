@@ -612,44 +612,65 @@ async function passwordExpired(e) {
   });
 }
 
-function updateInfo(e) {
+async function updateInfo(e) {
   e.preventDefault();
-  $.ajax({
-    type: "POST",
-    url: "/update_info",
-    data: {
-      phone: document.getElementById("set-phone").value,
-      email: document.getElementById("set-email").value,
-      password: document.getElementById("set-password").value,
-      province: $("#countrySelect").val(),
-      city: $("#citySelect").val(),
-      zip: $("#zip").val(),
-      address: $("#address").val(),
-    },
-    success: function (data) {
-      let modal = new bootstrap.Modal(
-        document.getElementById("modal-feedback")
-      );
-      $("#modal-feedback p").text("User Info Updated");
-      $("#modal-feedback button").attr("onclick", "location.reload()");
-      modal.toggle();
-    },
-    error: function (jqXHR) {
-      if (jqXHR.status == 0) {
-        alert("Not connect.\n Verify Network.");
-      } else if (jqXHR.status == 404) {
+
+  let proceed = true;
+
+  if ($("#citySelect").val() != "" && $("#citySelect").val() !== null) {
+    await $.ajax({
+      type: "POST",
+      url: "/check_zip",
+      data: {
+        city: $("#citySelect").val(),
+        zip: $("#zip").val(),
+      },
+      success: function (response) {},
+      error: function (jqXHR) {
+        proceed = false;
+        document.getElementById("zip").setCustomValidity("error");
+      },
+    });
+  }
+
+  if (proceed) {
+    await $.ajax({
+      type: "POST",
+      url: "/update_info",
+      data: {
+        phone: document.getElementById("set-phone").value,
+        email: document.getElementById("set-email").value,
+        password: document.getElementById("set-password").value,
+        province: $("#countrySelect").val(),
+        city: $("#citySelect").val(),
+        zip: $("#zip").val(),
+        address: $("#address").val(),
+      },
+      success: function (data) {
         let modal = new bootstrap.Modal(
           document.getElementById("modal-feedback")
         );
-        $("#modal-feedback p").text("Wrong Password, Changes not Saved");
-        $("#modal-feedback button").removeAttr("onclick");
-        $("#set-password").val("");
+        $("#modal-feedback p").text("User Info Updated");
+        $("#modal-feedback button").attr("onclick", "location.reload()");
         modal.toggle();
-      } else {
-        alert(jqXHR.status);
-      }
-    },
-  });
+      },
+      error: function (jqXHR) {
+        if (jqXHR.status == 0) {
+          alert("Not connect.\n Verify Network.");
+        } else if (jqXHR.status == 404) {
+          let modal = new bootstrap.Modal(
+            document.getElementById("modal-feedback")
+          );
+          $("#modal-feedback p").text("Wrong Password, Changes not Saved");
+          $("#modal-feedback button").removeAttr("onclick");
+          $("#set-password").val("");
+          modal.toggle();
+        } else {
+          alert(jqXHR.status);
+        }
+      },
+    });
+  }
 }
 
 function deleteUser(e) {

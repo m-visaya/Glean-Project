@@ -185,3 +185,12 @@ def disable_totp():
     db.session.commit()
 
     return 'TOTP Disabled', 200
+
+
+@app.route('/check_zip', methods=['POST'])
+@utils.login_required
+def check_zip():
+    if utils.checkzip(city=request.form.get("city"), zip=request.form.get("zip")):
+        return "Valid Zip", 200
+    else:
+        return "Invalid Zip", 404

@@ -233,12 +233,7 @@
 
                   <div class="col-md-4">
                     <label for="state" class="form-label">City</label>
-                    <select
-                      class="form-select"
-                      id="citySelect"
-                      required
-                      onchange="setZip(this.value)"
-                    >
+                    <select class="form-select" id="citySelect" required>
                       {% if user.location %}
                       <option value="{{ user.location.city }}" selected>
                         {{ user.location.city or "Choose..." }}
@@ -260,7 +255,9 @@
                       class="form-control"
                       id="zip"
                       placeholder=""
-                      readonly
+                      maxlength="4"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      required
                       value="{{ user.location.zip or '' }}"
                     />
                     {% else %}
@@ -269,7 +266,9 @@
                       class="form-control"
                       id="zip"
                       placeholder=""
-                      readonly
+                      maxlength="4"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      required
                       value=""
                     />
                     {% endif %}

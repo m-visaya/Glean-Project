@@ -56,6 +56,8 @@ function add_product(e) {
       image: document.getElementById("addProduct-image").value,
     },
     success: function (data) {
+      let alertText = `Product Added: ${data}`;
+      alert(alertText);
       location.reload();
     },
   });
@@ -109,6 +111,8 @@ function deleteProduct() {
       id: product_id,
     },
     success: function (data) {
+      let alertText = `Product Deleted: ${data}`;
+      alert(alertText);
       document.getElementById(product_id).remove();
     },
   });

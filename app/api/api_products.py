@@ -45,7 +45,7 @@ def add_product():
     db.session.add(product)
     db.session.commit()
 
-    return jsonify(product)
+    return jsonify(product.name)
 
 
 @app.route('/admin/add_products', methods=['POST'])
@@ -81,7 +81,7 @@ def delete_product():
     if product:
         db.session.delete(product)
         db.session.commit()
-        return 'Product Deleted', 200
+        return product.name
 
     return 'Operation Failed', 400
 

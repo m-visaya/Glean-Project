@@ -10,7 +10,7 @@ from ..database.tables import Product
 @app.route('/search_products', methods=['POST'])
 def search_products():
     products = Product.query.filter(
-        Product.name.contains(request.form['name'])).all()
+        Product.name.ilike(request.form['name'])).all()
 
     products = [{key: value for key, value in product.__dict__.items() if type(
         value) in [str, float, int]} for product in products]

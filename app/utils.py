@@ -149,7 +149,7 @@ def get_products(query=None, ordered=None):
     if ordered:
         return db.session.query(Product).order_by(Product.stock)
     if query is not None:
-        return db.session.query(Product).filter(Product.name.contains(query.lower())).all()
+        return db.session.query(Product).filter(Product.name.ilike(query)).all()
 
     return db.session.query(Product).all()
 

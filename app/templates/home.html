@@ -793,24 +793,37 @@
               style="display: none"
             />
           </div>
+
           <div class="container elementToFadeInAndOut" id="subscriptioncards">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-sm-3">
-              <div class="col position-relative">
-                <div class="card card-subscription mb-3 shadow-sm">
-                  <div class="card-body text-center">
-                    <h3 class="card-title">Single</h3>
-                    <h5 class="card-title">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-sm-5">
+              <div class="col justify-content-center align-items-center">
+                <div class="mb-3 shadow-sm subs-card">
+                  <div
+                    class="bg-light-green w-100 rounded-bottom border-rounded-5 text-center"
+                  >
+                    <h3 class="lh-lg text-dark fw-light">Single</h3>
+                  </div>
+                  <div
+                    class="card-body text-center d-flex flex-column align-items-center"
+                  >
+                    <i
+                      class="bi bi-person-fill text-glean lh-1 opacity-50"
+                      style="font-size: 7rem"
+                    ></i>
+                    <h1 class="card-title mt-2">
                       ₱1199.00<small class="text-muted fw-light">/week*</small>
-                    </h5>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li class="text-link">Once a week delivery.</li>
-                      <li class="text-link">2 meals for 1 person.</li>
-                      <li class="text-link">6 total meals.</li>
-                      <li class="text-link">Cancel any time.</li>
+                    </h1>
+                    <hr class="bg-light-green w-100" style="height: 2px" />
+
+                    <ul class="list-unstyled mb-4 lh-lg">
+                      <li class="">Once a week delivery.</li>
+                      <li class="">2 meals for 1 person.</li>
+                      <li class="">6 total meals.</li>
+                      <li class="">Cancel any time.</li>
                     </ul>
                     <button
                       type="button"
-                      class="w-100 btn-subscribe-green"
+                      class="btn-subscribe-green my-2 bg-light-green text-dark"
                       data-bs-toggle="modal"
                       data-bs-target="#subscription-modal"
                       onclick="$('#subscription-type').val('Single'); 
@@ -821,30 +834,39 @@
                     </button>
                   </div>
                 </div>
-                <i
-                  class="bi bi-person position-absolute top-0 end-0 display-1 text-glean opacity-75 pe-4"
-                ></i>
               </div>
 
-              <div class="col position-relative">
-                <div class="card card-subscription mb-4 shadow-sm">
-                  <div class="card-body text-center">
-                    <h3 class="card-title">Couple</h3>
-                    <h5 class="card-title">
+              <div class="col justify-content-center align-items-center">
+                <div class="mb-3 subs-card shadow-sm">
+                  <div
+                    class="bg-primary-green w-100 rounded-bottom border-rounded-5 text-center"
+                  >
+                    <h3 class="lh-lg text-light fw-light">Couple</h3>
+                  </div>
+                  <div
+                    class="card-body text-center d-flex flex-column align-items-center"
+                  >
+                    <i
+                      class="bi bi-people-fill text-glean lh-1"
+                      style="font-size: 7rem"
+                    ></i>
+                    <h1 class="card-title mt-2">
                       ₱2299.00<small class="text-muted fw-light">/week*</small>
-                    </h5>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li class="text-link">Once a week delivery.</li>
-                      <li class="text-link">2 meals for 2 person.</li>
-                      <li class="text-link">12 total meals.</li>
-                      <li class="text-link">Cancel any time.</li>
+                    </h1>
+                    <hr class="bg-primary-green w-100" style="height: 2px" />
+
+                    <ul class="list-unstyled mb-4 lh-lg">
+                      <li class="">Once a week delivery.</li>
+                      <li class="">2 meals for 2 persons.</li>
+                      <li class="">12 total meals.</li>
+                      <li class="">Cancel any time.</li>
                     </ul>
                     <button
                       type="button"
-                      class="w-100 btn-subscribe-green"
+                      class="btn-subscribe-green my-2 bg-primary-green"
                       data-bs-toggle="modal"
                       data-bs-target="#subscription-modal"
-                      onclick="$('#subscription-type').val('Couple');
+                      onclick="$('#subscription-type').val('Couple'); 
                       $('#total-price').val('2299');
                       $('#base-price').text('2299');"
                     >
@@ -852,30 +874,39 @@
                     </button>
                   </div>
                 </div>
-                <i
-                  class="bi bi-people position-absolute top-0 end-0 display-1 text-glean opacity-75 pe-4"
-                ></i>
               </div>
 
-              <div class="col position-relative">
-                <div class="card card-subscription mb-4 shadow-sm">
-                  <div class="card-body text-center">
-                    <h3 class="card-title">Family</h3>
-                    <h5 class="card-title">
+              <div class="col justify-content-center align-items-center">
+                <div class="mb-3 subs-card shadow-sm">
+                  <div
+                    class="bg-dark-green w-100 rounded-bottom border-rounded-5 text-center"
+                  >
+                    <h3 class="lh-lg text-light fw-light">Family</h3>
+                  </div>
+                  <div
+                    class="card-body text-center d-flex flex-column align-items-center"
+                  >
+                    <i
+                      class="bi bi-house-fill text-dark-green lh-1"
+                      style="font-size: 7rem"
+                    ></i>
+                    <h1 class="card-title mt-2">
                       ₱3399.00<small class="text-muted fw-light">/week*</small>
-                    </h5>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li class="text-link">Twice a week delivery.</li>
-                      <li class="text-link">2 meals for 4 person.</li>
-                      <li class="text-link">24 total meals.</li>
-                      <li class="text-link">Cancel any time.</li>
+                    </h1>
+                    <hr class="bg-dark-green w-100" style="height: 2px" />
+
+                    <ul class="list-unstyled mb-4 lh-lg">
+                      <li class="">Once a week delivery.</li>
+                      <li class="">2 meals for 4 persons.</li>
+                      <li class="">24 total meals.</li>
+                      <li class="">Cancel any time.</li>
                     </ul>
                     <button
                       type="button"
-                      class="w-100 btn-subscribe-green"
+                      class="btn-subscribe-green my-2 bg-dark-green"
                       data-bs-toggle="modal"
                       data-bs-target="#subscription-modal"
-                      onclick="$('#subscription-type').val('Family')
+                      onclick="$('#subscription-type').val('Family'); 
                       $('#total-price').val('3399');
                       $('#base-price').text('3399');"
                     >
@@ -883,9 +914,6 @@
                     </button>
                   </div>
                 </div>
-                <i
-                  class="bi bi-house position-absolute top-0 end-0 display-1 text-glean opacity-75 pe-4"
-                ></i>
               </div>
 
               <div

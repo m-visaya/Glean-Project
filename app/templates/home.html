@@ -310,7 +310,7 @@
             </h3>
           </div>
 
-          <div class="album pt-4 pb-5">
+          <div class="album pt-5 pb-5">
             <div
               class="container elementToFadeInAndOut"
               id="individualcards"
@@ -319,12 +319,12 @@
               <!--Individuals Section-->
               <div
                 id="cards-container"
-                class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-2 g-sm-2 g-xxl-4 g-md-3"
+                class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-2 g-sm-3 g-xxl-5 g-md-4"
               >
                 {% for product in products %} {% if product.stock > 0 %}
                 <div class="col">
                   <div
-                    class="card shadow-sm"
+                    class="product-card rounded-3"
                     data-bs-toggle="modal"
                     data-bs-target="#modal-{{ product.id }}"
                   >
@@ -334,18 +334,19 @@
                       alt="{{product.name}}"
                       class="card-img-top card-ggc"
                     />
-                    <div class="card-body card-body-height">
-                      <h5 class="overflow-ellipsis">{{ product.name }}</h5>
+                    <div class="card-body-height p-3">
+                      <h4 class="overflow-ellipsis">{{ product.name }}</h4>
                       <p class="card-text card-description">
                         {{ product.description }}
                       </p>
                     </div>
                     <div
-                      class="d-flex justify-content-between align-items-center ms-3 mt-1 mb-3"
+                      class="d-flex justify-content-end align-items-center pb-3 pe-3"
                     >
                       <span
-                        class="badge rounded-pill bg-primary-green prod-category"
-                        >{{ product.category }}</span
+                        class="badge rounded-pill bg-primary-green prod-category pe-2"
+                      >
+                        <span>●&nbsp</span>{{ product.category }}</span
                       >
                     </div>
                   </div>
@@ -799,21 +800,21 @@
               <div class="col justify-content-center align-items-center">
                 <div class="mb-3 shadow-sm subs-card">
                   <div
-                    class="bg-light-green w-100 rounded-bottom border-rounded-5 text-center"
+                    class="bg-secondary w-100 rounded-bottom border-rounded-5 text-center py-3"
                   >
-                    <h3 class="lh-lg text-dark fw-light">Single</h3>
+                    <i
+                      class="bi bi-person-fill text-white lh-1"
+                      style="font-size: 7rem"
+                    ></i>
+                    <h3 class="text-light fw-light lh-1">Single</h3>
                   </div>
                   <div
                     class="card-body text-center d-flex flex-column align-items-center"
                   >
-                    <i
-                      class="bi bi-person-fill text-glean lh-1 opacity-50"
-                      style="font-size: 7rem"
-                    ></i>
                     <h1 class="card-title mt-2">
                       ₱1199.00<small class="text-muted fw-light">/week*</small>
                     </h1>
-                    <hr class="bg-light-green w-100" style="height: 2px" />
+                    <hr class="bg-dark-gray w-100" style="height: 2px" />
 
                     <ul class="list-unstyled mb-4 lh-lg">
                       <li class="">Once a week delivery.</li>
@@ -823,7 +824,7 @@
                     </ul>
                     <button
                       type="button"
-                      class="btn-subscribe-green my-2 bg-light-green text-dark"
+                      class="btn-subscribe-green my-2 bg-secondary text-light"
                       data-bs-toggle="modal"
                       data-bs-target="#subscription-modal"
                       onclick="$('#subscription-type').val('Single'); 
@@ -839,17 +840,17 @@
               <div class="col justify-content-center align-items-center">
                 <div class="mb-3 subs-card shadow-sm">
                   <div
-                    class="bg-primary-green w-100 rounded-bottom border-rounded-5 text-center"
+                    class="bg-primary-green w-100 rounded-bottom border-rounded-5 text-center py-3"
                   >
-                    <h3 class="lh-lg text-light fw-light">Couple</h3>
+                    <i
+                      class="bi bi-people-fill text-glean text-white lh-1"
+                      style="font-size: 7rem"
+                    ></i>
+                    <h3 class="lh-1 text-light fw-light">Couple</h3>
                   </div>
                   <div
                     class="card-body text-center d-flex flex-column align-items-center"
                   >
-                    <i
-                      class="bi bi-people-fill text-glean lh-1"
-                      style="font-size: 7rem"
-                    ></i>
                     <h1 class="card-title mt-2">
                       ₱2299.00<small class="text-muted fw-light">/week*</small>
                     </h1>
@@ -879,17 +880,17 @@
               <div class="col justify-content-center align-items-center">
                 <div class="mb-3 subs-card shadow-sm">
                   <div
-                    class="bg-dark-green w-100 rounded-bottom border-rounded-5 text-center"
+                    class="bg-dark-green w-100 rounded-bottom border-rounded-5 text-center py-3"
                   >
-                    <h3 class="lh-lg text-light fw-light">Family</h3>
+                    <i
+                      class="bi bi-house-fill text-dark-green text-white lh-1"
+                      style="font-size: 6.5rem"
+                    ></i>
+                    <h3 class="lh-1 text-light fw-light mt-2">Family</h3>
                   </div>
                   <div
                     class="card-body text-center d-flex flex-column align-items-center"
                   >
-                    <i
-                      class="bi bi-house-fill text-dark-green lh-1"
-                      style="font-size: 7rem"
-                    ></i>
                     <h1 class="card-title mt-2">
                       ₱3399.00<small class="text-muted fw-light">/week*</small>
                     </h1>

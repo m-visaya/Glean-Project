@@ -324,7 +324,7 @@
                 {% for product in products %} {% if product.stock > 0 %}
                 <div class="col">
                   <div
-                    class="product-card rounded-3"
+                    class="product-card"
                     data-bs-toggle="modal"
                     data-bs-target="#modal-{{ product.id }}"
                   >
@@ -333,6 +333,7 @@
                       src="{{product.image}}"
                       alt="{{product.name}}"
                       class="card-img-top card-ggc"
+                      style="border-radius: 10px"
                     />
                     <div class="card-body-height p-3">
                       <h4 class="overflow-ellipsis">{{ product.name }}</h4>
@@ -800,13 +801,13 @@
               <div class="col justify-content-center align-items-center">
                 <div class="mb-3 shadow-sm subs-card">
                   <div
-                    class="bg-secondary w-100 rounded-bottom border-rounded-5 text-center py-3"
+                    class="w-100 rounded-bottom border-rounded-5 text-center py-3"
                   >
                     <i
-                      class="bi bi-person-fill text-white lh-1"
+                      class="bi bi-person-fill text-dark-gray lh-1"
                       style="font-size: 7rem"
                     ></i>
-                    <h3 class="text-light fw-light lh-1">Single</h3>
+                    <h3 class="text-glean lh-1">Single</h3>
                   </div>
                   <div
                     class="card-body text-center d-flex flex-column align-items-center"
@@ -814,7 +815,7 @@
                     <h1 class="card-title mt-2">
                       ₱1199.00<small class="text-muted fw-light">/week*</small>
                     </h1>
-                    <hr class="bg-dark-gray w-100" style="height: 2px" />
+                    <hr class="bg-primary-green w-100" style="height: 2px" />
 
                     <ul class="list-unstyled mb-4 lh-lg">
                       <li class="">Once a week delivery.</li>
@@ -824,7 +825,7 @@
                     </ul>
                     <button
                       type="button"
-                      class="btn-subscribe-green my-2 bg-secondary text-light"
+                      class="btn-subscribe-green my-2 bg-primary-green text-light"
                       data-bs-toggle="modal"
                       data-bs-target="#subscription-modal"
                       onclick="$('#subscription-type').val('Single'); 
@@ -840,13 +841,13 @@
               <div class="col justify-content-center align-items-center">
                 <div class="mb-3 subs-card shadow-sm">
                   <div
-                    class="bg-primary-green w-100 rounded-bottom border-rounded-5 text-center py-3"
+                    class="w-100 rounded-bottom border-rounded-5 text-center py-3"
                   >
                     <i
-                      class="bi bi-people-fill text-glean text-white lh-1"
+                      class="bi bi-people-fill text-light-orange lh-1"
                       style="font-size: 7rem"
                     ></i>
-                    <h3 class="lh-1 text-light fw-light">Couple</h3>
+                    <h3 class="lh-1 text-light-orange">Couple</h3>
                   </div>
                   <div
                     class="card-body text-center d-flex flex-column align-items-center"
@@ -854,7 +855,7 @@
                     <h1 class="card-title mt-2">
                       ₱2299.00<small class="text-muted fw-light">/week*</small>
                     </h1>
-                    <hr class="bg-primary-green w-100" style="height: 2px" />
+                    <hr class="bg-light-orange w-100" style="height: 2px" />
 
                     <ul class="list-unstyled mb-4 lh-lg">
                       <li class="">Once a week delivery.</li>
@@ -864,7 +865,7 @@
                     </ul>
                     <button
                       type="button"
-                      class="btn-subscribe-green my-2 bg-primary-green"
+                      class="btn-subscribe-green my-2 bg-light-orange"
                       data-bs-toggle="modal"
                       data-bs-target="#subscription-modal"
                       onclick="$('#subscription-type').val('Couple'); 
@@ -880,13 +881,13 @@
               <div class="col justify-content-center align-items-center">
                 <div class="mb-3 subs-card shadow-sm">
                   <div
-                    class="bg-dark-green w-100 rounded-bottom border-rounded-5 text-center py-3"
+                    class="w-100 rounded-bottom border-rounded-5 text-center py-3"
                   >
                     <i
-                      class="bi bi-house-fill text-dark-green text-white lh-1"
+                      class="bi bi-house-fill text-light-red lh-1"
                       style="font-size: 6.5rem"
                     ></i>
-                    <h3 class="lh-1 text-light fw-light mt-2">Family</h3>
+                    <h3 class="lh-1 text-light-red mt-2">Family</h3>
                   </div>
                   <div
                     class="card-body text-center d-flex flex-column align-items-center"
@@ -894,7 +895,7 @@
                     <h1 class="card-title mt-2">
                       ₱3399.00<small class="text-muted fw-light">/week*</small>
                     </h1>
-                    <hr class="bg-dark-green w-100" style="height: 2px" />
+                    <hr class="bg-light-red w-100" style="height: 2px" />
 
                     <ul class="list-unstyled mb-4 lh-lg">
                       <li class="">Once a week delivery.</li>
@@ -904,7 +905,7 @@
                     </ul>
                     <button
                       type="button"
-                      class="btn-subscribe-green my-2 bg-dark-green"
+                      class="btn-subscribe-green my-2 bg-light-red"
                       data-bs-toggle="modal"
                       data-bs-target="#subscription-modal"
                       onclick="$('#subscription-type').val('Family'); 

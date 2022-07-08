@@ -32,16 +32,32 @@ html {
   background-color: #8f5621 !important;
 }
 
+.bg-light-orange {
+  background-color: #f79f47 !important;
+}
+
+.bg-light-red {
+  background-color: #d83620 !important;
+}
+
+.text-light-orange {
+  color: #f79f47 !important;
+}
+
+.text-light-red {
+  color: #d83620 !important;
+}
+
 .bg-light-green {
   background-color: #c8ee71 !important;
 }
 
 .text-dark-gray {
-  color: #5e5e5e !important;
+  color: #95c22b !important;
 }
 
 .text-dark-green {
-  color: #53830f !important;
+  color: #fc523a !important;
 }
 
 .text-dark-brown {
@@ -68,7 +84,7 @@ html {
 }
 
 .product-card:hover {
-  box-shadow: #e4e2e2 0px 5px 8px;
+  box-shadow: #eeeeee 0px 5px 16px;
   cursor: pointer;
   transform: scale(1.01);
 }
@@ -112,6 +128,8 @@ html {
 .text-glean {
   color: #95c22b;
 }
+
+i.bi.bi-house-fill.text-glean.lh-1 {}
 
 .text-glean2 {
   color: #b0f026da;

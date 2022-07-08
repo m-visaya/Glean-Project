@@ -3,7 +3,6 @@ body{
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
-  /* backdrop-filter: blur(2px); */
 }
 
 .btn-primary-green {
@@ -50,7 +49,7 @@ body{
 }
 
 .wrapper-card-login {
-  width: 30rem;
+  width: 30rem !important;
   padding: 35px;
   border-radius: 5px;
 }
@@ -118,10 +117,11 @@ input[type=number] {
 
 @media (max-width: 576px) {
   body{
-    background-image: url("/static/assets/mobileloginbg.png");
+    background-image: none;
+    background-color: #fff !important;
   }
   .wrapper-card-login {
-    width: 85vw;
+    width: 93vw !important;
     padding: 20px;
   }
 }

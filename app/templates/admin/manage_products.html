@@ -138,8 +138,8 @@
               <tr>
                 <th scope="col">id</th>
                 <th scope="col">name</th>
-                <th scope="col">description</th>
                 <th scope="col">ingredients</th>
+                <th scope="col">cost</th>
                 <th scope="col">category</th>
                 <th scope="col">stock</th>
                 <th scope="col">date added</th>
@@ -151,8 +151,8 @@
               <tr id="{{ product.id }}">
                 <th scope="row">{{ product.id }}</th>
                 <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
                 <td>{{ product.ingredients }}</td>
+                <td>{{ product.price }}</td>
                 <td>{{ product.category }}</td>
                 {% if product.stock == 0 %}
                 <td><span class="badge bg-danger"> Out of Stock </span></td>

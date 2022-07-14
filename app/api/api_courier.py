@@ -11,7 +11,7 @@ def accept_order():
     order_id = request.form['order_id']
 
     order = Order.query.filter_by(id=order_id).first()
-    order.status = "Picked Up"
+    order.status = "In Transit"
     order.courier_id = session['courier_id']
     db.session.commit()
 
@@ -24,10 +24,7 @@ def update_orderstatus():
     order = Order.query.filter_by(
         id=int(request.form['order_id'])).first()
 
-    if order.status == "Picked Up":
-        order.status = "In Transit"
-    elif order.status == "In Transit":
-        order.status = "Delivered"
+    order.status = "Delivered"
 
     db.session.commit()
 

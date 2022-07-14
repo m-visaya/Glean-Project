@@ -55,6 +55,19 @@ def create_courier():
     return 'Courier Account Created', 200
 
 
+@app.route('/admin/update_orderstatus', methods=['POST'])
+@utils.Admin.authorized_only
+def update_orderstatus():
+    order = Order.query.filter_by(
+        id=int(request.form['order_id'])).first()
+
+    order.status = "Ready"
+
+    db.session.commit()
+
+    return '', 200
+
+
 @app.route('/admin/get_sales', methods=['GET'])
 @utils.Admin.authorized_only
 def get_sales():

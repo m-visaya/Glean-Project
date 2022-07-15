@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/m-visaya/Glean-Project">
-    <img src="./app/static/assets/logo_index.svg" alt="Logo" height="50">
+    <img src="./app/static/assets/logo_index.svg" alt="Logo" height="70">
   </a>
   <h3 align="center">no crops wasted</h3>
 <br>
@@ -8,10 +8,10 @@
   <p align="center">
 An e-commerce platform offering a door-to-door delivery service of pre-packaged meal ingredients.
 <br />
-<a href="https://github.com/othneildrew/Best-README-Template"><strong>Visit Website 🛒</strong></a>
+<a href="https://glean-project.herokuapp.com/"><strong>Visit Website 🛒</strong></a>
 <br />
 <br />
-<a href="https://github.com/m-visaya/Glean-Project/issues">Report a bug or Request a beature</a> 
+<a href="https://github.com/m-visaya/Glean-Project/issues">Report a bug or Request a feature</a> 
   </p>
 </div>
 
@@ -61,7 +61,7 @@ An e-commerce platform offering a door-to-door delivery service of pre-packaged 
     env\Scripts\activate
 
 <br>
-The current directory in you termnial should contain an (env) tag:
+The current directory in your terminal should contain an (env) tag:
 <br><br>
 
     (env) C:\**\pathname
@@ -116,7 +116,7 @@ The current directory in you termnial should contain an (env) tag:
 <br>
 
 <br>
-<h3>- Navigate to Product Inventory and select the <i>upload excel file</i> from the <i>add package(s)</i> button then upload the .xlsx file located in: </h3> 
+<h3>- Navigate to <i>Product Inventory</i> and select the <i>upload excel file</i> from the <i>add package(s)</i> button then upload the .xlsx file located in: </h3> 
 <br>
 
     Glean-Project\app\static\assets\packages.xlsx

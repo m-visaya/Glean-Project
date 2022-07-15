@@ -26,6 +26,7 @@ account_cli = AppGroup('account')
 from .api import api_admin, api_courier, api_orders, api_products, api_user
 from .database import tables
 from .views import main, admin, courier
+from .utils import hash_data
 
 app.register_blueprint(admin.app, static_folder='static')
 app.register_blueprint(courier.app)
@@ -52,10 +53,10 @@ def destroy_db():
 def create_user(name):
     """ Create different user accounts """
     if name == "user":
-        db.session.add(tables.User(email="user@gmail.com", password=os.environ.get('USER_PASSWORD'), phone="09312312313", firstname="Normal", lastname="User"))
+        db.session.add(tables.User(email="user@gmail.com", password=hash_data(os.environ.get('USER_PASSWORD')), phone="09312312313", firstname="Normal", lastname="User"))
     elif name == "admin":
         db.session.add(tables.Admin(username="admin",
-                   password=os.environ.get('ADMIN_PASSWORD')))
+                   password=hash_data(os.environ.get('ADMIN_PASSWORD'))))
     elif name == "will_expire":
         db.session.add(tables.User(email="will_expire@gmail.com", password=os.environ.get('USER_PASSWORD'), phone="09312312313", firstname="Will", lastname="Expire", password_expr=datetime.utcnow() + timedelta(days=8)))
     elif name == "expired":

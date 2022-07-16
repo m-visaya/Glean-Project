@@ -57,7 +57,7 @@ def create_courier():
 
 @app.route('/admin/update_orderstatus', methods=['POST'])
 @utils.Admin.authorized_only
-def update_orderstatus():
+def admin_update_orderstatus():
     order = Order.query.filter_by(
         id=int(request.form['order_id'])).first()
 

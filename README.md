@@ -101,6 +101,7 @@ An e-commerce platform offering a door-to-door delivery service of pre-packaged 
     SECRET_KEY="#nominate any string here as key"
     SQLALCHEMY_DATABASE_URI="sqlite:///database/database.db"
     ADMIN_PASSWORD="#nominate a password for admin"
+    ADMIN_PASSWORD="#nominate a password for user"
     FLASK_ENV=development
     SQLALCHEMY_TRACK_MODIFICATIONS="False"
     FLASK_APP=wsgi.py

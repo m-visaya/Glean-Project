@@ -42,6 +42,42 @@ An e-commerce platform offering a door-to-door delivery service of pre-packaged 
 </div>
 
 <br>
+
+<div>
+  <h1>Setting up virtual environment using <code>venv</code></h1>
+    Although optional it is highly recommended to setup the development in a virtual environment to avoid conflicts in dependencies.
+    <br><br>
+    In your prefered working directory open a terminal and enter the following commands:
+    <br><br>
+
+   For Windows 
+  
+     python venv -m folderpath
+  
+   For Linux / MacOS 
+  
+     python3 venv -m folderpath
+  
+   The following command above will create venv folders within the <code>folderpath</code> directory. 
+   Start the virtual environment by navigating to the scripts directory and launching the activate script generated for your system via terminal> For windows, 
+   activate script is followed by <code>.ps1</code> file extension. For Linux and MacOS it is either <code>.sh</code>,<code>.csh</code> or <code>.fish</code>.<br>
+   If succesful your terminal should have a prefix of (<code>folderpath</code>) indicating that the virtual environment is active.
+  
+    (folderpath)C:/*path*/folderpath/Scripts/
+  
+   In windows 10, if execution-policy error is encountered, enter the command below and re-launch the activate script.
+  
+    Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+   
+  If succesful create a new directory named Sources within the <code>folderpath</code>, and that will serve as your working directory for the steps below.
+  
+  
+  
+ 
+
+</div>
+
+<br>
 <br>
 
 <div>

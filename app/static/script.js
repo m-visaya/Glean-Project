@@ -182,106 +182,120 @@ function loadFavorites() {
 
       for (const product of response.favorites) {
         let content = `
-          <div class="col" id="cardfave-${product.id}">
-          <div
-            class="card shadow-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#modalfave-${product.id}"
-          >
-            <img
-              src="${product.image}"
-              alt="${product.name}"
-              class="card-img-top card-ggc"
-            />
-            <div class="card-body card-body-height">
-              <h5 class="overflow-ellipsis">${product.name}</h5>
-              <p class="card-text card-description">
-                ${product.description}
-              </p>
-            </div>
-            <div
-              class="d-flex justify-content-between align-items-center ms-3 mt-1 mb-3"
-            >
-              <span
-                class="badge rounded-pill bg-primary-green prod-category"
-                >${product.category}</span
-              >
-            </div>
+        <div class="col" id="cardfave-${product.id}">
+        <div
+          class="product-card bg-white shadow-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#modalfave-${product.id}"
+          style="border-radius: 10px"
+        >
+          <img
+            src="${product.image}"
+            alt="${product.name}"
+            class="card-img-top card-ggc"
+            style="border-radius: 10px"
+          />
+          <div class="card-body card-body-height">
+            <h5 class="overflow-ellipsis">${product.name}</h5>
+            <p class="card-text card-description">
+              ${product.description}
+            </p>
           </div>
-
           <div
-            class="modal fade"
-            id="modalfave-${product.id}"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
+            class="d-flex justify-content-end align-items-center pb-3 pe-md-3"
           >
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header border-0">
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container px-lg-5 my-5 mt-3">
-                    <div class="row gx-4 gx-lg-5 align-items-center">
-                      <div class="col-md-12 col-lg-6">
-                        <img
-                          class="card-img mb-5 mb-md-0"
-                          src="${product.image}"
-                        />
-                      </div>
-                      <div class="col-md-12 col-lg-6 mt-4">
-                        <span
-                          class="badge rounded-pill bg-primary-green mb-1"
-                          >${product.category}</span
+            <span
+              class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase"
+              id="card-badge"
+            >
+              <span>&nbsp●&nbsp</span>${product.category}</span
+            >
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="modalfave-${product.id}"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header border-0">
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="container px-lg-5 my-5 mt-3">
+                  <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-12 col-lg-6">
+                      <img
+                        class="card-img"
+                        src="${product.image}"
+                      />
+                    </div>
+                    <div class="col-md-12 col-lg-6 mt-4">
+                      <span
+                        class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase ms-lg-0"
+                        id="card-badge"
+                        style="margin-left: -10px"
+                      >
+                        <span>&nbsp●&nbsp</span>${product.category}</span
+                      >
+                      <p
+                        class="fs-2 fw-bolder"
+                        id="${product.id}-product-name"
+                      >
+                        ${product.name}
+                      </p>
+                      <div class="fs-5 mb-2">
+                        <span id="${product.id}-product-price"
+                          >₱${product.price}</span
                         >
-                        <h1 class="fs-2 fw-bolder">
-                          ${product.name}
-                        </h1>
-                        <div class="fs-4 mb-2">
-                          <span>₱${product.price}</span>
-                        </div>
-                        <p class="lead fs-5">
-                          ${product.description}
-                        </p>
-                        <div class="d-flex pt-4">
-                          <input
-                            class="form-control text-center me-3"
-                            id="${product.id}-inputQuantity"
-                            type="text"
-                            maxlength="2"
-                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                            value="1"
-                            style="max-width: 3.5rem"
-                          />
-                          <button
-                            onclick="favorite(event, '${product.id}')"
-                            class="btn-favorite flex-shrink-0 me-2"
-                            type="button"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                            id="button-favorite-${product.id}"
-                          >
-                            <i class="bi bi-heart-fill"></i>
-                          </button>
-                          <button
-                            onclick="addtoCart('${response.id}', '${product.id}')"
-                            class="btn-primary-green flex-shrink-0"
-                            type="button"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                          >
-                            <i
-                              class="bi bi-cart-plus me-1 text-white"
-                            ></i>
-                            Add to cart
-                          </button>
-                        </div>
+                      </div>
+                      <p class="lead fs-6">
+                        ${product.description}
+                      </p>
+                      <p class="lead fs-5 fw-bold">What's in the box</p>
+                      <p class="lead fs-6 mt-1">
+                        ${product.ingredients}
+                      </p>
+                      <div class="d-flex pt-4">
+                        <input
+                          class="form-control text-center me-3"
+                          id="${product.id}-inputQuantity"
+                          type="text"
+                          maxlength="2"
+                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                          value="1"
+                          style="max-width: 3.5rem"
+                        />
+                        <button
+                          onclick="favorite(event, '${product.id}')"
+                          class="btn-favorite flex-shrink-0 me-2"
+                          type="button"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <i class="bi bi-heart-fill"></i>
+                        </button>
+                        <button
+                          onclick="addtoCart('${response.id}', '${product.id}')"
+                          class="btn-primary-green flex-shrink-0"
+                          type="button"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <i
+                            class="bi bi-cart-plus me-1 text-white"
+                          ></i>
+                          Add to cart
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -290,7 +304,8 @@ function loadFavorites() {
             </div>
           </div>
         </div>
-      `;
+      </div>
+        `;
         $("#container-favorites").append(content);
       }
     },

@@ -4,13 +4,12 @@
   </a>
   <h3 align="center">no crops wasted</h3>
 <br>
-<br>
   <p align="center">
 An e-commerce platform offering a door-to-door delivery service of pre-packaged meal ingredients.
-<br />
+<br>
 <a href="https://glean-project.herokuapp.com/"><strong>Visit Website 🛒</strong></a>
-<br />
-<br />
+<br>
+<br>
 <a href="https://github.com/m-visaya/Glean-Project/issues">Report a bug or Request a feature</a> 
   </p>
 </div>
@@ -29,7 +28,6 @@ An e-commerce platform offering a door-to-door delivery service of pre-packaged 
 </div>
 
 <br>
-<br>
 
 <div>
     <h1>Prerequisite/s</h1>
@@ -44,117 +42,128 @@ An e-commerce platform offering a door-to-door delivery service of pre-packaged 
 </div>
 
 <br>
-<br>
 
 <div>
-    <h1>Local Development Setup</h1>
-    <h3>- [ Optional ] Crete a python virtual environment.</h3>
-    <br>
-    In your terminal type:
+  <h1>Setting up virtual environment using <code>venv</code></h1>
+    Although optional it is highly recommended to setup the development in a virtual environment to avoid conflicts in dependencies.
+    <br><br>
+    In your prefered working directory open a terminal and enter the following commands:
     <br><br>
 
-    python -m venv pathname/env
-    -------------or---------------
-    python3 -m venv pathname/env
-
-    cd pathname
-    env\Scripts\activate
-
-<br>
-The current directory in your terminal should contain an (env) tag:
-<br><br>
-
-    (env) C:\**\pathname
-
-<br>
-<h3>- Clone the repository</h3>
-<br>
-
-    git clone https://github.com/m-visaya/Glean-Project.git
-    cd Glean-Project
-
-<br>
-<h3>- Install dependencies</h3>
-<br>
-
-    pip install -r requirements.txt
-
-<br>
-<h3>- Create a .env file inside the directory and include:</h3>
-<br>
-
-    SECRET_KEY="replace  with a complex key"
-    SQLALCHEMY_DATABASE_URI="sqlite:///database/database.db"
-    ADMIN_PASSWORD="password for the admin account"
-    USER_PASSWORD="password for creating a user account using the CLI"
-    FLASK_ENV=development
-    SQLALCHEMY_TRACK_MODIFICATIONS="False"
-    FLASK_APP=wsgi.py
-
-\*\* SQLALCHEMY_DATABASE_URI can be replaced with your database of choice, for more info visit https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
-
-<br>
-<h3>- Run the following commands in your terminal:</h3>
-<br>
-
-    flask db upgrade
-    flask account create user
-    flask account create admin
-
-<br>
-<h3>- Start the flask server:</h3>
-<br>
-
-    flask run
-
-<h3>- Navigate to the admin route <a>127.0.0.1:5000/admin</a> and login with the following credentials: </h3>
-
-    username: admin
-    password: [admin password you set in the .env file]
-
-\*\* The port number 5000 may differ depending on the available ports on your device
-<br>
-
-<br>
-<h3>- Navigate to <i>Product Inventory</i> and select the <i>upload excel file</i> from the <i>add package(s)</i> button then upload the .xlsx file located in: </h3> 
-<br>
-
-    Glean-Project\app\static\assets\packages.xlsx
-
-<br>
-<h3>- Navigate to the user login route <a>127.0.0.1:5000/login</a> and login with the following credentials: </h3> 
-<br>
-
-    email: user@gmail.com
-    password: [user password you set in the .env file]
+   For Windows 
+  
+     python venv -m folderpath
+  
+   For Linux / MacOS 
+  
+     python3 venv -m folderpath
+  
+   The following command above will create venv folders within the <code>folderpath</code> directory. 
+   Start the virtual environment by navigating to the scripts directory and launching the activate script generated for your system via terminal> For windows, 
+   activate script is followed by <code>.ps1</code> file extension. For Linux and MacOS it is either <code>.sh</code>,<code>.csh</code> or <code>.fish</code>.<br>
+   If succesful your terminal should have a prefix of (<code>folderpath</code>) indicating that the virtual environment is active.
+  
+    (folderpath)C:/*path*/folderpath/Scripts/
+  
+   In windows 10, if execution-policy error is encountered, enter the command below and re-launch the activate script.
+  
+    Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+   
+  If succesful create a new directory named Sources within the <code>folderpath</code>, and that will serve as your working directory for the steps below.
+  
+  
+  
+ 
 
 </div>
 
 <br>
 <br>
+
 <div>
-    <h1>Contributing</h1>
-    <ol>
-    <li> Fork the Project </li>
-    <li> Clone the Forked Project </li>
-    <li> Create a new branch for your new updates </li>
-    <br>
+   <h1>Setting up Local Development</h1>
+   <h3>Clone the repository</h3>
+   In your prefered working directory open a terminal and type:
+   <br><br>
+  
+    git clone https://github.com/m-visaya/Glean-Project.git
+  
+   <h3>Install the dependencies</h3>
+   Install the necessary requirements using pip
+   <br><br>
+  
+    pip install -r requirements.txt
+  
+   <h3>Configure environment variables</h3>
+   Create a .env file in your working directory and include the following:
+   <br><br>
+  
+    SECRET_KEY="#nominate any string here as key"
+    SQLALCHEMY_DATABASE_URI="sqlite:///database/database.db"
+    ADMIN_PASSWORD="#nominate a password for admin"
+    USER_PASSWORD="#nominate a password for user"
+    FLASK_ENV=development
+    SQLALCHEMY_TRACK_MODIFICATIONS="False"
+    FLASK_APP=wsgi.py
+  
+   If successful, your working directory should look like
+   
+      Glean-Project/
+      ├─ .git/
+      ├─ __pycache__/
+      ├─ app/
+      ├─ migrations/
+      ├─ .env
+      ├─ .gitignore
+      ├─ procfile
+      ├─ README.md
+      ├─ requirements.txt
+      ├─ wsgi.py
+  
+   <h3>Initialize the database</h3>
+   To initialize the database open a terminal and type
+   <br><br>
+  
+     flask db upgrade
+     flask account create user
+     flask account create admin
 
-    git checkout -b feature-or-fix-name
+   <h3>Start Flask server:</h3>
+   Start the server using the following command
+   <br><br>
+  
+     flask run
+  
+   After running the server it should return a localhost and a port that start at 5000, you can access the web application through any browser.
+</div>
 
-<p>
-    <li> Commit your Changes </li>
-    <br>
+<br>
+<br>
 
-    git commit -m 'Fix sample module'
+<div>
+   <h1>Initialize the store</h1>
+  Opening the web application will return a <code>no products</code> prompt when the user accessed any of the store page. This can be solved by adding store items to the system.
+  <br><br>
+  To do this navigate to <code>localhost:5000/admin</code> or the addresse assigned by the flask server followed by <code>/admin</code>.
+  <br><br>
+  Login to the admin page with the following credentials: 
+  <br><br>
+  
+    username: admin
+    password: ADMIN_PASSWORD FROM .ENV FILE
 
-<p>
-    <li> Push to the Branch </li>
-    <br>
+  Navigate to the product inventory, then select upload excel file from the add package(s) button. The excel file containing dummy packages are located in
+  
+    Glean-Project\app\static\assets\packages.xlsx
+  
+  The <code>No Products</code> prompt should be resolved.
+  
+</div>
 
-    git push origin feature-or-fix-name
+<br>
+<br>
 
-<p>
-    <li> Open a Pull Request </li>
-    </ol>
+<div>
+    <h1>License</h1>
+    Distributed under the GPL3 License. See LICENSE for more information.
 </div>

@@ -301,7 +301,7 @@ class Courier:
         gl = Nominatim(user_agent="Glean-Project")
         courier = CourierModel.query.filter_by(
             id=session.get("courier_id", "")).first()
-        orders = Order.query.filter_by(status="Processing").all()
+        orders = Order.query.filter_by(status="Ready").all()
 
         if not orders:
             return res

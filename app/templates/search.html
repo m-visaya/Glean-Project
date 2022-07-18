@@ -52,7 +52,7 @@
     </div>
 
     <header>
-      <div class="container py-1 py-md-2 text-center border-bottom px-0">
+      <div class="container py-1 py-md-2 text-center px-0">
         <div class="container">
           <div class="row">
             <div class="col-6 col-md-4 d-flex mb-3 mt-3">
@@ -167,7 +167,7 @@
       ></i>
     </div>
 
-    <main>
+    <main class="bg-light">
       <div class="container pt-3 pb-2 pb-md-0 pt-md-4">
         <h4>
           Search results for:
@@ -196,12 +196,13 @@
           <!--Individuals Section-->
           <div
             id="cards-container"
-            class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 g-sm-2 g-xxl-4 g-md-3"
+            class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 g-md-5 gy-3"
           >
             {% for product in products %} {% if product.stock > 0 %}
             <div class="col">
               <div
-                class="card shadow-sm"
+                class="product-card bg-white shadow-sm"
+                style="border-radius: 10px"
                 data-bs-toggle="modal"
                 data-bs-target="#modal-{{ product.id }}"
               >
@@ -210,19 +211,22 @@
                   src="{{product.image}}"
                   alt="{{product.name}}"
                   class="card-img-top card-ggc"
+                  style="border-radius: 10px"
                 />
                 <div class="card-body card-body-height">
-                  <h5 class="overflow-ellipsis">{{ product.name }}</h5>
+                  <h4 class="overflow-ellipsis">{{ product.name }}</h4>
                   <p class="card-text card-description">
                     {{ product.description }}
                   </p>
                 </div>
                 <div
-                  class="d-flex justify-content-between align-items-center ms-3 mt-1 mb-3"
+                  class="d-flex justify-content-end align-items-center pb-3 pe-md-3"
                 >
                   <span
-                    class="badge rounded-pill bg-primary-green prod-category"
-                    >{{ product.category }}</span
+                    class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase"
+                    id="card-badge"
+                  >
+                    <span>&nbsp●&nbsp</span>{{ product.category }}</span
                   >
                 </div>
               </div>
@@ -248,15 +252,16 @@
                       <div class="container px-lg-5 my-5 mt-3">
                         <div class="row gx-4 gx-lg-5 align-items-center">
                           <div class="col-md-12 col-lg-6">
-                            <img
-                              class="card-img mb-5 mb-md-0"
-                              src="{{ product.image }}"
-                            />
+                            <img class="card-img" src="{{ product.image }}" />
                           </div>
                           <div class="col-md-12 col-lg-6 mt-4">
                             <span
-                              class="badge rounded-pill bg-primary-green mb-1"
-                              >{{ product.category }}</span
+                              class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase ms-lg-0"
+                              id="card-badge"
+                              style="margin-left: -10px"
+                            >
+                              <span>&nbsp●&nbsp</span>{{ product.category
+                              }}</span
                             >
                             <p
                               class="fs-2 fw-bolder"
@@ -278,9 +283,9 @@
                               <input
                                 class="form-control text-center me-3"
                                 id="{{product.id}}-inputQuantity"
-                                type="number"
-                                max="9"
-                                min="1"
+                                type="text"
+                                maxlength="2"
+                                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                 value="1"
                                 style="max-width: 3.5rem"
                               />

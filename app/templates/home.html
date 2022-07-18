@@ -28,7 +28,7 @@
     <script type="text/javascript" src="/static/script.js"></script>
   </head>
 
-  <body>
+  <body class="bg-white">
     <div
       id="toast_addedToCart"
       class="toast position-fixed start-50 translate-middle-x"
@@ -52,7 +52,7 @@
     </div>
 
     <header>
-      <div class="container py-1 py-md-2 text-center border-bottom px-0">
+      <div class="container py-1 py-md-2 text-center px-0">
         <div class="container">
           <div class="row">
             <div class="col-6 col-md-4 d-flex mb-3 mt-3">
@@ -153,7 +153,7 @@
       </div>
     </header>
 
-    <div class="d-block d-md-none container mt-3 position-relative">
+    <div class="d-block d-md-none container position-relative">
       <input
         onkeyup="search(event)"
         id="search-products"
@@ -167,10 +167,10 @@
       ></i>
     </div>
 
-    <nav class="container my-3">
+    <nav class="container my-2 mb-md-3 mt-md-0">
       {% if user %}
       <ul
-        class="nav justify-content-center justify-content-md-start"
+        class="nav justify-content-center justify-content-md-start gap-md-3"
         role="tablist"
       >
         <li class="nav-item me-lg-2">
@@ -179,7 +179,9 @@
             data-bs-toggle="tab"
             data-bs-target="#home-tab"
             href=""
-            ><i class="bi bi-person"></i> &nbsp; Individual</a
+            ><i class="bi bi-person nav-icon"></i>
+            <i class="bi bi-person-fill nav-icon-active d-none"></i> &nbsp;
+            Individual</a
           >
         </li>
         <li class="nav-item me-lg-2">
@@ -188,7 +190,9 @@
             data-bs-toggle="tab"
             data-bs-target="#subscription-tab"
             href=""
-            ><i class="bi bi-box"></i> &nbsp; Subscription</a
+            ><i class="bi bi-box2 nav-icon"></i>
+            <i class="bi bi-box2-fill nav-icon-active d-none"></i>
+            &nbsp; Subscription</a
           >
         </li>
         <li class="nav-item me-lg-2">
@@ -197,14 +201,16 @@
             data-bs-toggle="tab"
             data-bs-target="#favorites-tab"
             href=""
-            ><i class="bi bi-star"></i> &nbsp; Favorites</a
+            ><i class="bi bi-star nav-icon"></i>
+            <i class="bi bi-star-fill nav-icon-active d-none"></i>
+            &nbsp; Favorites</a
           >
         </li>
       </ul>
       {% endif %}
     </nav>
 
-    <main>
+    <main class="bg-light">
       {% if expires %}
       <div class="container px-0 mb-sm-3 px-sm-2">
         <div
@@ -216,9 +222,10 @@
         </div>
       </div>
       {% endif %}
+
       <div class="tab-content">
         <div class="tab-pane fade show active" id="home-tab">
-          <section class="container carousel-pad">
+          <section class="carousel-pad">
             <div
               id="individualhead"
               class="carousel slide d-none"
@@ -295,8 +302,8 @@
           </section>
 
           <div
-            class="row container carousel carousel-pad rounded d-flex justify-content-center align-content-center placeholder mx-auto"
-            style="height: 33.75rem"
+            class="row carousel carousel-pad rounded d-flex justify-content-center align-content-center placeholder mx-auto"
+            style="height: 40vw"
             id="carousel-skeleton"
           >
             <h1 class="placeholder-glow display-1 text-center my-5">
@@ -310,21 +317,76 @@
             </h3>
           </div>
 
-          <div class="album pt-5 pb-5">
+          <!--Featured Section-->
+          <div class="my-lg-5 text-dark container py-4 py-lg-5">
+            <div class="text-center mb-lg-5 pb-lg-4">
+              <h1 class="display-2">
+                Featured <span class="text-glean fw-normal">Recipe</span>
+              </h1>
+              <p class="text-muted">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa,
+                asperiores.
+              </p>
+            </div>
             <div
-              class="container elementToFadeInAndOut"
+              class="d-flex flex-column flex-lg-row rounded-3 my-4 position-relative"
+            >
+              <img
+                class="rounded-3"
+                id="featured-image"
+                style="object-fit: cover; width: 100%; height: 30rem"
+                src="{{ products[0].image }}"
+                alt=""
+              />
+              <div class="d-flex px-lg-4 py-3 flex-column gap-2 gap-lg-3">
+                <h1 class="text-dark fw-normal">{{ products[0].name }}</h1>
+                <div>
+                  <span
+                    class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase"
+                    id="card-badge"
+                  >
+                    <span>&nbsp●&nbsp</span>{{ products[0].category }}</span
+                  >
+                </div>
+                <p class="fs-5 mb-5 mb-lg-0">{{ products[0].description }}</p>
+                <div class="position-absolute bottom-0 end-0 me-3">
+                  <p
+                    class="fs-5 text-glean"
+                    style="cursor: pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal-{{ products[0].id }}"
+                  >
+                    View more details >>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Recommended Section-->
+          <div class="text-dark mb-lg-5 mb-4 bg-white px-3 py-5 mt-lg-5">
+            <div
+              class="elementToFadeInAndOut"
               id="individualcards"
               style="display: block"
             >
-              <!--Individuals Section-->
+              <div class="justify-content-center text-center">
+                <h1 class="display-4">
+                  Recommended <span class="text-glean fw-normal">for you</span>
+                </h1>
+                <p class="text-muted">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Culpa, asperiores.
+                </p>
+              </div>
               <div
-                id="cards-container"
-                class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-2 g-sm-3 g-xxl-5 g-md-4"
+                class="row row-cols-2 row-cols-sm-2 row-cols-md-4 g-3 g-md-4 gy-3 pt-3"
               >
-                {% for product in products %} {% if product.stock > 0 %}
+                {% for product in products[:4] %} {% if product.stock > 0 %}
                 <div class="col">
                   <div
-                    class="product-card"
+                    class="product-card bg-white"
+                    style="border-radius: 10px"
                     data-bs-toggle="modal"
                     data-bs-target="#modal-{{ product.id }}"
                   >
@@ -335,19 +397,76 @@
                       class="card-img-top card-ggc"
                       style="border-radius: 10px"
                     />
-                    <div class="card-body-height p-3">
+                    <div class="card-body-height p-md-3 pt-3 px-2">
                       <h4 class="overflow-ellipsis">{{ product.name }}</h4>
                       <p class="card-text card-description">
                         {{ product.description }}
                       </p>
                     </div>
                     <div
-                      class="d-flex justify-content-end align-items-center pb-3 pe-3"
+                      class="d-flex justify-content-end align-items-center pb-3 pe-md-3"
                     >
                       <span
-                        class="badge rounded-pill bg-primary-green prod-category pe-2"
+                        class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase"
+                        id="card-badge"
                       >
-                        <span>●&nbsp</span>{{ product.category }}</span
+                        <span>&nbsp●&nbsp</span>{{ product.category }}</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                {% endif %} {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <!--Individuals Section-->
+          <div class="album pb-4">
+            <div
+              class="container elementToFadeInAndOut"
+              id="individualcards"
+              style="display: block"
+            >
+              <h1 class="display-4">
+                Browse <span class="text-glean fw-normal">Packages</span>
+              </h1>
+              <p class="text-muted">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa,
+                asperiores.
+              </p>
+              <div
+                id="cards-container"
+                class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 g-md-5 gy-3 pt-3"
+              >
+                {% for product in products %} {% if product.stock > 0 %}
+                <div class="col">
+                  <div
+                    class="product-card bg-white shadow-sm"
+                    style="border-radius: 10px"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal-{{ product.id }}"
+                  >
+                    <!-- cards -->
+                    <img
+                      src="{{product.image}}"
+                      alt="{{product.name}}"
+                      class="card-img-top card-ggc"
+                      style="border-radius: 10px"
+                    />
+                    <div class="card-body card-body-height">
+                      <h4 class="overflow-ellipsis">{{ product.name }}</h4>
+                      <p class="card-text card-description">
+                        {{ product.description }}
+                      </p>
+                    </div>
+                    <div
+                      class="d-flex justify-content-end align-items-center pb-3 pe-md-3"
+                    >
+                      <span
+                        class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase"
+                        id="card-badge"
+                      >
+                        <span>&nbsp●&nbsp</span>{{ product.category }}</span
                       >
                     </div>
                   </div>
@@ -374,14 +493,18 @@
                             <div class="row gx-4 gx-lg-5 align-items-center">
                               <div class="col-md-12 col-lg-6">
                                 <img
-                                  class="card-img mb-5 mb-md-0"
+                                  class="card-img"
                                   src="{{ product.image }}"
                                 />
                               </div>
                               <div class="col-md-12 col-lg-6 mt-4">
                                 <span
-                                  class="badge rounded-pill bg-primary-green mb-1"
-                                  >{{ product.category }}</span
+                                  class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase ms-lg-0"
+                                  id="card-badge"
+                                  style="margin-left: -10px"
+                                >
+                                  <span>&nbsp●&nbsp</span>{{ product.category
+                                  }}</span
                                 >
                                 <p
                                   class="fs-2 fw-bolder"
@@ -479,13 +602,13 @@
         </div>
 
         {% if subscription %}
-        <div class="album tab-pane fade" id="subscription-tab">
+        <div class="album tab-pane fade py-5" id="subscription-tab">
           <div class="container mb-5 pb-5 mt-md-3">
             <div
               class="row gap-5 justify-content-center justify-content-md-start"
             >
               <div
-                class="col col-11 shadow rounded col-lg-7 p-3 py-md-4 px-md-5 position-relative border"
+                class="col col-11 shadow rounded col-lg-7 p-3 py-md-4 px-md-5 position-relative border bg-white"
                 style="border-radius: 2rem !important"
               >
                 <div class="container p-2">
@@ -597,7 +720,7 @@
               </div>
               <div class="col col-11 col-lg-4 p-0 ms-lg-3">
                 <div
-                  class="shadow rounded d-flex px-4 pt-3 flex-column"
+                  class="shadow rounded d-flex px-4 pt-3 flex-column bg-white"
                   style="border-radius: 1rem !important"
                 >
                   <i class="ms-auto bi bi-circle-fill text-glean"></i>
@@ -620,7 +743,7 @@
                   </button>
                 </div>
                 <div
-                  class="shadow rounded d-flex px-4 py-3 flex-column mt-5"
+                  class="shadow rounded d-flex px-4 py-3 flex-column mt-5 bg-white"
                   style="border-radius: 1rem !important"
                 >
                   <i class="ms-auto bi bi-circle-fill text-glean"></i>
@@ -1300,24 +1423,29 @@
         </div>
         {% endif %}
 
-        <div class="album pb-5 tab-pane fade" id="favorites-tab">
-          <div class="container elementToFadeInAndOut" id="favoritescards">
+        <div class="album py-5 tab-pane fade" id="favorites-tab">
+          <div
+            class="container elementToFadeInAndOut vh-100"
+            id="favoritescards"
+          >
             <!--Favorites Section-->
             <div
-              class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 px-5 px-sm-0"
+              class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 g-md-5 gy-3"
               id="container-favorites"
             >
               {% for item in favorites %}
               <div class="col" id="cardfave-{{ item.product.id }}">
                 <div
-                  class="card shadow-sm"
+                  class="product-card bg-white shadow-sm"
                   data-bs-toggle="modal"
                   data-bs-target="#modalfave-{{ item.product.id }}"
+                  style="border-radius: 10px"
                 >
                   <img
                     src="{{item.product.image}}"
                     alt="{{item.product.name}}"
                     class="card-img-top card-ggc"
+                    style="border-radius: 10px"
                   />
                   <div class="card-body card-body-height">
                     <h5 class="overflow-ellipsis">{{ item.product.name }}</h5>
@@ -1326,11 +1454,13 @@
                     </p>
                   </div>
                   <div
-                    class="d-flex justify-content-between align-items-center ms-3 mt-1 mb-3"
+                    class="d-flex justify-content-end align-items-center pb-3 pe-md-3"
                   >
                     <span
-                      class="badge rounded-pill bg-primary-green prod-category"
-                      >{{ item.product.category }}</span
+                      class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase"
+                      id="card-badge"
+                    >
+                      <span>&nbsp●&nbsp</span>{{ item.product.category }}</span
                     >
                   </div>
                 </div>
@@ -1357,23 +1487,36 @@
                           <div class="row gx-4 gx-lg-5 align-items-center">
                             <div class="col-md-12 col-lg-6">
                               <img
-                                class="card-img mb-5 mb-md-0"
+                                class="card-img"
                                 src="{{ item.product.image }}"
                               />
                             </div>
                             <div class="col-md-12 col-lg-6 mt-4">
                               <span
-                                class="badge rounded-pill bg-primary-green mb-1"
-                                >{{ item.product.category }}</span
+                                class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase ms-lg-0"
+                                id="card-badge"
+                                style="margin-left: -10px"
                               >
-                              <h1 class="fs-2 fw-bolder">
+                                <span>&nbsp●&nbsp</span>{{ item.product.category
+                                }}</span
+                              >
+                              <p
+                                class="fs-2 fw-bolder"
+                                id="{{ item.product.id }}-product-name"
+                              >
                                 {{ item.product.name }}
-                              </h1>
-                              <div class="fs-4 mb-2">
-                                <span>₱{{item.product.price}}</span>
+                              </p>
+                              <div class="fs-5 mb-2">
+                                <span id="{{ item.product.id }}-product-price"
+                                  >₱{{item.product.price}}</span
+                                >
                               </div>
-                              <p class="lead fs-5">
+                              <p class="lead fs-6">
                                 {{ item.product.description }}
+                              </p>
+                              <p class="lead fs-5 fw-bold">What's in the box</p>
+                              <p class="lead fs-6 mt-1">
+                                {{ item.product.ingredients }}
                               </p>
                               <div class="d-flex pt-4">
                                 <input
@@ -1418,10 +1561,9 @@
               {% endfor %}
             </div>
             {% if favorites_id|length > 0 %}
-            <div class="container" id="no-favs" style="display: none">
+            <div class="container h-100" id="no-favs" style="display: none">
               <div
-                class="d-flex flex-column align-items-center justify-content-center w-100"
-                style="height: 35rem"
+                class="d-flex flex-column align-items-center justify-content-center w-100 h-100"
               >
                 <i class="bi bi-box2-heart text-primary-green display-1"></i>
                 <p class="fs-4 mt-2 fw-lighter text-muted">
@@ -1430,10 +1572,9 @@
               </div>
             </div>
             {% else %}
-            <div class="container" id="no-favs">
+            <div class="container h-100" id="no-favs">
               <div
-                class="d-flex flex-column align-items-center justify-content-center w-100"
-                style="height: 35rem"
+                class="d-flex flex-column align-items-center justify-content-center w-100 h-100"
               >
                 <i class="bi bi-box2-heart text-primary-green display-1"></i>
                 <p class="fs-4 mt-2 fw-lighter text-muted">

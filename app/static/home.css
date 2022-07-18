@@ -446,8 +446,13 @@ input[type="number"] {
 }
 
 @media (max-width: 1024px) {
+  #featured-image {
+    height: 15rem !important;
+
+  }
   #card-badge {
     transform: scale(0.8);
+    margin-left: -10px;
   }
 
   #carousel-skeleton {

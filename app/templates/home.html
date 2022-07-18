@@ -318,8 +318,8 @@
           </div>
 
           <!--Featured Section-->
-          <div class="my-5 text-dark container py-5">
-            <div class="text-center mb-5 pb-4">
+          <div class="my-lg-5 text-dark container py-4 py-lg-5">
+            <div class="text-center mb-lg-5 pb-lg-4">
               <h1 class="display-2">
                 Featured <span class="text-glean fw-normal">Recipe</span>
               </h1>
@@ -328,14 +328,17 @@
                 asperiores.
               </p>
             </div>
-            <div class="d-flex rounded-3 my-4 position-relative">
+            <div
+              class="d-flex flex-column flex-lg-row rounded-3 my-4 position-relative"
+            >
               <img
                 class="rounded-3"
-                style="object-fit: cover; width: 60%; height: 30rem"
+                id="featured-image"
+                style="object-fit: cover; width: 100%; height: 30rem"
                 src="{{ products[0].image }}"
                 alt=""
               />
-              <div class="d-flex px-4 py-3 flex-column gap-3">
+              <div class="d-flex px-lg-4 py-3 flex-column gap-2 gap-lg-3">
                 <h1 class="text-dark fw-normal">{{ products[0].name }}</h1>
                 <div>
                   <span
@@ -345,7 +348,7 @@
                     <span>&nbsp●&nbsp</span>{{ products[0].category }}</span
                   >
                 </div>
-                <p class="fs-5">{{ products[0].description }}</p>
+                <p class="fs-5 mb-5 mb-lg-0">{{ products[0].description }}</p>
                 <div class="position-absolute bottom-0 end-0 me-3">
                   <p
                     class="fs-5 text-glean"
@@ -361,7 +364,7 @@
           </div>
 
           <!--Recommended Section-->
-          <div class="text-dark mb-5 bg-white px-3" style="padding-block: 5rem">
+          <div class="text-dark mb-lg-5 mb-4 bg-white px-3 py-5 mt-lg-5">
             <div
               class="elementToFadeInAndOut"
               id="individualcards"

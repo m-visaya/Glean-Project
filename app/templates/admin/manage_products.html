@@ -97,7 +97,16 @@
 
         <div class="d-flex mb-2 align-items-center">
           <h1 class="text-muted color-glean">Packages</h1>
-          <div class="dropdown ms-auto">
+          <div class="ms-auto px-2">
+            <input
+              onkeyup="search(event)"
+              id="search-products"
+              type="text"
+              class="form-control bg-light border-0 rounded search-bar m-0"
+              placeholder="Search"
+            />
+          </div>
+          <div class="dropdown">
             <a
               class="btn bg-glean text-light"
               href="#"
@@ -106,7 +115,7 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Add Package(s) <i class="bi bi-plus-lg"> </i>
+              <span class="d-none d-md-inline">Add Package(s)&nbsp</span><i class="bi bi-plus-lg" ></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li>

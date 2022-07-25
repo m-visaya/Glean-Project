@@ -71,18 +71,23 @@
 
         <div class="d-flex mb-3">
           <h1 class="text-muted color-glean">Order Queue</h1>
-          <!-- form class="d-flex input-group w-25 my-auto ms-auto mb-3 mb-md-0">
-        <input autocomplete="off" type="search" class="form-control border-0 rounded-pill" placeholder="Search" style="background-color:#f8f9fa"/>
-      </form> -->
-          <div class="dropdown ms-auto">
+          <div class="ms-auto px-2">
+            <input
+              onkeyup="search(event)"
+              id="search-products"
+              type="text"
+              class="form-control bg-light border-0 rounded search-bar m-0"
+              placeholder="Search"
+            />
+          </div>
+          <div class="dropdown">
             <button
               class="btn bg-glean text-white dropdown-toggle"
               type="button"
               id="button-orderStat"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-            >
-              Processing
+            ><span class="d-none d-md-inline">Processing</span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>

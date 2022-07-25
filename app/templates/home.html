@@ -180,8 +180,8 @@
             data-bs-target="#home-tab"
             href=""
             ><i class="bi bi-person nav-icon"></i>
-            <i class="bi bi-person-fill nav-icon-active d-none"></i> &nbsp;
-            Individual</a
+            <i class="bi bi-person-fill nav-icon-active d-none"></i> 
+            &nbsp; Individual</a
           >
         </li>
         <li class="nav-item me-lg-2">
@@ -216,7 +216,7 @@
         <div
           class="alert alert-warning d-flex align-items-center mb-0 justify-content-center"
           role="alert"
-        >
+        >  
           <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
           <div>Your password will expire in {{expires}} day(s)</div>
         </div>
@@ -328,26 +328,18 @@
               </p>
             </div>
             <div
-              class="d-flex flex-column flex-lg-row rounded-3 my-4 position-relative"
+              class="d-flex flex-column flex-lg-row my-4 position-relative"
             >
               <img
-                class="rounded-3"
                 id="featured-image"
-                style="object-fit: cover; width: 100%; height: 30rem"
+                style="object-fit: cover; width: 100%; height: 30rem; border-radius: 10px"
                 src="{{ products[0].image }}"
                 alt=""
               />
               <div class="d-flex px-lg-4 py-3 flex-column gap-2 gap-lg-3">
                 <h1 class="text-dark fw-normal">{{ products[0].name }}</h1>
-                <div>
-                  <span
-                    class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase"
-                    id="card-badge"
-                  >
-                    <span>&nbsp●&nbsp</span>{{ products[0].category }}</span
-                  >
-                </div>
-                <p class="fs-5 mb-5 mb-lg-0">{{ products[0].description }}</p>
+
+                <p class="fs-5 mb-5 mb-lg-0 fw-light">{{ products[0].description }}</p>
                 <div class="position-absolute bottom-0 end-0 me-3">
                   <p
                     class="fs-5 text-glean"
@@ -408,7 +400,7 @@
                         class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase"
                         id="card-badge"
                       >
-                        <span>&nbsp●&nbsp</span>{{ product.category }}</span
+                        <span>&nbsp&nbsp</span>{{ product.category }}</span
                       >
                     </div>
                   </div>
@@ -463,7 +455,7 @@
                         class="badge rounded-pill bg-primary-green prod-category pe-3 ps-2 py-2 text-uppercase"
                         id="card-badge"
                       >
-                        <span>&nbsp●&nbsp</span>{{ product.category }}</span
+                        <span>&nbsp&nbsp</span>{{ product.category }}</span
                       >
                     </div>
                   </div>
@@ -500,7 +492,7 @@
                                   id="card-badge"
                                   style="margin-left: -10px"
                                 >
-                                  <span>&nbsp●&nbsp</span>{{ product.category
+                                  <span>&nbsp&nbsp</span>{{ product.category
                                   }}</span
                                 >
                                 <p

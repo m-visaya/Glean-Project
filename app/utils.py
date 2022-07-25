@@ -149,7 +149,9 @@ def get_products(query=None, ordered=None):
     if ordered:
         return db.session.query(Product).order_by(Product.stock)
     if query is not None:
-        return db.session.query(Product).filter(Product.name.ilike(f'%{query}%')).all()
+        return db.session.query(Product).filter(
+            (Product.name.ilike(f'%{query}%')) | 
+            (Product.id == query)).all()
 
     return db.session.query(Product).all()
 
@@ -244,14 +246,21 @@ class Admin:
         return inner
 
     @staticmethod
-    def get_couriers():
-        couriers = db.session.query(CourierModel).all()
-        return couriers
+    def get_couriers(query=None):
+        if query:
+            return db.session.query(CourierModel).filter(
+                (CourierModel.firstname.ilike(f'%{query}%')) | 
+                (CourierModel.lastname.ilike(f'%{query}%')) |
+                (CourierModel.id == query)).all()
+        return db.session.query(CourierModel).all()
 
     @staticmethod
-    def get_orderbystatus(status):
-        orders = db.session.query(Order).filter_by(status=status).all()
-        return orders
+    def get_orderbystatus(status, query=None):
+        if query:
+            return db.session.query(Order).filter(
+                (Order.status == status) &
+                (Order.id == query)).all()
+        return db.session.query(Order).filter_by(status=status).all()
 
     @staticmethod
     def auth(data):

@@ -257,6 +257,36 @@ function changeStatView(e, id) {
   }
 }
 
+function pSearch(e) {
+  if (e.key == "Enter" || e.keyCode == 13 || e.code == "Enter") {
+    let query = $("#search-products").val();
+    if (query != " " && query != "") {
+      location.href = `/admin/search_products/${query}`;
+    }
+  }
+  return;
+}
+
+function cSearch(e) {
+  if (e.key == "Enter" || e.keyCode == 13 || e.code == "Enter") {
+    let query = $("#search-couriers").val();
+    if (query != " " && query != "") {
+      location.href = `/admin/search_couriers/${query}`;
+    }
+  }
+  return;
+}
+
+function oSearch(e) {
+  if (e.key == "Enter" || e.keyCode == 13 || e.code == "Enter") {
+    let query = $("#search-orders").val();
+    if (query != " " && query != "") {
+      location.href = `/admin/search_orders/${query}`;
+    }
+  }
+  return;
+}
+
 var product_id;
 
 $("#modal-delete-product").on("show.bs.modal", function (e) {

@@ -50,7 +50,28 @@ def view_sales():
 @utils.Admin.login_required
 def order_queue():
     processing = utils.Admin.get_orderbystatus("Processing")
-    picked_up = utils.Admin.get_orderbystatus("Picked Up")
+    ready = utils.Admin.get_orderbystatus("Ready")
     in_transit = utils.Admin.get_orderbystatus("In Transit")
     delivered = utils.Admin.get_orderbystatus("Delivered")
-    return render_template('admin/manage_orders.html', processing=processing, picked_up=picked_up, in_transit=in_transit, delivered=delivered)
+    return render_template('admin/manage_orders.html', processing=processing, ready=ready, in_transit=in_transit, delivered=delivered)
+
+
+@app.route('/search_orders/<query>')
+def search_order_queue(query):
+    processing = utils.Admin.get_orderbystatus("Processing", query)
+    ready = utils.Admin.get_orderbystatus("Ready", query)
+    in_transit = utils.Admin.get_orderbystatus("In Transit", query)
+    delivered = utils.Admin.get_orderbystatus("Delivered", query)
+    return render_template('admin/search_orders.html', processing=processing, ready=ready, in_transit=in_transit, delivered=delivered)
+
+
+@app.route('/search_products/<query>')
+def admin_searchproducts(query):
+    products = utils.get_products(query=query)
+    return render_template("admin/search_products.html", products=products)
+
+
+@app.route('/search_couriers/<query>')
+def search_couriers(query):
+    couriers = utils.Admin.get_couriers(query) or []
+    return render_template('admin/search_couriers.html', couriers=couriers)

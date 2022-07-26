@@ -1,6 +1,9 @@
 import hashlib
+import json
 import math
+import os
 import pyotp
+import requests
 
 from functools import wraps
 from datetime import datetime, timedelta
@@ -9,7 +12,7 @@ from geopy.geocoders import Nominatim
 from flask import session, redirect, url_for, abort
 
 from app import db
-from .database.tables import Order, Product, User, CartItem
+from .database.tables import Order, OrderItem, Product, User, CartItem
 from .database.tables import Admin as AdminModel, Courier as CourierModel
 
 
@@ -150,7 +153,7 @@ def get_products(query=None, ordered=None):
         return db.session.query(Product).order_by(Product.stock)
     if query is not None:
         return db.session.query(Product).filter(
-            (Product.name.ilike(f'%{query}%')) | 
+            (Product.name.ilike(f'%{query}%')) |
             (Product.id == query)).all()
 
     return db.session.query(Product).all()
@@ -190,6 +193,35 @@ def get_pending_orders():
 def get_orders():
     orders = db.session.query(User).filter_by(id=session.get("id", "")).orders
     return orders
+
+
+def get_featured():
+    featured = Product.query.filter_by(featured=True).first()
+    return featured
+
+
+def get_recommended():
+    if session.get("id"):
+        orders = get_pending_orders()
+        if orders:
+            print(orders)
+            product = orders[0].products[0].product_id
+
+            res = requests.post(url="https://glean-store-recommender.herokuapp.com/", data={
+                'product_id': product}, headers={"Token": os.environ['SECRET_KEY']})
+            print(res)
+            data = json.loads(res.text)['response']
+
+            products = Product.query.filter(Product.id.in_(data)).order_by(
+                Product.sales.desc()).limit(4).all()
+
+            if len(products) == 4:
+                return products
+
+    products = Product.query.filter(Product.stock > 0).order_by(
+        Product.sales.desc()).limit(4).all()
+
+    return products
 
 
 def get_favorites():
@@ -249,7 +281,7 @@ class Admin:
     def get_couriers(query=None):
         if query:
             return db.session.query(CourierModel).filter(
-                (CourierModel.firstname.ilike(f'%{query}%')) | 
+                (CourierModel.firstname.ilike(f'%{query}%')) |
                 (CourierModel.lastname.ilike(f'%{query}%')) |
                 (CourierModel.id == query)).all()
         return db.session.query(CourierModel).all()

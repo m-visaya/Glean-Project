@@ -16,10 +16,10 @@ def home():
         return "No Products"
 
     if 'id' not in session:
-        return render_template("home.html", user=None, id=None, products=products, expires=None, subscription=None)
+        return render_template("home.html", user=None, id=None, products=products, expires=None, subscription=None, featured=utils.get_featured(), recommended=utils.get_recommended())
     favorites_id = [favorite.product_id for favorite in utils.get_favorites()]
     return render_template("home.html", user=utils.get_user(), id=utils.get_user().id, products=products, expires=session['pass_expr'],
-                           total=utils.get_cart_total(), favorites=utils.get_favorites(), favorites_id=favorites_id, subscription=utils.get_subscription(), preferences=utils.get_preferences())
+                           total=utils.get_cart_total(), favorites=utils.get_favorites(), favorites_id=favorites_id, subscription=utils.get_subscription(), preferences=utils.get_preferences(), featured=utils.get_featured(), recommended=utils.get_recommended())
 
 
 @app.route('/search/<query>')

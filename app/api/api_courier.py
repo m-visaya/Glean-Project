@@ -2,7 +2,7 @@ from flask import session, request
 
 from app import app, db
 from .. import utils
-from ..database.tables import Order
+from ..database.tables import Order, Product, OrderItem
 
 
 @app.route('/courier/accept_order', methods=['POST'])
@@ -25,6 +25,11 @@ def update_orderstatus():
         id=int(request.form['order_id'])).first()
 
     order.status = "Delivered"
+
+    order_item = OrderItem.query.filter_by(order_id=order.id).first()
+    product = Product.query.get(int(order_item.product_id))
+
+    product.sales = product.sales + 1
 
     db.session.commit()
 

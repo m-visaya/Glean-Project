@@ -99,3 +99,20 @@ def edit_product():
         return 'Product Details Updated', 200
     else:
         return 'Operation Failed', 400
+
+
+@app.route('/admin/set_featured', methods=['PUT'])
+@utils.Admin.authorized_only
+def set_featured_product():
+    product = Product.query.filter_by(id=request.form['id']).first()
+    if product:
+        xfeatured = Product.query.filter_by(featured=True).first()
+
+        xfeatured.featured = False
+        product.featured = True
+
+        db.session.commit()
+
+        return 'Product Details Updated', 200
+    else:
+        return 'Operation Failed', 400

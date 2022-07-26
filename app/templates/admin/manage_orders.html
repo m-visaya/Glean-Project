@@ -87,7 +87,8 @@
               id="button-orderStat"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-            ><span class="d-none d-md-inline">Processing</span>
+            >
+              <span class="d-none d-md-inline">Processing</span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>
@@ -100,8 +101,8 @@
               <li>
                 <a
                   class="dropdown-item"
-                  onclick="changeStatView(event, 'picked-up')"
-                  >Picked Up</a
+                  onclick="changeStatView(event, 'ready')"
+                  >Ready</a
                 >
               </li>
               <li>
@@ -127,7 +128,6 @@
             <tr>
               <th scope="col">id</th>
               <th scope="col">assigned_user</th>
-              <th scope="col">assigned_courier</th>
               <th scope="col">date_ordered</th>
               <th scope="col">destination</th>
               <th scope="col">status</th>
@@ -138,15 +138,20 @@
             <tr id="{{ order.id }}">
               <th scope="row">{{ order.id }}</th>
               <td>{{ order.user.firstname }} {{ order.user.lastname }}</td>
-              <td>
-                {{ order.courier.firstname }} {{ order.courier.lastname }}
-              </td>
               <td>{{ order.created_on.strftime('%m-%d-%Y') }}</td>
               <td>
                 {{ order.location.city ~ " " ~ order.location.province ~ " " ~
                 order.location.zip ~ ", " ~ order.location.address }}
               </td>
-              <td>{{ order.status }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn bg-glean text-light m-1"
+                  onclick="updateOrderStatus('{{ order.id }}')"
+                >
+                  Set as ready
+                </button>
+              </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -161,7 +166,6 @@
             <tr>
               <th scope="col">id</th>
               <th scope="col">assigned_user</th>
-              <th scope="col">assigned_courier</th>
               <th scope="col">date_ordered</th>
               <th scope="col">destination</th>
               <th scope="col">status</th>
@@ -172,9 +176,6 @@
             <tr id="{{ order.id }}">
               <th scope="row">{{ order.id }}</th>
               <td>{{ order.user.firstname }} {{ order.user.lastname }}</td>
-              <td>
-                {{ order.courier.firstname }} {{ order.courier.lastname }}
-              </td>
               <td>{{ order.created_on.strftime('%m-%d-%Y') }}</td>
               <td>
                 {{ order.location.city ~ " " ~ order.location.province ~ " " ~

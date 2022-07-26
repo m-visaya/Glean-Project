@@ -95,6 +95,8 @@ class Product(db.Model):
     ingredients = db.Column(db.String(500), nullable=False)
     stock = db.Column(db.Integer(), default=0)
     price = db.Column(db.Float(), nullable=False)
+    sales = db.Column(db.Integer(), default=0)
+    featured = db.Column(db.Boolean, default=False)
     image = db.Column(db.String(200), nullable=False)
     orders = db.relationship('OrderItem', backref="product")
     carts = db.relationship('CartItem', backref="product")

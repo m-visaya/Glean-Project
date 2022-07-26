@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 706ac522930d
+Revision ID: 7e33721a1015
 Revises: 
-Create Date: 2022-03-23 16:03:38.167866
+Create Date: 2022-07-27 01:48:09.266081
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '706ac522930d'
+revision = '7e33721a1015'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,14 +21,14 @@ def upgrade():
     op.create_table('admin',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=100), nullable=False),
-    sa.Column('password', sa.String(length=50), nullable=False),
+    sa.Column('password', sa.String(length=100), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('courier',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('firstname', sa.String(length=100), nullable=False),
     sa.Column('lastname', sa.String(length=100), nullable=False),
-    sa.Column('password', sa.String(length=50), nullable=False),
+    sa.Column('password', sa.String(length=100), nullable=False),
     sa.Column('email', sa.String(length=50), nullable=False),
     sa.Column('available', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id')
@@ -37,13 +37,15 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('created_on', sa.DateTime(), nullable=True),
     sa.Column('updated_on', sa.DateTime(), nullable=True),
-    sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('name', sa.String(length=200), nullable=False),
     sa.Column('category', sa.String(length=50), nullable=False),
-    sa.Column('description', sa.String(length=100), nullable=False),
-    sa.Column('ingredients', sa.String(length=200), nullable=False),
+    sa.Column('description', sa.String(length=500), nullable=False),
+    sa.Column('ingredients', sa.String(length=500), nullable=False),
     sa.Column('stock', sa.Integer(), nullable=True),
     sa.Column('price', sa.Float(), nullable=False),
-    sa.Column('image', sa.String(length=100), nullable=False),
+    sa.Column('sales', sa.Integer(), nullable=True),
+    sa.Column('featured', sa.Boolean(), nullable=True),
+    sa.Column('image', sa.String(length=200), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
@@ -51,11 +53,11 @@ def upgrade():
     sa.Column('firstname', sa.String(length=50), nullable=False),
     sa.Column('lastname', sa.String(length=50), nullable=False),
     sa.Column('email', sa.String(length=50), nullable=False),
-    sa.Column('password', sa.String(length=50), nullable=False),
+    sa.Column('password', sa.String(length=100), nullable=False),
     sa.Column('phone', sa.String(length=20), nullable=False),
     sa.Column('created_on', sa.DateTime(), nullable=True),
     sa.Column('updated_on', sa.DateTime(), nullable=True),
-    sa.Column('password_history', sa.String(length=500), nullable=True),
+    sa.Column('password_history', sa.String(length=600), nullable=True),
     sa.Column('password_expr', sa.DateTime(), nullable=True),
     sa.Column('rem_attempts', sa.Integer(), nullable=True),
     sa.Column('try_again', sa.DateTime(), nullable=True),

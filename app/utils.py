@@ -152,10 +152,10 @@ def get_products(query=None, ordered=None):
     if ordered:
         return db.session.query(Product).order_by(Product.stock)
     if query is not None:
-        return db.session.query(Product).filter(
-            (Product.name.ilike(f'%{query}%')) |
-            (Product.id == query)).all()
-
+        if query.isnumeric():
+            return db.session.query(Product).filter(Product.id == query).all()
+        else:
+            return db.session.query(Product).filter(Product.name.ilike(f'%{query}%')).all()
     return db.session.query(Product).all()
 
 
@@ -280,10 +280,11 @@ class Admin:
     @staticmethod
     def get_couriers(query=None):
         if query:
-            return db.session.query(CourierModel).filter(
-                (CourierModel.firstname.ilike(f'%{query}%')) |
-                (CourierModel.lastname.ilike(f'%{query}%')) |
-                (CourierModel.id == query)).all()
+            if query.isnumeric():
+                return db.session.query(CourierModel).filter((CourierModel.id == query)).all()
+            else:
+                return db.session.query(CourierModel).filter((CourierModel.firstname.ilike(f'%{query}%')) | 
+                                                            (CourierModel.lastname.ilike(f'%{query}%'))).all()
         return db.session.query(CourierModel).all()
 
     @staticmethod

@@ -63,6 +63,26 @@ function add_product(e) {
   });
 }
 
+function updateOrderStatus(id) {
+  $.ajax({
+    type: "POST",
+    url: "/admin/update_orderstatus",
+    data: {
+      order_id: id,
+    },
+    success: function (data) {
+      location.reload();
+    },
+    error: function (jqXHR) {
+      if (jqXHR.status == 0) {
+        alert("Not connect.\n Verify Network.");
+      } else {
+        alert(jqXHR.status);
+      }
+    },
+  });
+}
+
 function open_editProduct(product_id) {
   $.ajax({
     type: "POST",
@@ -81,6 +101,19 @@ function open_editProduct(product_id) {
       document.getElementById("editProduct-price").value = data.price;
       document.getElementById("editProduct-stock").value = data.stock;
       document.getElementById("editProduct-image").value = data.image;
+    },
+  });
+}
+
+function set_featured(product_id) {
+  $.ajax({
+    type: "PUT",
+    url: "/admin/set_featured",
+    data: {
+      id: product_id,
+    },
+    success: function (data) {
+      location.reload();
     },
   });
 }
@@ -236,12 +269,12 @@ function changeStatView(e, id) {
     $(`#in-transit`).hide();
     $(`#delivered`).hide();
     $(`#button-orderStat`).text("Processing");
-  } else if (id == "picked-up") {
+  } else if (id == "ready") {
     $(`#processing`).hide();
     $(`#picked-up`).show();
     $(`#in-transit`).hide();
     $(`#delivered`).hide();
-    $(`#button-orderStat`).text("Picked Up");
+    $(`#button-orderStat`).text("Ready");
   } else if (id == "in-transit") {
     $(`#processing`).hide();
     $(`#picked-up`).hide();

@@ -115,7 +115,8 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <span class="d-none d-md-inline">Add Package(s)&nbsp</span><i class="bi bi-plus-lg" ></i>
+              <span class="d-none d-md-inline">Add Package(s)&nbsp</span
+              ><i class="bi bi-plus-lg"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li>
@@ -159,7 +160,12 @@
               {% for product in products %}
               <tr id="{{ product.id }}">
                 <th scope="row">{{ product.id }}</th>
-                <td>{{ product.name }}</td>
+                <td>
+                  {% if product.featured %}
+                  <div class="badge bg-success">featured product</div>
+                  <br />
+                  {% endif %} {{ product.name }}
+                </td>
                 <td>{{ product.ingredients }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.category }}</td>
@@ -170,25 +176,36 @@
                 {% endif %}
                 <td>{{ product.created_on.strftime('%m/%d/%Y') }}</td>
                 <td>
-                  <div class="d-flex">
+                  <div class="d-flex flex-column">
+                    {% if not product.featured and product.stock > 0 %}
                     <button
                       type="button"
-                      class="btn bg-glean text-light m-1"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modal-edit-product"
-                      onclick="open_editProduct('{{product.id}}')"
+                      class="btn btn-outline-success m-1"
+                      onclick="set_featured('{{product.id}}')"
                     >
-                      Edit
+                      Set as featured
                     </button>
-                    <button
-                      type="button"
-                      class="btn btn-danger m-1"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modal-delete-product"
-                      data-product-id="{{product.id}}"
-                    >
-                      Delete
-                    </button>
+                    {% endif %}
+                    <div class="d-flex">
+                      <button
+                        type="button"
+                        class="btn bg-glean text-light m-1"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modal-edit-product"
+                        onclick="open_editProduct('{{product.id}}')"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-danger m-1"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modal-delete-product"
+                        data-product-id="{{product.id}}"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </td>
               </tr>

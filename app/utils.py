@@ -193,7 +193,7 @@ def get_pending_orders():
 def get_orders(status=None):
     if status:
         orders = db.session.query(Order).filter_by(
-            user_id=session.get("id", "") and Order.status == status).order_by(Order.updated_on.desc()).all()
+            user_id=session.get("id", ""), status=status).order_by(Order.updated_on.desc()).all()
     else:
         orders = db.session.query(User).filter_by(
             id=session.get("id", "")).first().orders

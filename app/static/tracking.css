@@ -20,6 +20,14 @@
   padding: 12px 24px;
 }
 
+.nav-link.active {
+  color: #95c22b !important;
+}
+
+.nav-link {
+  color: gray !important;
+}
+
 .tracking {
   padding-top: 100px;
   padding-bottom: 100px;
@@ -62,6 +70,10 @@
 }
 
 @media (max-width: 576px) {
+  #status-tab li {
+    font-size: 0.85rem;
+  }
+
   .text-link {
     font-size: 0.8em;
   }

@@ -101,7 +101,13 @@ def cart():
 @utils.login_required
 @utils.is_expired
 def tracking():
-    return render_template("tracking.html", orders=utils.get_pending_orders(), user=utils.get_user(), total=utils.get_cart_total())
+    return render_template("tracking.html",
+                           processing=utils.get_orders(status="Processing"),
+                           ready=utils.get_orders(status="Ready"),
+                           intransit=utils.get_orders(status="In Transit"),
+                           delivered=utils.get_orders(status="Delivered"),
+                           user=utils.get_user(),
+                           total=utils.get_cart_total())
 
 
 @app.route('/checkout', methods=['GET', 'POST'])

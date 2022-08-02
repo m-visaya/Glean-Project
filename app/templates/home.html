@@ -167,8 +167,8 @@
       ></i>
     </div>
 
+    {% if user %}
     <nav class="container my-2 mb-md-3 mt-md-0">
-      {% if user %}
       <ul
         class="nav justify-content-center justify-content-md-start gap-md-3"
         role="tablist"
@@ -207,8 +207,8 @@
           >
         </li>
       </ul>
-      {% endif %}
     </nav>
+    {% endif %}
 
     <main class="bg-light">
       {% if expires %}
@@ -318,9 +318,9 @@
           </div>
 
           <!--Featured Section-->
-          <div class="my-lg-5 text-dark container py-4 py-lg-5">
+          <div class="my-lg-5 text-dark container py-5">
             <div class="text-center mb-lg-5 pb-lg-4">
-              <h1 class="display-2">
+              <h1 class="display-sm-4 display-2">
                 Featured <span class="text-glean fw-normal">Recipe</span>
               </h1>
               <p class="text-muted fs-4">Our Chef's selection</p>
@@ -329,7 +329,7 @@
               class="d-flex flex-column flex-lg-row rounded-3 my-4 position-relative"
             >
               <img
-                class="rounded-3"
+                class="rounded-3 mx-auto"
                 id="featured-image"
                 style="object-fit: cover; width: 100%; height: 30rem"
                 src="{{ featured.image }}"

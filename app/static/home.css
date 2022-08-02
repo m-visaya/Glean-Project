@@ -130,8 +130,6 @@ html {
   color: #95c22b;
 }
 
-i.bi.bi-house-fill.text-glean.lh-1 {}
-
 .text-glean2 {
   color: #b0f026da;
 }
@@ -492,6 +490,9 @@ input[type="number"] {
 }
 
 @media (max-width: 576px) {
+  #featured-image {
+    height: 8rem !important;
+  }
   #carousel-skeleton {
     height: 12rem !important;
   }

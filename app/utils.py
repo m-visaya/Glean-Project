@@ -190,8 +190,13 @@ def get_pending_orders():
     return orders
 
 
-def get_orders():
-    orders = db.session.query(User).filter_by(id=session.get("id", "")).orders
+def get_orders(status=None):
+    if status:
+        orders = db.session.query(Order).filter_by(
+            user_id=session.get("id", "") and Order.status == status).order_by(Order.updated_on.desc()).all()
+    else:
+        orders = db.session.query(User).filter_by(
+            id=session.get("id", "")).first().orders
     return orders
 
 
@@ -204,12 +209,10 @@ def get_recommended():
     if session.get("id"):
         orders = get_pending_orders()
         if orders:
-            print(orders)
             product = orders[0].products[0].product_id
 
             res = requests.post(url="https://glean-store-recommender.herokuapp.com/", data={
                 'product_id': product}, headers={"Token": os.environ['SECRET_KEY']})
-            print(res)
             data = json.loads(res.text)['response']
 
             products = Product.query.filter(Product.id.in_(data)).order_by(
@@ -283,8 +286,8 @@ class Admin:
             if query.isnumeric():
                 return db.session.query(CourierModel).filter((CourierModel.id == query)).all()
             else:
-                return db.session.query(CourierModel).filter((CourierModel.firstname.ilike(f'%{query}%')) | 
-                                                            (CourierModel.lastname.ilike(f'%{query}%'))).all()
+                return db.session.query(CourierModel).filter((CourierModel.firstname.ilike(f'%{query}%')) |
+                                                             (CourierModel.lastname.ilike(f'%{query}%'))).all()
         return db.session.query(CourierModel).all()
 
     @staticmethod

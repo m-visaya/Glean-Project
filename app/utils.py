@@ -211,7 +211,7 @@ def get_recommended():
         if orders:
             product = orders[0].products[0].product_id
 
-            res = requests.post(url="https://glean-store-recommender.herokuapp.com/", data={
+            res = requests.post(url="https://glean-store-recommender.onrender.com/", data={
                 'product_id': product}, headers={"Token": os.environ['SECRET_KEY']})
             data = json.loads(res.text)['response']
 

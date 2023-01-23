@@ -7,7 +7,7 @@
   <p align="center">
 An e-commerce platform offering a door-to-door delivery service of pre-packaged meal ingredients.
 <br>
-<a href="https://glean-project.herokuapp.com/"><strong>Visit Website 🛒</strong></a>
+<a href="https://glean-project.onrender.com/"><strong>Visit Website 🛒</strong></a>
 <br>
 <br>
 <a href="https://github.com/m-visaya/Glean-Project/issues">Report a bug or Request a feature</a> 
